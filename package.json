@@ -1,0 +1,37 @@
+{
+  "name": "final-front-end",
+  "version": "1.0.0",
+  "description": "통장잔고 2조의 프론트-엔드 🤾‍♀️",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-cli serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gareen9342/Final-Front-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gareen9342/Final-Front-end/issues"
+  },
+  "homepage": "https://github.com/gareen9342/Final-Front-end#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "react-refresh": "^0.10.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0"
+  }
+}

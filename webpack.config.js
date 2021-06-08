@@ -33,7 +33,6 @@ module.exports = {
       },
     ],
   },
-  // 21T
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",

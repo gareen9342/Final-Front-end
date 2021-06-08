@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const port = process.env.PORT || 3000;
 module.exports = {
   mode: "development",
@@ -28,8 +28,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
-        use: ["css-loader"],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
@@ -38,12 +38,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "public/index.html",
     }),
+    new MiniCssExtractPlugin({
+      filename: "style.css",
+    }),
   ],
   // 72G
   devServer: {
     host: "localhost", // 개발 서버의 url
     port: port, // basically 3000
-    open: true, // 서버 실행시 브라우저 자동 실행할건지
+    open: false, // 서버 실행시 브라우저 자동 실행할건지
     hot: true,
     historyApiFallback: true,
   },

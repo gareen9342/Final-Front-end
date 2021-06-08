@@ -1,12 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import "../test.css";
+
 import Feed from "./pages/Feed";
 import Home from "./pages/Home";
 import Test from "./pages/Test";
+
 export default function App() {
   return (
     <Router>
-      <div>
+      <div className="container">
         <ul>
           <li>
             <Link to="/">Home</Link>

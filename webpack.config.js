@@ -41,7 +41,6 @@ module.exports = {
       filename: "style.css",
     }),
   ],
-  // 72G
   devServer: {
     host: "localhost", // 개발 서버의 url
     port: port, // basically 3000

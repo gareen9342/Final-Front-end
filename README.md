@@ -4,17 +4,17 @@
 
 ## 파일구조
 
-- pages
+- pages  
   _페이지 단위당 구성 요소_
 
-- components
+- components  
   _header, footer 이런 식으로 정말로 분리되어서 쓸 수 있는 컴포넌트들_
 
-- util
+- util  
   _자주 쓰는 유틸함수_
 
-- hooks
+- hooks  
   _React hooks_
 
-- service
+- service  
   _API server와 연동_

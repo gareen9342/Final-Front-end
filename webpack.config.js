@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const port = process.env.PORT || 3000;
+
 module.exports = {
   mode: "development",
   entry: "./src/index.js",

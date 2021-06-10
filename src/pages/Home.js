@@ -9,9 +9,14 @@ export default () => {
   //     console.log(data); // 데이터 요
   //   }, []);
 
+  const onClickButton = async () => {
+    const res = await TestService.postTestPosts();
+    console.log(res);
+  }
   return (
     <>
       <div>"home"</div>
+      <button onClick={onClickButton}>click to test post request</button>
     </>
   );
 };

@@ -2,17 +2,14 @@ import ApiService from "./.apiservice";
 const TestService = () => {};
 
 TestService.getTestPosts = () => {
-  return ApiService.get("/");
+  return ApiService.get("/selectlist.do");
 };
 
 TestService.postTestPosts = () => {
-  return ApiService.post("/",{ 
+  return ApiService.post("/insert.do",{ 
       "ename" : "testname",
       "job" : "beaksoo", 
-      "mgr" : "7698", 
-      "sal" : "3000,00", 
-      "comm":"300,00", 
-      "deptno" : "10"
+      "mgr" : "7698"
     });
 };
 

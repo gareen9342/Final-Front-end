@@ -6,7 +6,14 @@ TestService.getTestPosts = () => {
 };
 
 TestService.postTestPosts = () => {
-  return ApiService.post("/",{"test": "1234"});
+  return ApiService.post("/",{ 
+      "ename" : "testname",
+      "job" : "beaksoo", 
+      "mgr" : "7698", 
+      "sal" : "3000,00", 
+      "comm":"300,00", 
+      "deptno" : "10"
+    });
 };
 
 export default TestService;

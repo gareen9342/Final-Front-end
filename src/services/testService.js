@@ -10,7 +10,7 @@ TestService.postTestPosts = () => {
       "ename" : "testname",
       "job" : "beaksoo", 
       "mgr" : "7698"
-    });
+  });
 };
 
 export default TestService;

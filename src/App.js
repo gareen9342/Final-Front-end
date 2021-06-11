@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Feed from "./pages/Feed";
 import Home from "./pages/Home";
-import Test from "./pages/Test";
+
 import "./index.css";
 export default function App() {
   return (

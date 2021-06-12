@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
 const port = process.env.PORT || 3000;
 
 module.exports = {
@@ -38,6 +39,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
+      templateParameters: {
+        env: "asdf",
+      },
     }),
     new MiniCssExtractPlugin({
       filename: "style.css",

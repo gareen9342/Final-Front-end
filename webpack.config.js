@@ -5,7 +5,11 @@ const port = process.env.PORT || 3000;
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.js",
+  // jsx 사용하기 위해 resolve 를 사용 뒤에 jsx 안붙혀줘도 됨
+  resolve : {
+    extensions : ['.js','.jsx']
+  },
+  entry: "./src/index",
   output: {
     filename: "bundle.[hash].js",
   },

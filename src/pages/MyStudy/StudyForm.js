@@ -1,5 +1,13 @@
 import React from "react";
-
+/**
+ *
+ * // TODO: 장소목록 : 온라인 / 오프라인 둘 다 들어가게 함 (검색할 때 필요함)
+ * // TODO: 오프라인의 경우에 모임장소를 알아야 하기 때문에 스터디 생성할 때든 나중이든 선택적으로 모임장소를 정할 수 있게 함.
+ *
+ *
+ *
+ *
+ */
 const StudyForm = () => {
   return (
     <div className="container mx-auto px-2 my-7 min-h-screen max-w-screen-md border border-gray-300 rounded">
@@ -22,7 +30,7 @@ const StudyForm = () => {
                 <span className="text-gray-500">스터디 종류</span>
                 <select className="w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-gray-200 focus:gray-200 ">
                   <option>IT, 개발</option>
-                  <option>어학-영어</option>
+                  <option>어학/영어</option>
                   <option>디자인</option>
                 </select>
               </div>
@@ -63,7 +71,7 @@ const StudyForm = () => {
                   <div className="inline-flex items-center">
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                      className="rounded border-gray-300 shadow-sm focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                     <span className="ml-2">
                       Email me news and special offers

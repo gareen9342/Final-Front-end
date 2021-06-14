@@ -18,3 +18,45 @@
 
 - service  
   _API server와 연동_
+
+## dependencies
+
+### react
+
+```json
+  "react": "^17.0.2",
+  "react-dom": "^17.0.2",
+  "react-router-dom": "^5.2.0"
+```
+
+### 웹팩
+
+```json
+  "webpack": "^5.38.1",
+  "webpack-cli": "^4.7.2",
+  "webpack-dev-server": "^3.11.2"
+  "react-refresh": "^0.10.0",
+  ========== webpack
+  "@babel/core": "^7.14.3"
+  "@babel/preset-env": "^7.14.4",
+  "@babel/preset-react": "^7.13.13",
+  "@babel/plugin-transform-runtime" : regenerator runtime해결
+  ==== 참고 문서 https://velog.io/@haebin/React-regeneratorRuntime-is-not-defined-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0
+  ========== Babel
+  "babel-loader": "^8.2.2",
+  "html-loader": "^2.1.2",
+  "html-webpack-plugin": "^5.3.1",
+  "css-loader": "^5.2.6",
+  "style-loader": "^2.0.0",
+  ========== loaders
+```
+
+### css
+
+```json
+  "autoprefixer": "^10.2.6",
+  "tailwindcss": "^2.1.4",
+  "postcss": "^8.3.0",
+  "postcss-loader": "^5.3.0",
+  "mini-css-extract-plugin": "^1.6.0",
+```

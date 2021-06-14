@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Feed from "./pages/Feed";
@@ -10,6 +10,7 @@ import "./index.css";
 import StudyForm from "./pages/StudyForm";
 
 export default function App() {
+
   return (
     <Router>
       <div>
@@ -18,10 +19,16 @@ export default function App() {
           <Route exact path="/" component={Home} />
           <Route path="/Iamport" component={Iamport} />
           <Route path="/feed" component={Feed} />
+          <Route exact path="/map" component={KakaoMap} />
           <Route path="/study/generate" component={StudyForm} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>
+      <>
+        <Naver />
+        <Kakao />
+      </>
+
     </Router>
   );
 }

@@ -31,8 +31,8 @@ export default function App() {
         </Switch>
       </div>
       <>
-        <Naver />
-        <Kakao />
+        {/* <Naver />
+        <Kakao /> */}
       </>
     </Router>
   );

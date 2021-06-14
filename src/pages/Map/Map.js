@@ -6,7 +6,7 @@ export default function KakaoMap() {
 
   const [visible, setVisible] = useState(true);
   const [mapSize, setMapSize] = useState([400, 400]);
-  const markers = console.log('get Markers!!');
+  const markers = console.log('get Markers!!!');
 
   return (
     <>

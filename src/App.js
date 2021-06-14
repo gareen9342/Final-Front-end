@@ -5,10 +5,13 @@ import "./index.css";
 import Header from "./components/Header";
 import Feed from "./pages/Feed";
 import Home from "./pages/Home";
+import KakaoMap from "./pages/Map/Map";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
 import StudyForm from "./pages/MyStudy/StudyForm";
 import MyStudy from "./pages/MyStudy";
+
+import UseInputSample from "./hooks/UseInputSample";
 
 export default function App() {
   return (
@@ -18,11 +21,19 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/feed" component={Feed} />
-          <Route path="/my_study" component={MyStudy} />
-          <Route path="/study/generate" component={StudyForm} /> // 임시~
+          <Route exact path="/map" component={KakaoMap} />
+          <Route path="/study/generate" component={StudyForm} />
+          {/* <Route path="/sample" component={UseInputSample} /> 
+          useInputSample 입니다~
+          
+          */}
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>
+      <>
+        <Naver />
+        <Kakao />
+      </>
     </Router>
   );
 }

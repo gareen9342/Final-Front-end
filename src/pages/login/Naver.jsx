@@ -1,5 +1,5 @@
 import React,{ Component} from "react";
-
+import "./login.css"; // 일단 이렇게 넣었심다 
 class Naver extends Component{
     componentDidMount(){
         // 네이버 헤더 sdk 추가

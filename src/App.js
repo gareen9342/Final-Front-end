@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import "./index.css";
 
 import Header from "./components/Header";
 import Feed from "./pages/Feed";
@@ -7,12 +8,12 @@ import Home from "./pages/Home";
 import KakaoMap from "./pages/Map/Map";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
+import StudyForm from "./pages/MyStudy/StudyForm";
+import MyStudy from "./pages/MyStudy";
 
-import "./index.css";
-import StudyForm from "./pages/StudyForm";
+import UseInputSample from "./hooks/UseInputSample";
 
 export default function App() {
-
   return (
     <Router>
       <div>
@@ -29,7 +30,6 @@ export default function App() {
         <Naver />
         <Kakao />
       </>
-
     </Router>
   );
 }

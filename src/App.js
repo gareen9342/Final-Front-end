@@ -14,6 +14,10 @@ import MyStudy from "./pages/MyStudy";
 import UseInputSample from "./hooks/UseInputSample";
 
 export default function App() {
+  /**
+   * path : 어떤 url로 접속을 할 건지
+   * component : 그 url로 접속했을 때 띄워줄 component지정
+   */
   return (
     <Router>
       <div>
@@ -23,10 +27,9 @@ export default function App() {
           <Route path="/feed" component={Feed} />
           <Route exact path="/map" component={KakaoMap} />
           <Route path="/study/generate" component={StudyForm} />
-          {/* <Route path="/sample" component={UseInputSample} /> 
-          useInputSample 입니다~
-          
-          */}
+          {/* <Route path="/sample" component={UseInputSample} /> */}
+          {/* useInputSample 입니다~ */}
+
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>

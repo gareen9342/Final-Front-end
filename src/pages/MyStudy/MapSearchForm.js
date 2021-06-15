@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import useInput from "../../hooks/useInput";
+
 const MapSearchForm = ({
   address,
   setAddress,
@@ -17,13 +18,7 @@ const MapSearchForm = ({
   const [infoWindow, setInfoWindow] = useState(null);
   // 검색어
   const [searchText, onChangeSearchTest] = useInput("");
-  const onClickSearchButton = () => {
-    // setAddress(searchText);
-    if (kakaoPs == null) {
-      return;
-    }
-    kakaoPs.keywordSearch(searchText, placeSearchCB);
-  };
+
   /**
    * ============== 초기 필요한 모듈을 세팅해준다~
    */
@@ -64,7 +59,13 @@ const MapSearchForm = ({
     // restore
     kakaoMap.setCenter(center);
   }, [kakaoMap]);
-
+  const onClickSearchButton = () => {
+    // setAddress(searchText);
+    if (kakaoPs == null) {
+      return;
+    }
+    kakaoPs.keywordSearch(searchText, placeSearchCB);
+  };
   const placeSearchCB = (data, status, pagination) => {
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -90,7 +91,7 @@ const MapSearchForm = ({
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        setAddress(place.address_name);
+        setAddress(place.address_name + place.place_name);
         setAddressId(place.id);
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
@@ -102,8 +103,8 @@ const MapSearchForm = ({
     }
   };
   const onClickAddressConfirm = () => {
-    const isConirmed = confirm("이 장소로 결정하시겠습니까?");
-    if (isConirmed) {
+    const isConfirmed = confirm("이 장소로 결정하시겠습니까?");
+    if (isConfirmed) {
       setAddressConfirmed(true);
     }
   };

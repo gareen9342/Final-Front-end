@@ -15,7 +15,7 @@ module.exports = {
       gray: colors.trueGray,
       green: colors.emerald,
       indigo: colors.indigo,
-      red: colors.rose,
+      red: colors.red,
       yellow: colors.amber,
       rose: colors.rose,
       fuchsia: colors.fuchsia,

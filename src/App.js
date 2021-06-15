@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import KakaoMap from "./pages/Map/Map";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
-import StudyForm from "./pages/MyStudy/StudyForm";
+import StudyForm from "./pages/StudyForm";
 import MyStudy from "./pages/MyStudy";
 
 import UseInputSample from "./hooks/UseInputSample";

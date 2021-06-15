@@ -91,7 +91,7 @@ const MapSearchForm = ({
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        setAddress(place.address_name + place.place_name);
+        setAddress(`${place.address_name} ${place.place_name}`);
         setAddressId(place.id);
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +

@@ -1,12 +1,31 @@
+import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 
 const { kakao } = window;
 
 const MapService = (props) => {
-  const { size } = props;
+  const { locationInfo, size } = props;
   const [kakaoMap, setKakaoMap] = useState(null);
+  const [locationAddr, setLocationAddr] = useState([]);
 
   const mapContainer = useRef();
+
+
+  // from DB, get markers
+  useEffect(() => {
+
+    Axios.get('/somewhere').then(response => {
+      if (response.data.success) {
+        // 마커들 가져왔슴(주소로 가져온다.)
+        // 반경처리는 따로 해줘야된다.
+        // setLocationAddr(response.data.^^ID^^)
+      } else {
+        alert('이지역 사람들이 공부를 안하네요~');
+      }
+    })
+
+  }, [])
+
 
   useEffect(() => {
     console.log(props)
@@ -63,11 +82,23 @@ const MapService = (props) => {
     mapContainer.current.style.width = `${width}px`;
     mapContainer.current.style.height = `${height}px`;
 
-    // 리사이징시 레이아웃 필수
+    //   // 리사이징시 레이아웃 필수
     kakaoMap.relayout();
     // restore
     kakaoMap.setCenter(center);
+
   }, [kakaoMap, size]);
+
+
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return;
+    }
+
+
+
+
+  }, [kakaoMap,])
 
 
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-import "./PaymentStyle.css";
 
 const onClickPayment = (pg, pay_method="card") => {
     const { IMP } = window;

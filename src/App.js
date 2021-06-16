@@ -10,7 +10,9 @@ import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
 import Iamport from "./pages/Iamport/Payment";
 import StudyForm from "./pages/StudyForm";
-import MyStudy from "./pages/MyStudy";
+import MyStudy from "./pages/MyStudy"
+
+import Google from "./pages/login/Google";
 
 import UseInputSample from "./hooks/UseInputSample";
 
@@ -31,6 +33,7 @@ export default function App() {
       <>
         <Naver />
         <Kakao />
+        <Google/>
       </>
     </Router>
   );

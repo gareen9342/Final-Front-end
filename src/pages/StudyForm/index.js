@@ -73,7 +73,7 @@ const StudyForm = () => {
       return alert("오프라인 선택시 장소를 반드시 선택 완료해주세요.");
     }
     // 비공개 설정시 비밀번호를 작성하지 않았다면
-    if (isPublic === "비공개") {
+    if (isPublic === "비공개" && !password.length) {
       return alert("비공개 설정시 비밀번호를 반드시 작성해주세요");
     }
   };

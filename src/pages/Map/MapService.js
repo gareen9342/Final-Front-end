@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -104,12 +105,15 @@ const MapService = (props) => {
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        let bounds = new kakao.maps.LatLngBounds()
-
+        let bounds = new kakao.maps.LatLngBounds();
+        markersPosition.map((x) => x.setMap(null));
+        const tmpArr = [];
         for (let i = 0; i < data.length; i++) {
-          displayMarker(data[i])
+          const newMarker = displayMarker(data[i]);
+          tmpArr.push(newMarker);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
         }
+        setMarkersPosition(tmpArr);
         kakaoMap.setBounds(bounds);
         // 매장 목록 displayPagination()
         // displayPagination(pagination);
@@ -131,16 +135,8 @@ const MapService = (props) => {
 
   }, [kakaoMap, locationInfo])
 
-  const resetMarkers = () => {
-    for (let i = 0; i < markersPosition.length; i++) {
-      markersPosition[i].setMap(null);
-    }
-    setMarkersPosition([]);
-  };
-
 
   const checker = () => {
-    resetMarkers();
     console.log(markersPosition);
     console.log(searchedPlaces);
     console.log(kakaoMap);

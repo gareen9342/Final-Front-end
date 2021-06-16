@@ -2,44 +2,38 @@ import React, { useState } from 'react'
 import "./style.css"
 import MapService from './MapService';
 import MapContainer from './MapContainer';
+import useInput from '../../hooks/useInput';
 
 export default function KakaoMap() {
 
   const [visible, setVisible] = useState(true);
-  const [mapSize, setMapSize] = useState([400, 400]);
-  const [markers, setMarkers] = useState([]);
   const [locationInfo, setLocationInfo] = useState([]);
 
-  const [value, setValue] = useState('');
+  // 장소 검색
+  const [searchText, onChangeSearchText] = useInput('');
 
 
-  const onSearching = (event) => {
-    // 검색된애 센터정보 넘겨줘야돼
-    setLocationInfo(event.currentTarget.value)
-  }
-
-  const onValueChange = (e) => {
-    setValue(e.currentTarget.value)
-    console.log(value)
+  const onSearching = () => {
+    setLocationInfo(searchText)
+    console.log("locationInfo : " + locationInfo)
   }
 
   return (
     <>
 
       {visible && (
-        <MapService locationInfo={locationInfo} size={mapSize} />
+        <MapService locationInfo={locationInfo} />
       )}
-      <div style={{ alignContent: "center", color: "ghostwhite", backgroundColor: "royalblue" }}>
-        <button onClick={() => setMapSize([200, 400])} >리사이징</button>
+      <div>
         <button onClick={() => setVisible(!visible)}>토글</button>
-        <button>임시</button>
-        <button>임시</button>
       </div>
       <div>
         {/* 요거 검색 완료하면 넘기는 걸로 바껑 */}
-        <input type="text" maxLength="25" placeholder="예시: 잠실 스타벅스" onChange={onValueChange} />
+        <input type="text" maxLength="25" value={searchText}
+          placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
+        <button onClick={onSearching} >검색</button>
       </div>
-      <MapContainer searchPlace={value} />
+      <MapContainer searchPlace={locationInfo} />
 
     </>
   )

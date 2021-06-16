@@ -19,6 +19,8 @@ const MapSearchForm = ({
   // 검색어
   const [searchText, onChangeSearchTest] = useInput("");
 
+  const [tmpMarkers, setTmpMarkers] = useState([]);
+
   /**
    * ============== 초기 필요한 모듈을 세팅해준다~
    */

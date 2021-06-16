@@ -4,7 +4,7 @@ const { kakao } = window
 
 const MapContainer = ({ searchPlace }) => {
   // initial value is current location
-  console.log(searchPlace)
+  // console.log(searchPlace)
 
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([])

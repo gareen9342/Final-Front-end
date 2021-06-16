@@ -1,25 +1,39 @@
 import React, { useState } from 'react'
 import "./style.css"
-import MapTest from './MapService';
+import MapService from './MapService';
+import MapContainer from './MapContainer';
+import useInput from '../../hooks/useInput';
 
 export default function KakaoMap() {
 
   const [visible, setVisible] = useState(true);
-  const [mapSize, setMapSize] = useState([400, 400]);
-  const markers = console.log('get Markers!!');
+  const [locationInfo, setLocationInfo] = useState([]);
+
+  // 장소 검색
+  const [searchText, onChangeSearchText] = useInput('');
+
+
+  const onSearching = () => {
+    setLocationInfo(searchText)
+    console.log("locationInfo : " + locationInfo)
+  }
 
   return (
     <>
 
       {visible && (
-        <MapTest markers={markers} size={mapSize} />
+        <MapService locationInfo={locationInfo} />
       )}
-      <div style={{ alignContent: "center", color: "ghostwhite", backgroundColor: "royalblue" }}>
-        <button style={{ border: "1px solid red" }} onClick={() => setMapSize([400, 400])} >뿌</button>
-        <button onClick={() => setVisible(!visible)}>보톤</button>
-        <button>브튼</button>
-        <button>버턴</button>
+      <div>
+        <button onClick={() => setVisible(!visible)}>토글</button>
       </div>
+      <div>
+        {/* 요거 검색 완료하면 넘기는 걸로 바껑 */}
+        <input type="text" maxLength="25" value={searchText}
+          placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
+        <button onClick={onSearching} >검색</button>
+      </div>
+      <MapContainer searchPlace={locationInfo} />
 
     </>
   )

@@ -18,7 +18,8 @@ const MapSearchForm = ({
   const [infoWindow, setInfoWindow] = useState(null);
   // 검색어
   const [searchText, onChangeSearchTest] = useInput("");
-
+  // markers
+  const [markers, setMarkers] = useState([]);
   /**
    * ============== 초기 필요한 모듈을 세팅해준다~
    */
@@ -71,18 +72,23 @@ const MapSearchForm = ({
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
       // LatLngBounds 객체에 좌표를 추가합니다
       var bounds = new kakao.maps.LatLngBounds();
+      //마커 초기화부터 진행
+      markers.map((x) => x.setMap(null));
+      const tempArr = [];
       for (var i = 0; i < data.length; i++) {
-        displayMarker(data[i]);
+        const newMarker = displayMarker(data[i]);
+        tempArr.push(newMarker);
         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
       }
-
+      setMarkers(tempArr);
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
       kakaoMap.setBounds(bounds);
     }
   };
   const displayMarker = (place) => {
+    let marker = null;
     if (!!kakaoMap) {
-      const marker = new kakao.maps.Marker({
+      marker = new kakao.maps.Marker({
         map: kakaoMap,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
@@ -101,6 +107,7 @@ const MapSearchForm = ({
         infoWindow.open(kakaoMap, marker);
       });
     }
+    return marker;
   };
   const onClickAddressConfirm = () => {
     const isConfirmed = confirm("이 장소로 결정하시겠습니까?");

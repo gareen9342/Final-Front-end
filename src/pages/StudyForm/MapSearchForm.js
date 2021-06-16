@@ -99,6 +99,7 @@ const MapSearchForm = ({
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         setAddress(`${place.address_name} ${place.place_name}`);
         setAddressId(place.id);
+        console.log(`id = ${place.id}`);
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
             place.place_name +

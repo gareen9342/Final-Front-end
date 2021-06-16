@@ -10,10 +10,9 @@ import useInput from "../../hooks/useInput";
 import MapSearchForm from "./MapSearchForm";
 import SelectBox from "./SelectBox";
 import { CheckLength } from "../../util/editor";
+import StudyService from "../../services/studyService";
+import dummydata from "../../dummyData/study.json";
 /**
- *
- * // TODO: 장소목록 : 온라인 / 오프라인 둘 다 들어가게 함 (검색할 때 필요함)
- * // TODO: 오프라인의 경우에 모임장소를 알아야 하기 때문에 스터디 생성할 때든 나중이든 선택적으로 모임장소를 정할 수 있게 함.
  * // TODO: studyname, (charge / nocharge), (public/private), 스터디의 종류(분류), (ONLINE / OFFLINE)
  *
  *
@@ -43,7 +42,7 @@ const StudyForm = () => {
       setStudyNameWarn("");
     }
   };
-
+  console.log(dummydata);
   const onChangeDescription = (e) => {
     setDescription(e.target.value);
     const characters = CheckLength(e.target.value);
@@ -57,8 +56,8 @@ const StudyForm = () => {
       study_group_type: studySort,
       study_group_loc: studyLoc,
       study_group_addr_id: addressId,
-      study_group_PW: password,
       study_group_addr: address,
+      study_group_PW: password,
     };
     console.log(data);
     // 채워져야 할 칸들이 비어져 있다면
@@ -76,6 +75,8 @@ const StudyForm = () => {
     if (isPublic === "비공개" && !password.length) {
       return alert("비공개 설정시 비밀번호를 반드시 작성해주세요");
     }
+    const res = StudyService.uploadStudy(data);
+    console.log("res = ", res);
   };
   return (
     <div className="container mx-auto px-2 my-7 min-h-screen max-w-screen-md rounded">

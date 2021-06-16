@@ -7,9 +7,11 @@ import Home from "./pages/Home";
 import KakaoMap from "./pages/Map/Map";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
+import Calendar from "./pages/Calendar/Calendar";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
+
 
 export default function App() {
 
@@ -22,6 +24,7 @@ export default function App() {
           <Route path="/feed" component={Feed} />
           <Route exact path="/map" component={KakaoMap} />
           <Route path="/study/generate" component={StudyForm} />
+          <Route exact path="/calendar" component={Calendar} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>

@@ -18,6 +18,7 @@ export const sortOptions = [
   { key: 5, value: "영상", name: "영상" },
   { key: 6, value: "업무스킬", name: "업무스킬" },
   { key: 7, value: "포트폴리오", name: "포트폴리오" },
+  { key: 8, value: "기타", name: "기타" },
 ];
 export const locationOptions = [
   { key: 1, value: "서울", name: "서울" },

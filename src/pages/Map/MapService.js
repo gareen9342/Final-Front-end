@@ -2,11 +2,10 @@ import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import "./style.css"
 import useInput from '../../hooks/useInput';
+
 const { kakao } = window;
 
 const MapService = () => {
-
-  const [visible, setVisible] = useState(true);
 
   const [kakaoMap, setKakaoMap] = useState(null);
   const [kakaoPs, setKakaoPs] = useState(null);
@@ -76,6 +75,8 @@ const MapService = () => {
     }
     kakaoPs.keywordSearch(searchText, placeSearchCB);
   };
+
+
   const placeSearchCB = (data, status, pagination) => {
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -94,6 +95,8 @@ const MapService = () => {
       kakaoMap.setBounds(bounds);
     }
   };
+
+
   const displayMarker = (place) => {
     let marker = null;
     if (!!kakaoMap) {
@@ -118,15 +121,45 @@ const MapService = () => {
   };
 
 
+  // 'event of Click', should I have to change the name of this func. ?
+  // const infoOfClicked = () => {
+  //   let marker = new kakao.maps.Marker({
+  //     // 지도 중심 마커 생성
+  //     position: map.getCenter()
+  //   });
+  //   marker.setMap(map);
+
+  //   kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+  //     // 클릭한 위도, 경도 정보를 가져옵니다 
+  //     let latlng = mouseEvent.latLng;
+  //     // 마커 위치를 클릭한 위치로 옮깁니다
+  //     marker.setPosition(latlng);
+
+  //     let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+  //     message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+  //     console.log(message);
+
+  //   });
+  // }
+
+
+  // 우클릭 이벤트
+  const rClickHandler = (e) => {
+  }
+  kakao.maps.e.addListener(kakaoMap, 'rightclick', rClickHandler)
+  e.latLng
+
+    ((e) => { })
+
+  const sth = () => { }
+  function jn(n, sth, sth2) { }
+
   return (
     <>
       <div id="mapContainer" ref={mapContainer} />
 
       <div>
-        <button onClick={() => setVisible(!visible)}>토글</button>
-      </div>
-      <div>
-        {/* 요거 검색 완료하면 넘기는 걸로 바껑 */}
         <input type="text" maxLength="25" value={searchText}
           placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
         <button onClick={onClickSearchButton} >검색</button>

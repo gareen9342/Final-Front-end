@@ -204,9 +204,9 @@ const MapService = () => {
 
         <div>
           <input type="text" maxLength="30" value={searchText}
-            placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
+            placeholder="장소를 입력하세요!" onChange={onChangeSearchText} />
           <button onClick={onClickSearchButton} >검색</button><br />
-          <button onClick={onFocusCenter}>현위치!</button>
+          <button onClick={onFocusCenter}>현위치!!!</button>
           <div id="mapContainer" ref={mapContainer} />
         </div>
       </div>

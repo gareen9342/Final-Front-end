@@ -42,11 +42,11 @@ const MapService = () => {
 
     //여기가 돔에 세팅하는 단
     setKakaoMap(map);
-    // setMarkerPosition(markerPosition);
     const ps = new kakao.maps.services.Places();
     setKakaoPs(ps);
     const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     setInfoWindow(infowindow);
+
   }, [mapContainer]);
 
   /**
@@ -62,13 +62,35 @@ const MapService = () => {
 
     // change viewport size
     mapContainer.current.style.width = `60vw`;
-    mapContainer.current.style.height = `${200}px`;
+    mapContainer.current.style.height = `${400}px`;
 
     // relayout and...
     kakaoMap.relayout();
     // restore
     kakaoMap.setCenter(center);
   }, [kakaoMap]);
+
+  // 마커,인포윈도 삭제 이벤트 (rClick)
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return;
+    }
+    kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
+    // setMarkersPosition([]);
+
+    const eventRemover = (e) => {
+      console.log(markersPosition);
+      markersPosition.map(x => x.setMap(null));
+      infoWindow.close();
+      // console.log(e.latLng.toString())
+    }
+
+    kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
+
+  }, [kakaoMap, markersPosition]);
+
+
+
   const onClickSearchButton = () => {
     if (kakaoPs == null) {
       return;
@@ -76,13 +98,12 @@ const MapService = () => {
     kakaoPs.keywordSearch(searchText, placeSearchCB);
   };
 
-
   const placeSearchCB = (data, status, pagination) => {
     if (status === kakao.maps.services.Status.OK) {
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
       // LatLngBounds 객체에 좌표를 추가합니다
       var bounds = new kakao.maps.LatLngBounds();
-      //마커 초기화부터 진행
+      // 마커 초기화부터 진행
       markersPosition.map((x) => x.setMap(null));
       const tempArr = [];
       for (var i = 0; i < data.length; i++) {
@@ -95,7 +116,6 @@ const MapService = () => {
       kakaoMap.setBounds(bounds);
     }
   };
-
 
   const displayMarker = (place) => {
     let marker = null;
@@ -112,13 +132,34 @@ const MapService = () => {
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
           place.place_name +
-          "</div>"
+          "</div>" +
+          '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
         );
         infoWindow.open(kakaoMap, marker);
       });
+
     }
     return marker;
   };
+
+  const onFocusCenter = () => {
+    if (navigator.geolocation) {
+      // GeoLocation, 접속위치 get
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let lat = position.coords.latitude, // 위도
+          lon = position.coords.longitude; // 경도
+        let locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시 위치 > geolocation 좌표로
+        focusCenter(locPosition);
+      });
+    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치
+      let locPosition = new kakao.maps.LatLng(37.56642857824065, 126.95110193435923);
+      focusCenter(locPosition);
+    }
+
+    const focusCenter = (locPosition) => {
+      kakaoMap.panTo(locPosition);
+    }
+  }
 
 
   // 'event of Click', should I have to change the name of this func. ?
@@ -137,34 +178,38 @@ const MapService = () => {
 
   //     let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
   //     message += '경도는 ' + latlng.getLng() + ' 입니다';
-
   //     console.log(message);
-
   //   });
   // }
 
 
-  // 우클릭 이벤트
-  const rClickHandler = (e) => {
-  }
-  kakao.maps.e.addListener(kakaoMap, 'rightclick', rClickHandler)
-  e.latLng
 
-    ((e) => { })
-
-  const sth = () => { }
-  function jn(n, sth, sth2) { }
 
   return (
     <>
-      <div id="mapContainer" ref={mapContainer} />
+      <div style={{ display: "flex" }}>
+        <div>
+          <div className="bg-hotpink rounded-3xl p-5">
+            yap
+          </div>
 
-      <div>
-        <input type="text" maxLength="25" value={searchText}
-          placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
-        <button onClick={onClickSearchButton} >검색</button>
+          contents~<br />
+          contents~<br />
+          contents~<br />
+          contents~<br />
+          contents~<br />
+          contents~<br />
+          contents~<br />
+        </div>
+
+        <div>
+          <input type="text" maxLength="30" value={searchText}
+            placeholder="장소를 입력하세요" onChange={onChangeSearchText} />
+          <button onClick={onClickSearchButton} >검색</button><br />
+          <button onClick={onFocusCenter}>현위치!</button>
+          <div id="mapContainer" ref={mapContainer} />
+        </div>
       </div>
-
     </>
   )
 }

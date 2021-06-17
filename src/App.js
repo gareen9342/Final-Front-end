@@ -5,17 +5,14 @@ import "./index.css";
 import Header from "./components/Header";
 import Feed from "./pages/Feed";
 import Home from "./pages/Home";
-import Payment from "./pages/Iamport/Payment";
-import KakaoMap from "./pages/Map/Map";
+import MapService from "./pages/Map/MapService";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
 import TestService from "./pages/Iamport/testService";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
-import MyStudy from "./pages/MyStudy"
-
-import Google from "./pages/login/Google";
+import MyStudy from "./pages/MyStudy";
 
 import UseInputSample from "./hooks/UseInputSample";
 
@@ -26,10 +23,8 @@ export default function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-            <Route path="/payment" component={Payment} />
-            <Route path="/test" component={TestService} />
           <Route path="/feed" component={Feed} />
-          <Route exact path="/map" component={KakaoMap} />
+          <Route exact path="/map" component={MapService} />
           <Route path="/study/generate" component={StudyForm} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
@@ -37,7 +32,6 @@ export default function App() {
       <>
         <Naver />
         <Kakao />
-        <Google/>
       </>
     </Router>
   );

@@ -39,6 +39,7 @@ export default function App() {
         <Kakao />
         <Google/>
         test
+        test
       </>
     </Router>
   );

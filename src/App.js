@@ -32,6 +32,7 @@ export default function App() {
       <>
         <Naver />
         <Kakao />
+        <Google/>
       </>
     </Router>
   );

@@ -9,7 +9,7 @@ import Payment from "./pages/Iamport/Payment";
 import KakaoMap from "./pages/Map/Map";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
-import TestService from "./pages/Iamport/testService";
+import TestService from "./pages/Iamport/test";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";

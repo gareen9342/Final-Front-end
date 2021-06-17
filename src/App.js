@@ -8,13 +8,9 @@ import Home from "./pages/Home";
 import MapService from "./pages/Map/MapService";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
-import TestService from "./pages/Iamport/testService";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
-import MyStudy from "./pages/MyStudy";
-
-import UseInputSample from "./hooks/UseInputSample";
 
 export default function App() {
   return (
@@ -32,6 +28,8 @@ export default function App() {
       <>
         <Naver />
         <Kakao />
+        <Google/>
+        내용
       </>
     </Router>
   );

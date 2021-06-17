@@ -26,7 +26,6 @@ export default function App() {
         </Switch>
       </div>
       <>
-      우리학원가요!!!!!
         <Naver />
         <Kakao />
         <Google/>

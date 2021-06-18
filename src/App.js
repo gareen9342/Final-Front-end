@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import MapService from "./pages/Map/MapService";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
+import Google from "./pages/login/Google";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
@@ -28,7 +29,7 @@ export default function App() {
       <>
         <Naver />
         <Kakao />
-        <Google/>
+        <Google />
       </>
     </Router>
   );

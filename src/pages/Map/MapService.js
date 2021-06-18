@@ -75,20 +75,28 @@ const MapService = () => {
     if (kakaoMap === null) {
       return;
     }
-    kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
+    // kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
     // setMarkersPosition([]);
-
-    const eventRemover = (e) => {
-      console.log(markersPosition);
-      markersPosition.map(x => x.setMap(null));
-      infoWindow.close();
-      // console.log(e.latLng.toString())
-    }
 
     kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
 
   }, [kakaoMap, markersPosition]);
 
+  const eventRemover = (e) => {
+    console.log(markersPosition);
+    markersPosition.map(x => x.setMap(null));
+    infoWindow.close();
+    console.log(e.latLng.toString())
+  }
+
+  // const eventRemover = (e) => {
+  //   console.log(markersPosition);
+  //   markersPosition.map(x => x.setMap(null));
+  //   infoWindow.close();
+  // }
+
+  // kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
+  // kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
 
 
   const onClickSearchButton = () => {
@@ -143,7 +151,7 @@ const MapService = () => {
   };
 
   const onFocusCenter = () => {
-    if (navigator.geolocation) {
+    if (kakaoMap && navigator.geolocation) {
       // GeoLocation, 접속위치 get
       navigator.geolocation.getCurrentPosition(function (position) {
         let lat = position.coords.latitude, // 위도
@@ -182,7 +190,39 @@ const MapService = () => {
   //   });
   // }
 
+  const markerBornClick = () => {
+    const tmpMarker = [];
+    kakao.maps.event.addListener(kakaoMap, 'click', function (mouseEvent) {
 
+      let marker = new kakao.maps.Marker({
+        map: kakaoMap,
+        position: kakaoMap.center
+      })
+      let latlng = mouseEvent.latLng;
+      tmpMarker.push(marker);
+      console.log(tmpMarker);
+      marker.setPosition(latlng);
+      setMarkersPosition(tmpMarker);
+      console.log(markersPosition);
+
+      console.log(`${latlng} was Clicked!`);
+    });
+  }
+
+  const checker = () => {
+    console.log('----------------------');
+    console.log(markersPosition);
+    console.log('----------------------');
+  }
+
+  const deleter = () => {
+    setMarkersPosition([]);
+  }
+
+  // 치명적 버그새끼들
+
+  // 우클릭 이벤트 리스너색기 증식함
+  // ㄱㄷ 추가될거임 곧
 
 
   return (
@@ -207,6 +247,9 @@ const MapService = () => {
             placeholder="장소를 입력하세요!" onChange={onChangeSearchText} />
           <button onClick={onClickSearchButton} >검색</button><br />
           <button onClick={onFocusCenter}>현위치!!!</button>
+          <button onClick={markerBornClick}>맠컼찤잨</button>
+          <button onClick={checker}>체크</button>
+          <button onClick={deleter}>del</button>
           <div id="mapContainer" ref={mapContainer} />
         </div>
       </div>

@@ -29,7 +29,7 @@ const StudyForm = () => {
   // address 세팅
   const [address, setAddress] = useState("");
   const [addressId, setAddressId] = useState("");
-  const [OnLineOffLine, onChangeOnlineOffLine] = useInput("ONLINE");
+  const [isOffline, onChangeisOffline] = useInput("N");
   // 고민중인 부분
   const [addressConfirmed, setAddressConfirmed] = useState(false);
   const [description, setDescription] = useState("");
@@ -42,7 +42,7 @@ const StudyForm = () => {
       setStudyNameWarn("");
     }
   };
-  console.log(dummydata);
+
   const onChangeDescription = (e) => {
     setDescription(e.target.value);
     const characters = CheckLength(e.target.value);
@@ -51,13 +51,13 @@ const StudyForm = () => {
 
   const onClickSubmit = () => {
     const data = {
-      study_group_name: studyName,
-      study_group_desc: description,
-      study_group_type: studySort,
-      study_group_loc: studyLoc,
-      study_group_addr_id: addressId,
-      study_group_addr: address,
-      study_group_PW: password,
+      studygroupname: studyName,
+      studygroupdesc: description,
+      studygroupoffline: studySort,
+      studygrouploc: studyLoc,
+      studygroupaddrid: addressId,
+      studygroupaddr: address,
+      studygrouppw: password,
     };
     console.log(data);
     // 채워져야 할 칸들이 비어져 있다면
@@ -68,7 +68,7 @@ const StudyForm = () => {
       return alert("스터디 이름은 반드시 6자 이상으로 작성해주세요.");
     }
     //오프라인 선택시 장소를 선택완료 하지 않았다면
-    if (OnLineOffLine === "OFFLINE" && !address.length) {
+    if (isOffline === "OFFLINE" && !address.length) {
       return alert("오프라인 선택시 장소를 반드시 선택 완료해주세요.");
     }
     // 비공개 설정시 비밀번호를 작성하지 않았다면
@@ -186,14 +186,14 @@ const StudyForm = () => {
                     </label>
                     <SelectBox
                       options={meetOptions}
-                      value={OnLineOffLine}
-                      onChange={onChangeOnlineOffLine}
+                      value={isOffline}
+                      onChange={onChangeisOffline}
                     />
                     <p className="text-red text-xs hidden">
                       Please fill out this field.
                     </p>
                   </div>
-                  {OnLineOffLine === "OFFLINE" && (
+                  {isOffline === "OFFLINE" && (
                     <div className="mb-3 space-y-2 w-full text-xs">
                       <label className="font-semibold text-gray-600 py-2">
                         오프라인 만남 장소 <abbr title="required">*</abbr>
@@ -215,7 +215,7 @@ const StudyForm = () => {
                   )}
                 </div>
                 {/* end one row */}
-                {OnLineOffLine === "OFFLINE" && (
+                {isOffline === "Y" && (
                   <div className="md:flex md:flex-row md:space-row md:space-x-4 w-full text-xs">
                     <div className="w-full flex flex-col mb-3">
                       <label className="font-semibold text-gray-600 py-2">

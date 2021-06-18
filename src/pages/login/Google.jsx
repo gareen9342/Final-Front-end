@@ -11,6 +11,7 @@ const GoogleButton = () => {
     const [provider ,setProvider] = useState('');
 
     const responseGoogle = (res) => {
+        location.href = ""
         console.log(res);
     }
 
@@ -20,7 +21,6 @@ const GoogleButton = () => {
 
     return(
         <>
-            오류나지마세요
             <GoogleLogin
                 clientId={clientId}
                 buttonText="Google"

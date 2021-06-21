@@ -1,16 +1,15 @@
-import Axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
-import "./style.css"
-import useInput from '../../hooks/useInput';
+import Axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import "./style.css";
+import useInput from "../../hooks/useInput";
 
 const { kakao } = window;
 
 const MapService = () => {
-
   const [kakaoMap, setKakaoMap] = useState(null);
   const [kakaoPs, setKakaoPs] = useState(null);
   const [infoWindow, setInfoWindow] = useState(null);
-  const [searchText, onChangeSearchText] = useInput('');
+  const [searchText, onChangeSearchText] = useInput("");
 
   const [markersPosition, setMarkersPosition] = useState([]);
 
@@ -46,7 +45,6 @@ const MapService = () => {
     setKakaoPs(ps);
     const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     setInfoWindow(infowindow);
-
   }, [mapContainer]);
 
   /**
@@ -68,26 +66,25 @@ const MapService = () => {
     kakaoMap.relayout();
     // restore
     kakaoMap.setCenter(center);
+    kakao.maps.event.addListener(kakaoMap, "rightclick", eventRemover);
   }, [kakaoMap]);
 
-  // 마커,인포윈도 삭제 이벤트 (rClick)
-  useEffect(() => {
-    if (kakaoMap === null) {
-      return;
-    }
-    // kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
-    // setMarkersPosition([]);
+  // // 마커,인포윈도 삭제 이벤트 (rClick)
+  // useEffect(() => {
+  //   if (kakaoMap === null) {
+  //     return;
+  //   }
+  //   // setMarkersPosition([]);
 
-    kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
-
-  }, [kakaoMap, markersPosition]);
+  // }, [kakaoMap, markersPosition]);
 
   const eventRemover = (e) => {
-    console.log(markersPosition);
-    markersPosition.map(x => x.setMap(null));
+    console.log("here", markersPosition);
+    markersPosition.map((x) => x.setMap(null));
     infoWindow.close();
-    console.log(e.latLng.toString())
-  }
+    setMarkersPosition([]);
+    console.log(e.latLng.toString());
+  };
 
   // const eventRemover = (e) => {
   //   console.log(markersPosition);
@@ -97,7 +94,6 @@ const MapService = () => {
 
   // kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
   // kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
-
 
   const onClickSearchButton = () => {
     if (kakaoPs == null) {
@@ -139,13 +135,12 @@ const MapService = () => {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
-          place.place_name +
-          "</div>" +
-          '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
+            place.place_name +
+            "</div>" +
+            '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
         );
         infoWindow.open(kakaoMap, marker);
       });
-
     }
     return marker;
   };
@@ -159,16 +154,19 @@ const MapService = () => {
         let locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시 위치 > geolocation 좌표로
         focusCenter(locPosition);
       });
-    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치
-      let locPosition = new kakao.maps.LatLng(37.56642857824065, 126.95110193435923);
+    } else {
+      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치
+      let locPosition = new kakao.maps.LatLng(
+        37.56642857824065,
+        126.95110193435923
+      );
       focusCenter(locPosition);
     }
 
     const focusCenter = (locPosition) => {
       kakaoMap.panTo(locPosition);
-    }
-  }
-
+    };
+  };
 
   // 'event of Click', should I have to change the name of this func. ?
   // const infoOfClicked = () => {
@@ -179,7 +177,7 @@ const MapService = () => {
   //   marker.setMap(map);
 
   //   kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-  //     // 클릭한 위도, 경도 정보를 가져옵니다 
+  //     // 클릭한 위도, 경도 정보를 가져옵니다
   //     let latlng = mouseEvent.latLng;
   //     // 마커 위치를 클릭한 위치로 옮깁니다
   //     marker.setPosition(latlng);
@@ -191,61 +189,70 @@ const MapService = () => {
   // }
 
   const markerBornClick = () => {
-    const tmpMarker = [];
-    kakao.maps.event.addListener(kakaoMap, 'click', function (mouseEvent) {
-
+    kakao.maps.event.addListener(kakaoMap, "click", function (mouseEvent) {
       let marker = new kakao.maps.Marker({
         map: kakaoMap,
-        position: kakaoMap.center
-      })
+        position: kakaoMap.center,
+      });
       let latlng = mouseEvent.latLng;
-      tmpMarker.push(marker);
-      console.log(tmpMarker);
+      // tmpMarker.push(marker);
+      // console.log(tmpMarker);
       marker.setPosition(latlng);
-      setMarkersPosition(tmpMarker);
-      console.log(markersPosition);
+      const tempArr = markersPosition.push(marker);
+      setMarkersPosition(tempArr);
+      // setMarkersPosition([...markersPosition, marker]);
+      console.log("tempArr = ", tempArr);
 
-      console.log(`${latlng} was Clicked!`);
+      // console.log(`${latlng} was Clicked!`);
     });
-  }
+  };
 
   const checker = () => {
-    console.log('----------------------');
+    console.log("----------------------");
     console.log(markersPosition);
-    console.log('----------------------');
-  }
+    console.log("----------------------");
+  };
 
   const deleter = () => {
     setMarkersPosition([]);
-  }
+  };
 
   // 치명적 버그새끼들
 
   // 우클릭 이벤트 리스너색기 증식함
   // ㄱㄷ 추가될거임 곧
 
-
   return (
     <>
       <div style={{ display: "flex" }}>
         <div>
-          <div className="bg-hotpink rounded-3xl p-5">
-            yap
-          </div>
-
-          contents~<br />
-          contents~<br />
-          contents~<br />
-          contents~<br />
-          contents~<br />
-          contents~<br />
-          contents~<br />
+          <div className="bg-hotpink rounded-3xl p-5">yap</div>
+          contents~
+          <br />
+          contents~
+          <br />
+          contents~
+          <br />
+          contents~
+          <br />
+          contents~
+          <br />
+          contents~
+          <br />
+          contents~
+          <br />
         </div>
 
         <div>
-          <input type="text" maxLength="30" value={searchText}
-            placeholder="장소를 입력하세요!" onChange={onChangeSearchText} />
-          <button onClick={onClickSearchButton} >검색</button><br />
+          <input
+            type="text"
+            maxLength="30"
+            value={searchText}
+            placeholder="장소를 입력하세요!"
+            onChange={onChangeSearchText}
+          />
+          <button onClick={onClickSearchButton}>검색</button>
+          <br />
           <button onClick={onFocusCenter}>현위치!!!</button>
           <button onClick={markerBornClick}>맠컼찤잨</button>
           <button onClick={checker}>체크</button>
@@ -254,8 +261,7 @@ const MapService = () => {
         </div>
       </div>
     </>
-  )
-}
-
+  );
+};
 
 export default MapService;

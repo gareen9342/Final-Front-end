@@ -1,7 +1,5 @@
-import { Container } from 'postcss';
 import React, {useState} from 'react';
 import { GoogleLogin } from 'react-google-login';
-import styled from 'styled-components';
 
 const clientId = '774130593672-28ta69qb3sukr3ib2v2u8rcq20qv2gh5.apps.googleusercontent.com';
 
@@ -11,8 +9,11 @@ const GoogleButton = () => {
     const [provider ,setProvider] = useState('');
 
     const responseGoogle = (res) => {
-        location.href = ""
-        console.log(res);
+        console.log(res.profileObj);
+        console.log(res.profileObj.name);
+        console.log(res.profileObj.email);
+
+        // 구글 정보 뽑아올것
     }
 
     const responseFail = (err) => {

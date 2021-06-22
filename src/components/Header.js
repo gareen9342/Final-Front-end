@@ -8,6 +8,9 @@ const Header = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="px-12">
+          <Link to="/login">로그인</Link>
+        </li>
+        <li className="px-12">
           <Link to="/feed">feed</Link>
         </li>
         <li className="px-8 text-blue-400">

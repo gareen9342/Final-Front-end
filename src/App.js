@@ -19,6 +19,7 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [userValue, setUserValue] = useState(null);
   const authenticated = userValue != null;
+  const logout = () => setUserValue(null);
 
   //로그인한 유저정보를 가지고 온다 . name과 email로 가지고 오게 된다.
   const signUserIn = (name, email) => {
@@ -31,8 +32,11 @@ export default function App() {
     <Router>
       <div>
         {/* 로그인 했을경우 Header가 보여지게 된다. */}
-        {authenticated && <Header />}
+        {authenticated && <Header logout={logout}/>}
         <Switch>
+
+          {/* 로그인 했을 경우 */}
+
           {
             authenticated && <>
               <Route exact path="/" component={Home} />
@@ -42,6 +46,9 @@ export default function App() {
               <Route path="*" render={() => <div>404</div>} />
             </>
           }
+
+          {/* 로그인하지 못했을 경우 */}
+
           {
             !authenticated && <><Route path="/" render={() => <Login signUserIn={signUserIn} />}/></>
           }         

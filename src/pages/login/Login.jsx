@@ -4,13 +4,13 @@ import Kakao from "./Kakao";
 import Naver from "./Naver";
 import Google from "./Google";
 
-const Login = () => {
+const Login = ({signUserIn}) => {
 
     return(
         <>
             <Kakao/>
             <Naver/>
-            <Google/>
+            <Google signUserIn={signUserIn}/>
         </>
     )
 }

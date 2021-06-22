@@ -22,7 +22,7 @@ class Kakao extends Component {
                             console.log("kakao사용자 정보",res);
                         },
                         fail : (err) =>{
-                            console.log(err);
+                            console.log(err); 
                         },
                     });
                 },

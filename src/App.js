@@ -9,6 +9,7 @@ import MapService from "./pages/Map/MapService";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
 import Google from "./pages/login/Google";
+import Payment from "./pages/Iamport/Payment";
 
 import Calendar from "./pages/Calendar/Calendar";
 
@@ -27,6 +28,7 @@ export default function App() {
           <Route exact path="/map" component={MapService} />
           <Route path="/study/generate" component={StudyForm} />
           <Route exact path="/calendar" component={Calendar} />
+          <Route path="/payment" component={Payment} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>

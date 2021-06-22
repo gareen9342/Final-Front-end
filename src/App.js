@@ -33,26 +33,24 @@ export default function App() {
       <div>
         {/* 로그인 했을경우 Header가 보여지게 된다. */}
         {authenticated && <Header logout={logout}/>}
-        <Switch>
-
+        
           {/* 로그인 했을 경우 */}
-
           {
             authenticated && <>
-              <Route exact path="/" component={Home} />
-              <Route path="/feed" component={Feed} />
-              <Route exact path="/map" component={MapService} />
-              <Route path="/study/generate" component={StudyForm} />
-              <Route path="*" render={() => <div>404</div>} />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/feed" component={Feed} />
+                <Route exact path="/map" component={MapService} />
+                <Route path="/study/generate" component={StudyForm} />
+                <Route path="*" render={() => <div>404</div>} />
+              </Switch>
             </>
           }
 
           {/* 로그인하지 못했을 경우 */}
-
           {
             !authenticated && <><Route path="/" render={() => <Login signUserIn={signUserIn} />}/></>
           }         
-        </Switch>
       </div>
     </Router>
   );

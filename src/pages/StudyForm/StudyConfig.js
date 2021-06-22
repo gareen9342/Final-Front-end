@@ -7,8 +7,8 @@ export const publicOptions = [
   { key: 2, value: "비공개", name: "비공개" },
 ];
 export const meetOptions = [
-  { key: 1, value: "ONLINE", name: "ONLINE" },
-  { key: 2, value: "OFFLINE", name: "OFFLINE" },
+  { key: 1, value: "N", name: "ONLINE" },
+  { key: 2, value: "Y", name: "OFFLINE" },
 ];
 export const sortOptions = [
   { key: 1, value: "영어회화", name: "영어회화" },

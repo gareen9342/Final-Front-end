@@ -1,5 +1,6 @@
 const users = [
     {name : "박창희" , email: "arrans9591@gmail.com"},
+    {name : "pass" , email : "pass"},
 ];
 
 export function signIn( name, email ){

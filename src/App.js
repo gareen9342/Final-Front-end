@@ -20,26 +20,31 @@ export default function App() {
   const [userValue, setUserValue] = useState(null);
   const authenticated = userValue != null;
 
+  //로그인한 유저정보를 가지고 온다 . name과 email로 가지고 오게 된다.
   const signUserIn = (name, email) => {
     setName(name);
     setEmail(email);
-
-    console.log("상단에서 실행");
-
     return setUserValue(signIn(name, email));
   }
 
   return (
     <Router>
       <div>
+        {/* 로그인 했을경우 Header가 보여지게 된다. */}
         {authenticated && <Header />}
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/feed" component={Feed} />
-          <Route exact path="/map" component={MapService} />
-          <Route path="/study/generate" component={StudyForm} />
-          <Route path="/login" render={() => <Login signUserIn={signUserIn} />}/>
-          <Route path="*" render={() => <div>404</div>} />
+          {
+            authenticated && <>
+              <Route exact path="/" component={Home} />
+              <Route path="/feed" component={Feed} />
+              <Route exact path="/map" component={MapService} />
+              <Route path="/study/generate" component={StudyForm} />
+              <Route path="*" render={() => <div>404</div>} />
+            </>
+          }
+          {
+            !authenticated && <><Route path="/" render={() => <Login signUserIn={signUserIn} />}/></>
+          }         
         </Switch>
       </div>
     </Router>

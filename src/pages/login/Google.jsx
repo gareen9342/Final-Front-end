@@ -1,17 +1,13 @@
-import { Container } from 'postcss';
 import React, {useState} from 'react';
 import { GoogleLogin } from 'react-google-login';
-import styled from 'styled-components';
 
 const clientId = '774130593672-28ta69qb3sukr3ib2v2u8rcq20qv2gh5.apps.googleusercontent.com';
 
-const GoogleButton = () => {
-    const [id ,setId] = useState('');
-    const [name ,setName] = useState('');
-    const [provider ,setProvider] = useState('');
-
+const GoogleButton = ({signUserIn}) => {
+ 
     const responseGoogle = (res) => {
-        console.log(res);
+        console.log(res.profileObj.name, res.profileObj.email);
+        signUserIn(res.profileObj.name, res.profileObj.email);
     }
 
     const responseFail = (err) => {
@@ -20,7 +16,6 @@ const GoogleButton = () => {
 
     return(
         <>
-            오류나지마세요
             <GoogleLogin
                 clientId={clientId}
                 buttonText="Google"

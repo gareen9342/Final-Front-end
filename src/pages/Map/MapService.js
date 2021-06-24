@@ -20,7 +20,7 @@ const MapService = () => {
 
   //   Axios.get('/somewhere').then(response => {
   //     if (response.data.success) {
-  //       // 마커들 가져왔슴(주소로 가져온다.)
+  //       // 마커들 가져왔슴(주소id로 가져온다.)
   //       // 반경처리는 따로 해줘야된다.
   //       // setLocationAddr(response.data.^^ID^^)
   //     } else {
@@ -39,7 +39,7 @@ const MapService = () => {
     };
     const map = new kakao.maps.Map(mapContainer.current, options);
 
-    //여기가 돔에 세팅하는 단
+    // DOM 세팅단
     setKakaoMap(map);
     const ps = new kakao.maps.services.Places();
     setKakaoPs(ps);
@@ -202,6 +202,7 @@ const MapService = () => {
       // tmpMarker.push(marker);
       // console.log(tmpMarker);
       marker.setPosition(latlng);
+      activateCircle();
       const tempArr = markersPosition.push(marker);
       setMarkersPosition(tempArr);
       // setMarkersPosition([...markersPosition, marker]);
@@ -210,6 +211,30 @@ const MapService = () => {
       // console.log(`${latlng} was Clicked!`);
     });
   };
+
+
+  const activateCircle = (latlng) => {
+    let circle = new kakao.maps.Circle({
+      center: new kakao.maps.LatLng(latlng.toLatLng().toString()),
+      // radius: polyline.getLength() / 2,
+      radius: 500,
+      strokeWeight: 1,
+      strokeColor: '#00a0e9',
+      strokeOpacity: 0.1,
+      strokeStyle: 'solid',
+      fillColor: '#00a0e9',
+      fillOpacity: 0.2
+    });
+    circle.setMap(kakaoMap);
+
+    // circleCenter = circle.getPosition();
+    // circleRadius = circle.getRadius();
+  }
+
+
+
+
+  // ----------------------------------------------------------------------
 
   const checker = () => {
     console.log("----------------------");
@@ -221,12 +246,11 @@ const MapService = () => {
     setMarkersPosition([]);
   };
 
-  // 치명적 버그새끼들
+  // ----------------------------------------------------------------------
 
-  // 우클릭 이벤트 리스너색기 증식함
-  // ㄱㄷ 추가될거임 곧
 
-  const [clickable, setClickable] = useState(true);
+
+
   const leftWidth = 300;
   return (
     <div>
@@ -241,20 +265,22 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치!!!</button>
-        <button onClick={markerBornClick}>맠컼찤잨</button>
+        <button onClick={markerBornClick}>마커</button>
+
+        <br />
         <button onClick={checker}>체크</button>
         <button onClick={deleter}>del</button>
       </div>
       {/* nav */}
       <div
-        className="border border-grey-lighter"
+        class="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
         <div
-          className="border border-grey-lighter"
+          class="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
-          <div className="bg-hotpink rounded-3xl p-5">yap</div>
+          <div class="bg-hotpink rounded-3xl p-5">yap</div>
           <StudyComponent />
           <br />
           <StudyComponent />

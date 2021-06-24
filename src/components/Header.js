@@ -13,6 +13,9 @@ const Header = () => {
         <li className="px-8 text-blue-400">
           <Link to="/map">map</Link>
         </li>
+        <li className="px-8">
+          <Link to="/mystudy">my study</Link>
+        </li>
         <li>
           <Link to="/study/generate">스터디 만들기</Link>
         </li>

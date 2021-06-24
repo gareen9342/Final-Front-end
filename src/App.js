@@ -9,9 +9,8 @@ import MapService from "./pages/Map/MapService";
 import Kakao from "./pages/login/Kakao";
 import Naver from "./pages/login/Naver";
 import Google from "./pages/login/Google";
-
-import "./index.css";
 import StudyForm from "./pages/StudyForm";
+import MyStudy from "./pages/MyStudy";
 
 export default function App() {
   return (
@@ -23,6 +22,7 @@ export default function App() {
           <Route path="/feed" component={Feed} />
           <Route exact path="/map" component={MapService} />
           <Route path="/study/generate" component={StudyForm} />
+          <Route path="/mystudy" component={MyStudy} />
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </div>

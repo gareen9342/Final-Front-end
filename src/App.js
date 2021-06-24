@@ -13,11 +13,11 @@ import Login from "./pages/login/Login";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
+import MyStudy from "./pages/MyStudy";
 
 import { signIn } from "./pages/login/Auth";
 
 export default function App() {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [userValue, setUserValue] = useState(null);
@@ -29,31 +29,34 @@ export default function App() {
     setName(name);
     setEmail(email);
     return setUserValue(signIn(name, email));
-  }
+  };
 
   return (
     <Router>
       <div>
         {/* 로그인 했을경우 Header가 보여지게 된다. */}
-        {authenticated && <Header logout={logout}/>}
-        
-          {/* 로그인 했을 경우 */}
-          {
-            authenticated && <>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/feed" component={Feed} />
-                <Route exact path="/map" component={MapService} />
-                <Route path="/study/generate" component={StudyForm} />
-                <Route path="*" render={() => <div>404</div>} />
-              </Switch>
-            </>
-          }
+        {authenticated && <Header logout={logout} />}
 
-          {/* 로그인하지 못했을 경우 */}
-          {
-            !authenticated && <><Route path="/" render={() => <Login signUserIn={signUserIn} />}/></>
-          }         
+        {/* 로그인 했을 경우 */}
+        {authenticated && (
+          <>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/feed" component={Feed} />
+              <Route exact path="/map" component={MapService} />
+              <Route path="/mystudy" component={MyStudy} />
+              <Route path="/study/generate" component={StudyForm} />
+              <Route path="*" render={() => <div>404</div>} />
+            </Switch>
+          </>
+        )}
+
+        {/* 로그인하지 못했을 경우 */}
+        {!authenticated && (
+          <>
+            <Route path="/" render={() => <Login signUserIn={signUserIn} />} />
+          </>
+        )}
       </div>
     </Router>
   );

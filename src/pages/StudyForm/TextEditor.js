@@ -6,20 +6,20 @@ import axios from "axios";
 const TextEditor = () => {
   const editorRef = useRef();
 
-  const uploadImage = async (blob) => {
-    let formData = new FormData();
-    formData.append("image", blob);
-    console.log("blob = ", blob);
-    axios.defaults.withCredentials = true;
-    try {
-      const res = await axios.post("http://localhost:8787/swith/", data, {
-        header: { "content-type": "multipart/formdata" },
-      });
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const uploadImage = async (blob) => {
+  //   let formData = new FormData();
+  //   formData.append("image", blob);
+  //   console.log("blob = ", blob);
+  //   axios.defaults.withCredentials = true;
+  //   try {
+  //     const res = await axios.post("http://localhost:8787/swith/", data, {
+  //       header: { "content-type": "multipart/formdata" },
+  //     });
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div>
@@ -41,7 +41,7 @@ const TextEditor = () => {
         }}
         ref={editorRef}
       />
-      <button onClick={handleClick}>handle click</button>
+      {/* <button onClick={handleClick}>handle click</button> */}
     </div>
   );
 };

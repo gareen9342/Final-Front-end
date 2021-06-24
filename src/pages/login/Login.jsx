@@ -11,7 +11,7 @@ const Login = ({signUserIn}) => {
     };
 
     return(
-        <>
+        <>  
             <Kakao/>
             <Naver/>
             <Google signUserIn={signUserIn}/>

@@ -20,6 +20,7 @@ class Kakao extends Component {
                         url : "/v2/user/me",
                         success : (res) => {
                             console.log("kakao사용자 정보",res);
+                            console.log(res.kakao_account.email);
                         },
                         fail : (err) =>{
                             console.log(err); 

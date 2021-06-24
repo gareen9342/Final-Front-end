@@ -21,10 +21,7 @@ const MyStudy = () => {
               pathUrl={"/study/generate"}
               pathName={"스터디 만들기"}
             />
-            <NavigaionLink
-              pathUrl={"/study/generate"}
-              pathName={"스터디 관리"}
-            />
+            <NavigaionLink pathUrl={"#"} pathName={"스터디 관리"} />
           </Navigation>
         </LeftContainer>
 

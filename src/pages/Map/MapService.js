@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
+import StudyComponent from './Sections/StudyComponent';
 import useInput from "../../hooks/useInput";
 
 const { kakao } = window;
@@ -138,9 +139,9 @@ const MapService = () => {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
-            place.place_name +
-            "</div>" +
-            '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
+          place.place_name +
+          "</div>" +
+          '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
         );
         infoWindow.open(kakaoMap, marker);
       });
@@ -226,7 +227,7 @@ const MapService = () => {
   // ㄱㄷ 추가될거임 곧
 
   const [clickable, setClickable] = useState(true);
-  const leftWidth = 840;
+  const leftWidth = 300;
   return (
     <div>
       <div>
@@ -254,20 +255,9 @@ const MapService = () => {
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
           <div className="bg-hotpink rounded-3xl p-5">yap</div>
-          contents~
+          <StudyComponent />
           <br />
-          contents~
-          <br />
-          contents~
-          <br />
-          contents~
-          <br />
-          contents~
-          <br />
-          contents~
-          <br />
-          contents~
-          <br />
+          <StudyComponent />
         </div>
 
         <div

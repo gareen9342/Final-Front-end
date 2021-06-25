@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 
-const Kakao = () => {
+const Kakao =  ({signUserIn}) => {
     useEffect( () => {
         // kakao head에 스크립트 작성 방법
         const kakaoScript = document.createElement("script");
@@ -19,7 +19,7 @@ const Kakao = () => {
                         url : "/v2/user/me",
                         success : (res) => {
                             console.log("kakao사용자 정보",res);
-                            console.log(res.kakao_account.email);
+                            signUserIn(res.kakao_account.email);
                         },
                         fail : (err) =>{
                             console.log(err); 

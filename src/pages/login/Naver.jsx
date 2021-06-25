@@ -2,7 +2,7 @@ import React,{ useEffect } from "react";
 
 import "./login.css"; // 일단 이렇게 넣었심다 
 
-const Naver = () => {
+const Naver = ({signUserIn}) => {
     useEffect(() => {
         // 네이버 헤더 sdk 추가
         const naverScript = document.createElement("script");
@@ -21,10 +21,11 @@ const Naver = () => {
             
 
             naverLogin.init();
-            // naverLogin.logout(); //네이버 로그인이 계속 유지될 경우 , 초기화시 로그아웃
+            naverLogin.logout(); //네이버 로그인이 계속 유지될 경우 , 초기화시 로그아웃
             naverLogin.getLoginStatus((status) => {
                 if(status){
-                    console.log("Naver 로그인 상태" , naverLogin.user);
+                    //console.log("Naver 로그인 상태" , naverLogin.user.email);
+                    signUserIn(naverLogin.user.email);
                     //const {id, email, gender} = naverLogin.user;
 
                     // // 필수 제공 동의 조건

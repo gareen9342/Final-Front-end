@@ -6,8 +6,8 @@ const clientId = '774130593672-28ta69qb3sukr3ib2v2u8rcq20qv2gh5.apps.googleuserc
 const GoogleButton = ({signUserIn}) => {
  
     const responseGoogle = (res) => {
-        console.log(res.profileObj.name, res.profileObj.email);
-        signUserIn(res.profileObj.name, res.profileObj.email);
+        //console.log(res.profileObj.name, res.profileObj.email);
+        signUserIn(res.profileObj.email);
     }
 
     const responseFail = (err) => {

@@ -214,18 +214,21 @@ const MapService = () => {
 
 
   const activateCircle = (latlng) => {
-    let circle = new kakao.maps.Circle({
-      center: new kakao.maps.LatLng(latlng.toLatLng().toString()),
-      // radius: polyline.getLength() / 2,
-      radius: 500,
-      strokeWeight: 1,
-      strokeColor: '#00a0e9',
-      strokeOpacity: 0.1,
-      strokeStyle: 'solid',
-      fillColor: '#00a0e9',
-      fillOpacity: 0.2
-    });
-    circle.setMap(kakaoMap);
+    console.log(latlng)
+    // let circle = new kakao.maps.Circle({
+
+    //   // 수정 요
+    //   center: new kakao.maps.LatLng(),
+    //   // radius: polyline.getLength() / 2,
+    //   radius: 500,
+    //   strokeWeight: 1,
+    //   strokeColor: '#00a0e9',
+    //   strokeOpacity: 0.1,
+    //   strokeStyle: 'solid',
+    //   fillColor: '#00a0e9',
+    //   fillOpacity: 0.2
+    // });
+    // circle.setMap(kakaoMap);
 
     // circleCenter = circle.getPosition();
     // circleRadius = circle.getRadius();

@@ -1,60 +1,9 @@
-import React,{ useEffect, Component} from "react";
-import { useLocation } from 'react-router-dom';
+import React,{ useEffect } from "react";
 
 import "./login.css"; // 일단 이렇게 넣었심다 
 
-// const { naver } = window as any;
-
-// const Naver = ({props: any}) => {
-        
-//     const initializeNaverLogin = () => {
-//         const naverLogin = new window.naver.LoginWithNaverId({
-//             clientId : "uBhSLeIhOd_5giBX121t", // 내 네이버 아이디 쓸것
-//             callbackUrl : "http://localhost:3000/#", // 로그인 성공 이후 URL
-//             //callbackHandle : true,
-//             isPopup : false , // 팝업 여부
-//             loginButton : {color : "green", type : 3, height : 60 },
-//         });
-
-//         naverLogin.init();        
-//     };   
-
-//     const location = useLocation();  
-
-//     const getNaverToken = () => {
-//         console.log(location.hash);
-//         // if (!location.hash){
-//         //     console.log("이거 실행됨");
-//         //     return;
-//         // }
-//         // const token = location.hash.split('=')[1].split('&')[0];
-//         // console.log(token);
-//     };
-
-//     useEffect(() => {
-//         // const naverScript =  document.createElement("script");
-//         // naverScript.src = "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js";
-//         // document.head.appendChild(naverScript);
-//         initializeNaverLogin();     
-//         getNaverToken();    
-
-//         // return () => {
-//         //     document.head.removeChild(naverScript);
-//         // }
-//     }, []);   
-
-//     return(
-//         <div id="naverIdLogin"></div>
-//     );
-// }
-
-
-
-
-
-
-class Naver extends Component{
-    componentDidMount(){
+const Naver = () => {
+    useEffect(() => {
         // 네이버 헤더 sdk 추가
         const naverScript = document.createElement("script");
         naverScript.src = "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js";
@@ -89,11 +38,8 @@ class Naver extends Component{
                 }
             });
         };
-    }
-
-    render(){
-        return <div id="naverIdLogin"></div>
-    }
+    });
+    return (<div id="naverIdLogin"></div>);
 }
 
 export default Naver;

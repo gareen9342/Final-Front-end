@@ -179,7 +179,6 @@ const MapService = () => {
 
   const searchNear = () => {
     let marker = new kakao.maps.Marker({
-      // 지도 중심 마커 생성
       position: kakaoMap.getCenter()
     });
     marker.setMap(kakaoMap);

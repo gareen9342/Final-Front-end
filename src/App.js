@@ -18,11 +18,6 @@ import MyStudy from "./pages/MyStudy";
 import { signIn } from "./pages/login/Auth";
 
 export default function App() {
-<<<<<<< HEAD
-  const [name, setName] = useState("");
-=======
-
->>>>>>> changhee
   const [email, setEmail] = useState("");
   const [userValue, setUserValue] = useState(null);
   const authenticated = userValue != null;
@@ -31,13 +26,8 @@ export default function App() {
   //로그인한 유저정보를 가지고 온다 . name과 email로 가지고 오게 된다.
   const signUserIn = (email) => {
     setEmail(email);
-<<<<<<< HEAD
-    return setUserValue(signIn(name, email));
-  };
-=======
     return setUserValue(signIn(email));
   }
->>>>>>> changhee
 
   return (
     <Router>

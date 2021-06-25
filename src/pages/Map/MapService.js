@@ -125,6 +125,8 @@ const MapService = () => {
     }
   };
 
+
+  // 마커 클릭 이벤트
   const displayMarker = (place) => {
     let marker = null;
     if (!!kakaoMap) {
@@ -149,6 +151,8 @@ const MapService = () => {
     return marker;
   };
 
+
+  // 
   const onFocusCenter = () => {
     if (kakaoMap && navigator.geolocation) {
       // GeoLocation, 접속위치 get
@@ -172,67 +176,67 @@ const MapService = () => {
     };
   };
 
-  // 'event of Click', should I have to change the name of this func. ?
-  // const infoOfClicked = () => {
-  //   let marker = new kakao.maps.Marker({
-  //     // 지도 중심 마커 생성
-  //     position: map.getCenter()
-  //   });
-  //   marker.setMap(map);
 
-  //   kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-  //     // 클릭한 위도, 경도 정보를 가져옵니다
-  //     let latlng = mouseEvent.latLng;
-  //     // 마커 위치를 클릭한 위치로 옮깁니다
-  //     marker.setPosition(latlng);
-
-  //     let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-  //     message += '경도는 ' + latlng.getLng() + ' 입니다';
-  //     console.log(message);
-  //   });
-  // }
-
-  const markerBornClick = () => {
-    kakao.maps.event.addListener(kakaoMap, "click", function (mouseEvent) {
-      let marker = new kakao.maps.Marker({
-        map: kakaoMap,
-        position: kakaoMap.center,
-      });
-      let latlng = mouseEvent.latLng;
-      // tmpMarker.push(marker);
-      // console.log(tmpMarker);
-      marker.setPosition(latlng);
-      activateCircle();
-      const tempArr = markersPosition.push(marker);
-      setMarkersPosition(tempArr);
-      // setMarkersPosition([...markersPosition, marker]);
-      console.log("tempArr = ", tempArr);
-
-      // console.log(`${latlng} was Clicked!`);
+  const searchNear = () => {
+    let marker = new kakao.maps.Marker({
+      // 지도 중심 마커 생성
+      position: kakaoMap.getCenter()
     });
-  };
+    marker.setMap(kakaoMap);
 
+    kakao.maps.event.addListener(kakaoMap, 'click', function (mouseEvent) {
+      // 클릭한 위도, 경도 정보를 가져옵니다
+      let latlng = mouseEvent.latLng;
+      // 마커 위치를 클릭한 위치로 옮깁니다
+      marker.setPosition(latlng);
 
-  const activateCircle = (latlng) => {
-    console.log(latlng)
-    // let circle = new kakao.maps.Circle({
-
-    //   // 수정 요
-    //   center: new kakao.maps.LatLng(),
-    //   // radius: polyline.getLength() / 2,
-    //   radius: 500,
-    //   strokeWeight: 1,
-    //   strokeColor: '#00a0e9',
-    //   strokeOpacity: 0.1,
-    //   strokeStyle: 'solid',
-    //   fillColor: '#00a0e9',
-    //   fillOpacity: 0.2
-    // });
-    // circle.setMap(kakaoMap);
-
-    // circleCenter = circle.getPosition();
-    // circleRadius = circle.getRadius();
+      let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+      message += '경도는 ' + latlng.getLng() + ' 입니다';
+      console.log(message);
+    });
   }
+
+  // const markerBornClick = () => {
+  //   kakao.maps.event.addListener(kakaoMap, "click", function (mouseEvent) {
+  //     let marker = new kakao.maps.Marker({
+  //       map: kakaoMap,
+  //       position: kakaoMap.center,
+  //     });
+  //     let latlng = mouseEvent.latLng;
+  //     // tmpMarker.push(marker);
+  //     // console.log(tmpMarker);
+  //     marker.setPosition(latlng);
+  //     activateCircle(latlng);
+  //     const tempArr = markersPosition.push(marker);
+  //     setMarkersPosition(tempArr);
+  //     // setMarkersPosition([...markersPosition, marker]);
+  //     console.log("tempArr = ", tempArr);
+
+  //     // console.log(`${latlng} was Clicked!`);
+  //   });
+  // };
+
+
+  // const activateCircle = (latlng) => {
+  //   console.log(`type param-latlng ${typeof latlng}`)
+  //   let circle = new kakao.maps.Circle({
+
+  //     // 수정 요
+  //     center: new kakao.maps.LatLng(latlng),
+  //     // radius: polyline.getLength() / 2,
+  //     radius: 500,
+  //     strokeWeight: 1,
+  //     strokeColor: '#00a0e9',
+  //     strokeOpacity: 0.1,
+  //     strokeStyle: 'solid',
+  //     fillColor: '#00a0e9',
+  //     fillOpacity: 0.2
+  //   });
+  //   circle.setMap(kakaoMap);
+
+  //   // circleCenter = circle.getPosition();
+  //   // circleRadius = circle.getRadius();
+  // }
 
 
 
@@ -268,7 +272,7 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치!!!</button>
-        <button onClick={markerBornClick}>마커</button>
+        <button onClick={searchNear}>마커</button>
 
         <br />
         <button onClick={checker}>체크</button>
@@ -279,7 +283,7 @@ const MapService = () => {
         class="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        <div
+        {/* <div
           class="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
@@ -287,7 +291,7 @@ const MapService = () => {
           <StudyComponent />
           <br />
           <StudyComponent />
-        </div>
+        </div> */}
 
         <div
           style={{

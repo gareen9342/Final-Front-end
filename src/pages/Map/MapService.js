@@ -143,7 +143,7 @@ const MapService = () => {
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
           place.place_name +
           "</div>" +
-          '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
+          '<button style="border:1px solid skyblue;float:right;">버튼</button>'
         );
         infoWindow.open(kakaoMap, marker);
       });
@@ -183,15 +183,27 @@ const MapService = () => {
     });
     marker.setMap(kakaoMap);
 
+    let circle = new kakao.maps.Circle({
+      center: kakaoMap.getCenter(),
+      // radius: polyline.getLength() / 2,
+      radius: 500,
+      strokeWeight: 1,
+      strokeColor: '#00a0e9',
+      strokeOpacity: 0.1,
+      strokeStyle: 'solid',
+      fillColor: '#00a0e9',
+      fillOpacity: 0.2
+    });
+    circle.setMap(kakaoMap);
+
     kakao.maps.event.addListener(kakaoMap, 'click', function (mouseEvent) {
       // 클릭한 위도, 경도 정보를 가져옵니다
       let latlng = mouseEvent.latLng;
       // 마커 위치를 클릭한 위치로 옮깁니다
       marker.setPosition(latlng);
+      circle.setPosition(latlng);
 
-      let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-      message += '경도는 ' + latlng.getLng() + ' 입니다';
-      console.log(message);
+      // latlng.getLat(), latlng.getLng()
     });
   }
 
@@ -216,12 +228,10 @@ const MapService = () => {
   // };
 
 
-  // const activateCircle = (latlng) => {
-  //   console.log(`type param-latlng ${typeof latlng}`)
+  // const createCircle = (latlng) => {
   //   let circle = new kakao.maps.Circle({
-
   //     // 수정 요
-  //     center: new kakao.maps.LatLng(latlng),
+  //     center: new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()),
   //     // radius: polyline.getLength() / 2,
   //     radius: 500,
   //     strokeWeight: 1,
@@ -256,8 +266,8 @@ const MapService = () => {
 
 
 
-
-  const leftWidth = 300;
+  // 300 이었던 것
+  const leftWidth = 0;
   return (
     <div>
       <div>
@@ -270,7 +280,7 @@ const MapService = () => {
         />
         <button onClick={onClickSearchButton}>검색</button>
         <br />
-        <button onClick={onFocusCenter}>현위치!!!</button>
+        <button onClick={onFocusCenter}>현위치</button>
         <button onClick={searchNear}>마커</button>
 
         <br />

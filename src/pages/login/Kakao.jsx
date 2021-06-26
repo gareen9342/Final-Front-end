@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
-class Kakao extends Component {
-    componentDidMount(){
+
+const Kakao =  ({signUserIn}) => {
+    useEffect( () => {
         // kakao head에 스크립트 작성 방법
         const kakaoScript = document.createElement("script");
         kakaoScript.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
         document.head.appendChild(kakaoScript);
-
         // kakao sdk 스크립트 로드 이후에..
-
         kakaoScript.onload = () => {
             window.Kakao.init("5254f778c0d41f19460e5400739f2189") // 카카오 api 키
             window.Kakao.Auth.createLoginButton({
@@ -20,9 +19,10 @@ class Kakao extends Component {
                         url : "/v2/user/me",
                         success : (res) => {
                             console.log("kakao사용자 정보",res);
+                            signUserIn(res.kakao_account.email);
                         },
                         fail : (err) =>{
-                            console.log(err);
+                            console.log(err); 
                         },
                     });
                 },
@@ -31,11 +31,8 @@ class Kakao extends Component {
                 }
             })
         }
-    }
-
-    render(){
-        return <button type="button" id="kakao-login-btn"></button>
-    }
+    }, []);
+    return (<button type="button" id="kakao-login-btn"></button>);
 }
 
 export default Kakao;

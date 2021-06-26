@@ -13,9 +13,10 @@ const Calendar = () => {
 
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [uploadModalClose, setUploadModalClose] = useState("");
-  //
+  
   const [schedule, setSchedule] = useState({
     title: "",
+    content: "",
     start: "",
     end: "",
   });

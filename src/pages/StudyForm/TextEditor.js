@@ -6,20 +6,29 @@ import axios from "axios";
 const TextEditor = () => {
   const editorRef = useRef();
 
-  // const uploadImage = async (blob) => {
-  //   let formData = new FormData();
-  //   formData.append("image", blob);
-  //   console.log("blob = ", blob);
-  //   axios.defaults.withCredentials = true;
-  //   try {
-  //     const res = await axios.post("http://localhost:8787/swith/", data, {
-  //       header: { "content-type": "multipart/formdata" },
-  //     });
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const uploadImage = async (blob) => {
+    let formData = new FormData();
+    formData.append("file", blob);
+
+    axios.defaults.withCredentials = true;
+    try {
+      const res = await axios.post(
+        "http://localhost:8787/swith/image.do",
+        formData,
+        {
+          header: { "content-type": "multipart/formdata" },
+        }
+      );
+
+      if (res.data) {
+        // res.data내부에 url을 가지고오기
+        console.log(res.data);
+        return res.data;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
@@ -31,7 +40,13 @@ const TextEditor = () => {
         useCommandShortcut={true}
         hooks={{
           addImageBlobHook: (blob, callback) => {
-            callback(blob.name, "alt");
+            try {
+              const url = uploadImage(blob);
+              callback(url, "alt");
+            } catch (err) {
+              console.error(err);
+            }
+
             return false;
           },
         }}

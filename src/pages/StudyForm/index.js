@@ -50,7 +50,7 @@ const StudyForm = () => {
     const data = {
       studygroupname: studyName,
       studygroupdesc: description,
-      studygroupoffline: studySort,
+      studygroupoffline: isOffline,
       studygrouploc: studyLoc,
       studygroupaddrid: addressId,
       studygroupaddr: address,
@@ -77,7 +77,7 @@ const StudyForm = () => {
   };
   return (
     <Container>
-      <Editor />
+      {/* <Editor /> */}
       <div className="flex flex-col sm:flex-row items-center">
         <h2 className="font-semibold text-lg mr-auto">스터디 생성</h2>
         <div className="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>

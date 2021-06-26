@@ -4,7 +4,7 @@ import "./modal.css";
 
 
 
-const UpdateModal = ({
+const ModalUpdate = ({
   currentEvents,
   setCurrentEvents,
   open,
@@ -13,16 +13,12 @@ const UpdateModal = ({
   clickInfo,
   createEventId,
 }) => {
-  // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  // const { open, close, header } = props;
   const [title, setTitle] = useState(title);
   const [content, setContent] = useState("");
 
-  let today = new Date();
-
   const update = () => {
     const clickInfoApi = clickInfo.view.calendar;
-    clickInfoApi.unselect(); // clear date selection
+    clickInfoApi.unselect();
     const newSchedule = {
       id: createEventId(),
       title,
@@ -47,7 +43,6 @@ const UpdateModal = ({
 
 
   return (
-    // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
@@ -64,7 +59,7 @@ const UpdateModal = ({
 
             <TextField
               id="standard-basic"
-              label="일정을 입력해주세요."
+              label="일정"
               defaultValue={clickInfo.event.title}
               onChange={(e) => {
                 console.log(e.target.value);
@@ -75,16 +70,17 @@ const UpdateModal = ({
             <br />
             <br />
 
-            {console.log(clickInfo.event.startStr)}
-
             <TextField
               label="Start"
               type="datetime-local"
-              defaultValue={clickInfo.event.startStr}
+              defaultValue={clickInfo.event.startStr.split("+")[0]}
               InputLabelProps={{
                 shrink: true,
               }}
               onChange={(e) => {
+                if(e == null){
+                  clickInfo.startStr = e.target.value;
+                }
                 //console.log(e.target.value);
                 clickInfo.startStr = e.target.value;
               }} />
@@ -92,7 +88,7 @@ const UpdateModal = ({
             <TextField
               label="End"
               type="datetime-local"
-              defaultValue={clickInfo.event.endStr}
+              defaultValue={clickInfo.event.endStr.split("+")[0]}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -101,15 +97,13 @@ const UpdateModal = ({
                 clickInfo.endStr = e.target.value;
               }} />
 
-
             <br />
-
-
+            <br />
 
             <TextField
               id="standard-basic"
-              label="내용을 입력해주세요."
-              defaultValue={clickInfo.event.content}
+              label="내용"
+              defaultValue={clickInfo.event.extendedProps.content}
               multiline={true}
               rows={5}
               rowsMax={50}
@@ -142,4 +136,4 @@ const UpdateModal = ({
   );
 };
 
-export default UpdateModal;
+export default ModalUpdate;

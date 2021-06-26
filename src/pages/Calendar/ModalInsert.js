@@ -4,7 +4,7 @@ import "./modal.css";
 
 
 
-const UploadModal = ({
+const ModalInsert = ({
   currentEvents,
   setCurrentEvents,
   open,
@@ -27,8 +27,8 @@ const UploadModal = ({
       id: createEventId(),
       title,
       content,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
+      start: selectInfo.startStr.split("T")[0]+"T00:00",
+      end: selectInfo.endStr.split("T")[0]+"T00:00",
     };
 
     selectInfoApi.addEvent(newSchedule);
@@ -69,19 +69,19 @@ const UploadModal = ({
             <TextField
               label="Start"
               type="datetime-local"
-              defaultValue={selectInfo.startStr + "T00:00"}
+              defaultValue={selectInfo.startStr+"T00:00"}
               InputLabelProps={{
                 shrink: true,
               }}
               onChange={(e) => {
-                //console.log(e.target.value);
+                console.log(e.target.value.length);
                 selectInfo.startStr = e.target.value;
               }} />
 
             <TextField
               label="End"
               type="datetime-local"
-              defaultValue={selectInfo.endStr + "T23:59"}
+              defaultValue={selectInfo.endStr+"T00:00"}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -102,7 +102,6 @@ const UploadModal = ({
               multiline={true}
               rows={5}
               rowsMax={50}
-
               onChange={(e) => {
                 console.log(e.target.value);
                 setContent(e.target.value);
@@ -126,4 +125,4 @@ const UploadModal = ({
   );
 };
 
-export default UploadModal;
+export default ModalInsert;

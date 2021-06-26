@@ -62,7 +62,7 @@ const MyStudy = () => {
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
                   <p className="font-bold text-md p-4 text-black dark:text-white">
-                    Calendar자리
+                    캘린더자리
                   </p>
                 </Box>
               </div>

@@ -22,32 +22,25 @@ export default function App() {
   // 유저의 이메일 정보
   const [userValue, setUserValue] = useState(null); 
 
-  // 로그인의 경우
-  const authenticated = userValue != null;
-
-  // 회원가입 유저 
+  // 회원가입 유저의 확인
   const [yesUser, setYesUser] = useState(null);
 
+  // SNS로그인 유저의 확인
+  const authenticated = userValue != null;
+  
 
   // user 이메일 정보 삭제할 때
   const logout = () => setUserValue(null);
   //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
+
   const signUserIn = (email) => {
+    if( signIn(email) === "NotUser" ){
 
-    // email을 가지고온다.
-    if(!!signIn(email)){
-
-      // 이메일이 존재하면?
-      // signIn 이 값이 들어오면 = > userValue에 이메일 정보가 넣어진다..
       return setUserValue(signIn(email));
 
-      // 유저 정보가 없으면,
-    }else {
-      // 회원가입 페이지로 넘겨야됨
-      // 값에 직접적으로 바꿔 줘야됨 
-      const signUp
-      return 
+    }else{
 
+      return setUserValue(signIn(email));
     }
     
   }

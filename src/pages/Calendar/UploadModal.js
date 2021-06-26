@@ -16,6 +16,11 @@ const UploadModal = ({
   // const { open, close, header } = props;
   const [title, setTitle] = useState("");
   const [contesnt, setContent] = useState("");
+
+  const time_text = React.useRef();
+  const input_text = React.useRef();
+  console.log(time_text.current)
+  console.log(input_text.current)
   
 
   const insert = () => {
@@ -36,6 +41,8 @@ const UploadModal = ({
     close(true);
   };
 
+
+
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -52,6 +59,7 @@ const UploadModal = ({
 
 
           <TextField
+          inputRef ={time_text}
           id="datetime-local"
           label="Next appointment"
           type="datetime-local"
@@ -61,27 +69,26 @@ const UploadModal = ({
           }}
           onChange={(e) => {
             console.log(e.target.value);
-            setStart(e.target.value);
           }}/>
 
-          
-            일정 :
-            <input
-              label="일정"
-              type="text"
-              onChange={(e) => {
-                console.log(e.target.value);
-                setTitle(e.target.value);
-              }}
-              placeholder="일정을 입력해주세요."
-            /><br/>
-            내용 : 
-            <textarea onChange={(e) => {
-                console.log(e.target.value);
-                setContent(e.target.value);
-              }}
-              placeholder="내용을 입력해주세요."
-              ></textarea>
+
+          <TextField 
+            id="standard-basic" 
+            label="일정을 입력해주세요." 
+            onChange={(e) => {
+              console.log(e.target.value);
+              setTitle(e.target.value);
+            }} 
+            inputRef ={input_text} /> 
+          <br/>
+          <TextField id="standard-basic" 
+            label="내용을 입력해주세요." 
+            onChange={(e) => {
+              console.log(e.target.value);
+              setContent(e.target.value);
+            }} 
+            inputRef ={input_text} /> 
+
           </main>
           <footer>
             <button className="insert" onClick={insert}>

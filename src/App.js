@@ -44,6 +44,7 @@ export default function App() {
               <Route exact path="/map" component={MapService} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
+              <Route path="/calendar" component={Calendar} />
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>

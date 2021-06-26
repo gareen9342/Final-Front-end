@@ -12,7 +12,7 @@ import SelectBox from "./SelectBox";
 import { CheckLength } from "../../util/editor";
 import StudyService from "../../services/studyService";
 import { Container, Form, Row, Box } from "./UI";
-
+import Editor from "./TextEditor";
 const StudyForm = () => {
   const [studyName, setStudyName] = useState("");
   const [studyNameWarn, setStudyNameWarn] = useState("");
@@ -29,6 +29,8 @@ const StudyForm = () => {
   const [addressConfirmed, setAddressConfirmed] = useState(false);
   const [description, setDescription] = useState("");
   const [char, setChar] = useState(0);
+  //editor values
+
   const onChangeStudyName = (e) => {
     setStudyName(e.target.value);
     if (studyName.length < 5) {
@@ -75,6 +77,7 @@ const StudyForm = () => {
   };
   return (
     <Container>
+      <Editor />
       <div className="flex flex-col sm:flex-row items-center">
         <h2 className="font-semibold text-lg mr-auto">스터디 생성</h2>
         <div className="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>

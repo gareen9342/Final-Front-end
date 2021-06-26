@@ -5,8 +5,8 @@ const port = process.env.PORT || 3000;
 module.exports = {
   mode: "development",
   // jsx 사용하기 위해 resolve 를 사용 뒤에 jsx 안붙혀줘도 됨
-  resolve : {
-    extensions : ['.js','.jsx']
+  resolve: {
+    extensions: [".js", ".jsx"],
   },
   entry: "./src/index",
   output: {
@@ -35,6 +35,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader", "postcss-loader"],
+      },
+      {
+        test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: {
+          loader: "url-loader",
+          options: {
+            name: "[name].[ext]?[hash]",
+            limit: 10000,
+          },
+        },
       },
     ],
   },

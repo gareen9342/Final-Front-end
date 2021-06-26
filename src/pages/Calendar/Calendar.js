@@ -4,7 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import UploadModal from "./UploadModal";
-import dummydata, { INITIAL_EVENTS, createEventId } from "./dummy-data";
+import UpdateModal from "./UpdateModal";
+import { INITIAL_EVENTS, createEventId } from "./dummy-data";
 import "./Calendar.css";
 
 const Calendar = () => {
@@ -13,6 +14,8 @@ const Calendar = () => {
 
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [uploadModalClose, setUploadModalClose] = useState("");
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [updateModalClose, setUpdateModalClose] = useState("");
   
   const [schedule, setSchedule] = useState({
     title: "",
@@ -22,6 +25,7 @@ const Calendar = () => {
   });
 
   const [selectInfo, setSelectInfo] = useState(null);
+  const [clickInfo, setClickInfo] = useState(null);
 
   // 왼쪽 사이드바
   const renderSidebar = () => {
@@ -104,10 +108,15 @@ const Calendar = () => {
   };
 
   // 일정을 클릭하면 발생하는 이벤트
-  const handleEventClick = (clickInfo) => {
+  const handleEventClick = (clickinfo) => {
+    console.log(clickinfo);
+    setClickInfo(clickinfo);
+    openUpdateModal();
+    /*
     if (confirm(`'${clickInfo.event.title}' 일정을 정말 삭제 하시겠습니까?`)) {
       clickInfo.event.remove();
     }
+    */
   };
 
   const handleEvents = (events) => {
@@ -131,11 +140,21 @@ const Calendar = () => {
     setUploadModalOpen(false);
   };
 
+  const openUpdateModal = () => {
+    setUpdateModalOpen(true);
+  };
+  const closeUpdateModal = () => {
+    setUpdateModalOpen(false);
+  };
+
+
+
   return (
     <div className="calendar-app">
       {renderSidebar()}
 
       <div className="calendar-app-main">
+        {console.log(currentEvents)}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
@@ -165,6 +184,18 @@ const Calendar = () => {
         selectInfo={selectInfo}
         createEventId={createEventId}
       />
+      <UpdateModal
+        open={updateModalOpen}
+        close={closeUpdateModal}
+        header="일정 수정"
+        currentEvents={currentEvents}
+        setCurrentEvents={setCurrentEvents}
+        clickInfo={clickInfo}
+        createEventId={createEventId}
+      />
+
+
+
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import {TextField} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import "./modal.css";
+
 
 
 const UploadModal = ({
@@ -15,13 +16,9 @@ const UploadModal = ({
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   // const { open, close, header } = props;
   const [title, setTitle] = useState("");
-  const [contesnt, setContent] = useState("");
+  const [content, setContent] = useState("");
 
-  const time_text = React.useRef();
-  const input_text = React.useRef();
-  console.log(time_text.current)
-  console.log(input_text.current)
-  
+  let today = new Date();
 
   const insert = () => {
     const selectInfoApi = selectInfo.view.calendar;
@@ -29,10 +26,9 @@ const UploadModal = ({
     const newSchedule = {
       id: createEventId(),
       title,
-      content: selectInfo.content,
+      content,
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-      allDay: selectInfo.allDay,
     };
 
     selectInfoApi.addEvent(newSchedule);
@@ -58,37 +54,60 @@ const UploadModal = ({
           <main align="center">
 
 
-          <TextField
-          inputRef ={time_text}
-          id="datetime-local"
-          label="Next appointment"
-          type="datetime-local"
-          defaultValue="0000-00-00T00:00"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}/>
+            <TextField
+              id="standard-basic"
+              label="일정을 입력해주세요."
+              onChange={(e) => {
+                console.log(e.target.value);
+                setTitle(e.target.value);
+              }}
+            />
+
+            <br />
+            <br />
+
+            <TextField
+              label="Start"
+              type="datetime-local"
+              defaultValue={selectInfo.startStr + "T00:00"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => {
+                //console.log(e.target.value);
+                selectInfo.startStr = e.target.value;
+              }} />
+
+            <TextField
+              label="End"
+              type="datetime-local"
+              defaultValue={selectInfo.endStr + "T23:59"}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => {
+                console.log(e.target.value);
+                selectInfo.endStr = e.target.value;
+              }} />
 
 
-          <TextField 
-            id="standard-basic" 
-            label="일정을 입력해주세요." 
-            onChange={(e) => {
-              console.log(e.target.value);
-              setTitle(e.target.value);
-            }} 
-            inputRef ={input_text} /> 
-          <br/>
-          <TextField id="standard-basic" 
-            label="내용을 입력해주세요." 
-            onChange={(e) => {
-              console.log(e.target.value);
-              setContent(e.target.value);
-            }} 
-            inputRef ={input_text} /> 
+            <br />
+            <br />
 
+
+
+            <TextField
+              id="standard-basic"
+              label="내용을 입력해주세요."
+              multiline={true}
+              rows={5}
+              rowsMax={50}
+
+              onChange={(e) => {
+                console.log(e.target.value);
+                setContent(e.target.value);
+              }}
+            />
           </main>
           <footer>
             <button className="insert" onClick={insert}>

@@ -9,7 +9,7 @@ const TextEditor = () => {
   const uploadImage = async (blob) => {
     let formData = new FormData();
     formData.append("file", blob);
-    console.log("blob = ", blob);
+
     axios.defaults.withCredentials = true;
     try {
       const res = await axios.post(
@@ -19,9 +19,10 @@ const TextEditor = () => {
           header: { "content-type": "multipart/formdata" },
         }
       );
-      console.log(res);
+
       if (res.data) {
         // res.data내부에 url을 가지고오기
+        console.log(res.data);
         return res.data;
       }
     } catch (err) {

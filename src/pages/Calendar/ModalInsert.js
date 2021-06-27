@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { TextField } from '@material-ui/core';
 import "./modal.css";
+import CalendarService from "../../services/calendarService";
 
 
 
@@ -11,30 +12,34 @@ const ModalInsert = ({
   close,
   header,
   selectInfo,
-  createEventId,
 }) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   // const { open, close, header } = props;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  let today = new Date();
 
-  const insert = () => {
+  const insert = async() => {
     const selectInfoApi = selectInfo.view.calendar;
     selectInfoApi.unselect(); // clear date selection
     const newSchedule = {
-      id: createEventId(),
+      calendar_id: 11,
+      member_id: 123,
+      study_group_id: 1234,
       title,
       content,
-      start: selectInfo.startStr.split("T")[0]+"T00:00",
-      end: selectInfo.endStr.split("T")[0]+"T00:00",
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
     };
 
     selectInfoApi.addEvent(newSchedule);
     setCurrentEvents([...currentEvents, newSchedule]);
     alert('일정이 등록 되었습니다!');
+
     close(true);
+
+    const res = await CalendarService.CalendarInsert(newSchedule);
+    console.log(res);
   };
 
 
@@ -69,7 +74,7 @@ const ModalInsert = ({
             <TextField
               label="Start"
               type="datetime-local"
-              defaultValue={selectInfo.startStr+"T00:00"}
+              defaultValue={selectInfo.startStr+"T09:00"}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -81,7 +86,7 @@ const ModalInsert = ({
             <TextField
               label="End"
               type="datetime-local"
-              defaultValue={selectInfo.endStr+"T00:00"}
+              defaultValue={selectInfo.endStr+"T09:00"}
               InputLabelProps={{
                 shrink: true,
               }}

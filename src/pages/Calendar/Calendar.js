@@ -5,8 +5,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import ModalInsert from "./ModalInsert";
 import ModalUpdate from "./ModalUpdate";
-import { INITIAL_EVENTS, createEventId } from "./dummy-data";
+import CalendarService from "../../services/calendarService";
+import { INITIAL_EVENTS } from "./dummy-data";
 import "./Calendar.css";
+
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -135,6 +137,7 @@ const Calendar = () => {
         {console.log(currentEvents)}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          locale="ko"
           headerToolbar={{
             left: "prev,next today",
             center: "title",
@@ -160,7 +163,6 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
-        createEventId={createEventId}
       />
       <ModalUpdate
         open={updateModalOpen}
@@ -169,7 +171,6 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
-        createEventId={createEventId}
       />
 
 

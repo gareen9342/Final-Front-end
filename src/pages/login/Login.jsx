@@ -8,8 +8,8 @@ const Login = ({signUserIn}) => {
 
     return(
         <>  
-            {/* <Kakao signUserIn={signUserIn}/> 
-            <Naver signUserIn={signUserIn}/> */}
+            <Kakao signUserIn={signUserIn}/> 
+            <Naver signUserIn={signUserIn}/>
             <Google signUserIn={signUserIn}/>
             <br/>
             <button onClick={() => signUserIn("pass")} >다음화면으로 가려면 이거 눌러주세용</button>

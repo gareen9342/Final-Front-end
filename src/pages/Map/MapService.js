@@ -62,7 +62,7 @@ const MapService = () => {
     mapContainer.current.style.width = `100%`;
     mapContainer.current.style.height = `100%`;
 
-    // relayout and...
+    // relayout
     kakaoMap.relayout();
     // restore
     kakaoMap.setCenter(center);
@@ -196,7 +196,7 @@ const MapService = () => {
     });
     circle.setMap(kakaoMap);
 
-    kakao.maps.event.addListener(kakaoMap, 'click', function (mouseEvent) {
+    let mE = (mouseEvent) => {
       // 클릭한 위도, 경도 정보를 가져옵니다
       let latlng = mouseEvent.latLng;
       // 마커 위치를 클릭한 위치로 옮깁니다
@@ -204,7 +204,20 @@ const MapService = () => {
       circle.setPosition(latlng);
 
       // latlng.getLat(), latlng.getLng()
-    });
+    }
+
+    kakao.maps.event.addListener(kakaoMap, 'click', mE);
+
+    let confirmEvent = (mouseEvent) => {
+      let res = confirm('여기 맞아?')
+      if (res) {
+        kakao.maps.event.removeListener(kakaoMap, 'click', mE);
+        kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
+        marker.setMap(null);
+      }
+    }
+
+    kakao.maps.event.addListener(marker, 'click', confirmEvent);
   }
 
   // const markerBornClick = () => {
@@ -226,28 +239,6 @@ const MapService = () => {
   //     // console.log(`${latlng} was Clicked!`);
   //   });
   // };
-
-
-  // const createCircle = (latlng) => {
-  //   let circle = new kakao.maps.Circle({
-  //     // 수정 요
-  //     center: new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()),
-  //     // radius: polyline.getLength() / 2,
-  //     radius: 500,
-  //     strokeWeight: 1,
-  //     strokeColor: '#00a0e9',
-  //     strokeOpacity: 0.1,
-  //     strokeStyle: 'solid',
-  //     fillColor: '#00a0e9',
-  //     fillOpacity: 0.2
-  //   });
-  //   circle.setMap(kakaoMap);
-
-  //   // circleCenter = circle.getPosition();
-  //   // circleRadius = circle.getRadius();
-  // }
-
-
 
 
   // ----------------------------------------------------------------------

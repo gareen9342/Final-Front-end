@@ -1,6 +1,6 @@
 import axios from "axios";
+import { backUrl } from "../config/config";
 
-const backUrl = "http://localhost:8787/swith/";
 const ApiService = () => {};
 
 axios.defaults.baseURL = backUrl;

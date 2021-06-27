@@ -44,7 +44,7 @@ ApiService.getWithHeader = async (uri, token) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  const config = { "Content-Type": "application/json" };
+  const config = { 'Content-Type': 'application/json'};
   try {
     resData = axios.post(`${uri}`, body, config);
   } catch (error) {

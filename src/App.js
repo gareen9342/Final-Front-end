@@ -30,17 +30,20 @@ export default function App() {
   
 
   // user 이메일 정보 삭제할 때
-  const logout = () => setUserValue(null);
+  const logout = () => {
+    setUserValue(null);
+    setYesUser(null);
+  }
   //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
 
   const signUserIn = (email) => {
-    if( signIn(email) === "NotUser" ){
-
-      return setUserValue(signIn(email));
-
+    const Member = signIn(email);
+    if( Member === "NotUser" ){
+      setUserValue(Member);
+      setYesUser(false);
     }else{
-
-      return setUserValue(signIn(email));
+      setUserValue(Member);
+      setYesUser(true);
     }
     
   }
@@ -49,10 +52,10 @@ export default function App() {
     <Router>
       <div>
         {/* 로그인 했을경우 Header가 보여지게 된다. */}
-        {authenticated && <Header logout={logout} />}
+        {authenticated && yesUser && <Header logout={logout} />}
 
         {/* 로그인 했을 경우 */}
-        {authenticated && (
+        {authenticated && yesUser && (
           <>
             <Switch>
               <Route exact path="/" component={Home} />
@@ -64,9 +67,16 @@ export default function App() {
             </Switch>
           </>
         )}
+        
+        {/* 회원가입 페이지로 이동*/}
+        {/* {authenticated && !yesUser && (
+          <>
+            <Route path="/" component={}/>
+          </>
+        )} */}
 
         {/* 로그인하지 못했을 경우 */}
-        {!authenticated && (
+        {!authenticated && !yesUser && (
           <>
             <Route path="/" render={() => <Login signUserIn={signUserIn} />} />
           </>

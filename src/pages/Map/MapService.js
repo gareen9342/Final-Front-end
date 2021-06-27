@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import StudyComponent from './Sections/StudyComponent';
 import useInput from "../../hooks/useInput";
+import StudyInfo from "../../dummyData/study.json";
 
 const { kakao } = window;
 
@@ -10,25 +11,16 @@ const MapService = () => {
   const [kakaoMap, setKakaoMap] = useState(null);
   const [kakaoPs, setKakaoPs] = useState(null);
   const [infoWindow, setInfoWindow] = useState(null);
+  // 위치 검색 input
   const [searchText, onChangeSearchText] = useInput("");
+  // 마커 객체들 정보
   const [markersPosition, setMarkersPosition] = useState([]);
+  // 위치 검색 버튼
+  const [activateNear, setActivateNear] = useState(false);
 
   const mapContainer = useRef();
 
-  // from DB, get markers
-  // useEffect(() => {
 
-  //   Axios.get('/somewhere').then(response => {
-  //     if (response.data.success) {
-  //       // 마커들 가져왔슴(주소id로 가져온다.)
-  //       // 반경처리는 따로 해줘야된다.
-  //       // setLocationAddr(response.data.^^ID^^)
-  //     } else {
-  //       alert('이지역 사람들이 공부를 안하네요~');
-  //     }
-  //   })
-
-  // }, [])
 
   // 로딩
   useEffect(() => {
@@ -126,7 +118,7 @@ const MapService = () => {
   };
 
 
-  // 마커 클릭 이벤트
+  // 마커 이벤트
   const displayMarker = (place) => {
     let marker = null;
     if (!!kakaoMap) {
@@ -134,11 +126,11 @@ const MapService = () => {
         map: kakaoMap,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
-      //마커에 클릭 이벤트를 등록한다.
+      //마커에 이벤트를 등록한다.
 
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        // 장소명이 인포윈도우에 표출됩니다
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
           place.place_name +
@@ -147,6 +139,10 @@ const MapService = () => {
         );
         infoWindow.open(kakaoMap, marker);
       });
+      kakao.maps.event.addListener(kakaoMap, "click", function () {
+        infoWindow.close();
+      });
+
     }
     return marker;
   };
@@ -176,8 +172,9 @@ const MapService = () => {
     };
   };
 
-
   const searchNear = () => {
+    alert('탐색을 원하는 위치를 클릭하세요')
+    setActivateNear(true);
     let marker = new kakao.maps.Marker({
       position: kakaoMap.getCenter()
     });
@@ -209,36 +206,41 @@ const MapService = () => {
     kakao.maps.event.addListener(kakaoMap, 'click', mE);
 
     let confirmEvent = (mouseEvent) => {
-      let res = confirm('여기 맞아?')
+      let res = confirm('이 주변 스터디를 탐색할까요?');
       if (res) {
         kakao.maps.event.removeListener(kakaoMap, 'click', mE);
         kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
         marker.setMap(null);
+        circle.setMap(null);
+        setActivateNear(false);
+        console.log(StudyInfo.data);
+
+
+
+        // from DB, get markers
+
+        // Axios.get('/somewhere').then(response => {
+        //   if (response.data.success) {
+        //     // 마커들 가져왔슴(좌표로 가져온다.)
+        //     // 반경처리는 따로 해줘야된다.
+        //     // setLocationAddr(response.data.^^ID^^)
+        //   } else {
+        //     let makeStudy = confirm('주변에 스터디가 없어요, 하나 만들까요');
+        //     if (makeStudy) {
+        //       <Link to>
+        //     }
+        //   }
+        // })
+
+
+
       }
     }
 
     kakao.maps.event.addListener(marker, 'click', confirmEvent);
-  }
+  };
 
-  // const markerBornClick = () => {
-  //   kakao.maps.event.addListener(kakaoMap, "click", function (mouseEvent) {
-  //     let marker = new kakao.maps.Marker({
-  //       map: kakaoMap,
-  //       position: kakaoMap.center,
-  //     });
-  //     let latlng = mouseEvent.latLng;
-  //     // tmpMarker.push(marker);
-  //     // console.log(tmpMarker);
-  //     marker.setPosition(latlng);
-  //     activateCircle(latlng);
-  //     const tempArr = markersPosition.push(marker);
-  //     setMarkersPosition(tempArr);
-  //     // setMarkersPosition([...markersPosition, marker]);
-  //     console.log("tempArr = ", tempArr);
 
-  //     // console.log(`${latlng} was Clicked!`);
-  //   });
-  // };
 
 
   // ----------------------------------------------------------------------
@@ -272,7 +274,10 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치</button>
-        <button onClick={searchNear}>마커</button>
+        {activateNear === false &&
+          <button onClick={searchNear}>
+            주변 스터디 탐색하기
+          </button>}
 
         <br />
         <button onClick={checker}>체크</button>
@@ -280,7 +285,7 @@ const MapService = () => {
       </div>
       {/* nav */}
       <div
-        class="border border-grey-lighter"
+        className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
         {/* <div

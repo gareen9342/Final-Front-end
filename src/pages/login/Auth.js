@@ -7,12 +7,9 @@ export async function signIn(email){
     if(email == "pass"){
         return email;
     }
-
-    let signUser;
-
     console.log("진행중");
 
-    signUser = await userService.memberCheck({email})
+    const signUser = await userService.memberCheck({email})
 
     console.log("받아온데이터의 값 : " + signUser.data);
     // 했을경우 =>  AAAAAAA@naver.com

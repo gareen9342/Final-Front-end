@@ -16,9 +16,9 @@ ApiService.get = async (uri) => {
   };
   try {
     data = await axios.get(`${uri}`, config);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 
   return data;

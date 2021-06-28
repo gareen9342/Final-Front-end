@@ -23,7 +23,6 @@ const ModalInsert = ({
     const selectInfoApi = selectInfo.view.calendar;
     selectInfoApi.unselect(); // clear date selection
     const newSchedule = {
-      calendar_id: 11,
       member_id: 123,
       study_group_id: 1234,
       title,
@@ -63,7 +62,7 @@ const ModalInsert = ({
               id="standard-basic"
               label="일정을 입력해주세요."
               onChange={(e) => {
-                console.log(e.target.value);
+                // console.log(e.target.value);
                 setTitle(e.target.value);
               }}
             />
@@ -79,7 +78,7 @@ const ModalInsert = ({
                 shrink: true,
               }}
               onChange={(e) => {
-                console.log(e.target.value.length);
+                // console.log(e.target.value.length);
                 selectInfo.startStr = e.target.value;
               }} />
 
@@ -91,7 +90,7 @@ const ModalInsert = ({
                 shrink: true,
               }}
               onChange={(e) => {
-                console.log(e.target.value);
+                // console.log(e.target.value);
                 selectInfo.endStr = e.target.value;
               }} />
 
@@ -108,7 +107,7 @@ const ModalInsert = ({
               rows={5}
               rowsMax={50}
               onChange={(e) => {
-                console.log(e.target.value);
+                // console.log(e.target.value);
                 setContent(e.target.value);
               }}
             />

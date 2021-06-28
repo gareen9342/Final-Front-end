@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -12,7 +12,6 @@ import "./Calendar.css";
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
-  const [currentEvents, setCurrentEvents] = useState(INITIAL_EVENTS); // 초기에는 이벤트 쫙 세팅해줌
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
@@ -26,6 +25,15 @@ const Calendar = () => {
 
   const [selectInfo, setSelectInfo] = useState(null);
   const [clickInfo, setClickInfo] = useState(null);
+
+  const [currentEvents, setCurrentEvents] = useState([]);
+  useEffect(() => {
+    const {data} = CalendarService.CalendarSelectList();
+    console.log(data); // 데이터 요
+    if(data){
+      setCurrentEvents(data);
+    }
+  }, []);
 
   // 왼쪽 사이드바
   const renderSidebar = () => {
@@ -87,14 +95,14 @@ const Calendar = () => {
 
   // 요일부분 클릭하면 발생하는 이벤트
   const handleDateSelect = (selectinfo) => {
-    console.log(selectinfo);
+    // console.log(selectinfo);
     setSelectInfo(selectinfo);
     openInsertModal();
   };
 
   // 일정을 클릭하면 발생하는 이벤트
   const handleEventClick = (clickinfo) => {
-    console.log(clickinfo);
+    // console.log(clickinfo);
     setClickInfo(clickinfo);
     openUpdateModal();
   };
@@ -134,7 +142,7 @@ const Calendar = () => {
       {renderSidebar()}
 
       <div className="calendar-app-main">
-        {console.log(currentEvents)}
+        {/*console.log(currentEvents)*/}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           locale="ko"

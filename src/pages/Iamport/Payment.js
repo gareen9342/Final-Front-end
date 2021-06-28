@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {ShinYongCard, GyeJwaEche, MuTongJang, KakaoPay, Payco} from "./PaymentButton";
+import {PaymentButton} from "./PaymentButton";
 
 const Payment = (effect, deps) => {
     useEffect(() => {
@@ -15,17 +15,19 @@ const Payment = (effect, deps) => {
         }
     }, []);
 
+    const info = "";    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
+
     return (
         <>
-            <ShinYongCard/>
+            <PaymentButton name="신용카드" info={info} pg="html5_inicis"/>
             <br/>
-            <GyeJwaEche/>
+            <PaymentButton name="계좌이체" info={info} pg="html5_inicis" pay_method="trans"/>
             <br/>
-            <MuTongJang/>
+            <PaymentButton name="가상계좌" info={info} pg="html5_inicis" pay_method="vbank"/>
             <br/>
-            <KakaoPay/>
+            <PaymentButton name="카카오페이" info={info} pg="kakaopay"/>
             <br/>
-            <Payco/>
+            <PaymentButton name="페이코" info={info} pg="payco"/>
         </>
     );
 }

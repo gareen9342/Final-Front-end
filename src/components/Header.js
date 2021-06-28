@@ -17,6 +17,9 @@ const Header = ({ logout }) => {
           <Link to="/mystudy">my study</Link>
         </li>
         <li className="px-12">
+          <Link to="/payment">Payment</Link>
+        </li>
+        <li className="px-12">
           <Link to="/">
             <button onClick={logout}>Logout</button>
           </Link>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.css";
 
 import Header from "./components/Header";
@@ -71,6 +71,7 @@ export default function App() {
               <Route path="/study/generate" component={StudyForm} />
               <Route path="/calendar" component={Calendar} />
               <Route path="/payment" component={Payment} />
+              <Route path="/regist" component={Register}/>
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>

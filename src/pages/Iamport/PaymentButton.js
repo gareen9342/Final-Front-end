@@ -1,5 +1,5 @@
 import React from "react";
-import TestService from "./testService"
+import PaymentService from "./paymentService"
 
 const onClickPayment = (pg, pay_method="card") => {
     const { IMP } = window;
@@ -50,7 +50,7 @@ const callback = async (response) => {
     
 
     if (success) {
-        const res = await TestService.insert(paymentInfo);
+        const res = await PaymentService.insert(paymentInfo);
         console.log(res);
         alert("결제 성공");
     } else {

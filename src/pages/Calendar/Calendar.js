@@ -27,11 +27,11 @@ const Calendar = () => {
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
-  useEffect(() => {
-    const {data} = CalendarService.CalendarSelectList();
-    console.log(data); // 데이터 요
-    if(data){
-      setCurrentEvents(data);
+  useEffect( async () => {
+    const res = await CalendarService.CalendarSelectList();
+    console.log("캘린더JS에 전달되는 data : ", res.data);
+    if(res.data){
+      setCurrentEvents(res.data);
     }
   }, []);
 

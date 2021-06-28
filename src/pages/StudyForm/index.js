@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import StudyService from "../../services/studyService";
 import {
   chargeOptions,
   publicOptions,
@@ -9,10 +10,8 @@ import {
 import useInput from "../../hooks/useInput";
 import MapSearchForm from "./MapSearchForm";
 import SelectBox from "./SelectBox";
-import { CheckLength } from "../../util/editor";
-import StudyService from "../../services/studyService";
 import { Container, Form, Row, Box } from "./UI";
-
+import Editor from "./TextEditor";
 const StudyForm = () => {
   const [studyName, setStudyName] = useState("");
   const [studyNameWarn, setStudyNameWarn] = useState("");
@@ -28,27 +27,26 @@ const StudyForm = () => {
   // 고민중인 부분
   const [addressConfirmed, setAddressConfirmed] = useState(false);
   const [description, setDescription] = useState("");
-  const [char, setChar] = useState(0);
-  const onChangeStudyName = (e) => {
-    setStudyName(e.target.value);
-    if (studyName.length < 5) {
-      setStudyNameWarn("스터디 그룹의 이름은 6자 이상으로 입력해주세요.");
-    } else {
-      setStudyNameWarn("");
-    }
-  };
 
-  const onChangeDescription = (e) => {
-    setDescription(e.target.value);
-    const characters = CheckLength(e.target.value);
-    setChar(characters);
-  };
+  //editor values
 
-  const onClickSubmit = () => {
+  const onChangeStudyName = useCallback(
+    (e) => {
+      setStudyName(e.target.value);
+      if (studyName.length < 5) {
+        setStudyNameWarn("스터디 그룹의 이름은 6자 이상으로 입력해주세요.");
+      } else {
+        setStudyNameWarn("");
+      }
+    },
+    [studyName, studyNameWarn]
+  );
+
+  const onClickSubmit = useCallback(() => {
     const data = {
       studygroupname: studyName,
       studygroupdesc: description,
-      studygroupoffline: studySort,
+      studygroupoffline: isOffline,
       studygrouploc: studyLoc,
       studygroupaddrid: addressId,
       studygroupaddr: address,
@@ -72,7 +70,15 @@ const StudyForm = () => {
     }
     const res = StudyService.uploadStudy(data);
     console.log("res = ", res);
-  };
+  }, [
+    studyName,
+    description,
+    isOffline,
+    studyLoc,
+    addressId,
+    address,
+    password,
+  ]);
   return (
     <Container>
       <div className="flex flex-col sm:flex-row items-center">
@@ -185,15 +191,7 @@ const StudyForm = () => {
         )}
         <Row>
           <Box label={"스터디 설명"}>
-            <textarea
-              required={true}
-              className="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4"
-              onChange={onChangeDescription}
-              placeholder="스터디에 대한 정보를 간략히 작성해주세요 '-'"
-            ></textarea>
-            <p className="text-xs text-gray-400 text-left my-3">
-              You inserted {char} characters
-            </p>
+            <Editor setText={setDescription} />
             <div className="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
               <button className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                 Cancel

@@ -25,36 +25,35 @@
     const Regist = async () => {
         console.log(nickName, phoneNumber,intro);
         const data = {
-            nickName : {nickName},
-            phoneNumber : {phoneNumber},
-            intro : {intro},
+            nickName,
+            phoneNumber,
+            intro,
         }
         console.log(data);
 
         const res = await userService.memberInsert(data);
         console.log(res);
+
+        location.href="/";
     }
 
     return(
         <>
-
-                <div>
-                    <label htmlFor="user-nick">닉네임</label><br/>
-                    <input name="nickName" value={nickName} required onChange={onChangeNickName} />
-                </div>
-                <div>
-                    <label htmlFor="user-phoneNum">핸드폰번호</label><br/>
-                    <input name="phoneNumber" value={phoneNumber} required onChange={onChangePhoneNumber} />
-                </div>
-                <div>
-                    <label htmlFor="user-intro">자기소개</label><br/>
-                    <textarea rows="5" cols="40" name="intro" value={intro} onChange={onChangeIntro} />
-                </div>
-                <div>
-                    <button onClick={Regist}>가입하기</button>
-                </div>
- 
-           
+            <div>
+                <label htmlFor="user-nick">닉네임</label><br/>
+                <input name="nickName" value={nickName} required onChange={onChangeNickName} />
+            </div>
+            <div>
+                <label htmlFor="user-phoneNum">핸드폰번호</label><br/>
+                <input name="phoneNumber" value={phoneNumber} required onChange={onChangePhoneNumber} />
+            </div>
+            <div>
+                <label htmlFor="user-intro">자기소개</label><br/>
+                <textarea rows="5" cols="40" name="intro" value={intro} onChange={onChangeIntro} />
+            </div>
+            <div>
+                <button onClick={Regist}>가입하기</button>
+            </div>          
         </>
     )
  }

@@ -1,5 +1,5 @@
 import Axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./style.css";
 import StudyComponent from './Sections/StudyComponent';
 import useInput from "../../hooks/useInput";
@@ -147,7 +147,6 @@ const MapService = () => {
     return marker;
   };
 
-
   // 
   const onFocusCenter = () => {
     if (kakaoMap && navigator.geolocation) {
@@ -183,7 +182,7 @@ const MapService = () => {
     let circle = new kakao.maps.Circle({
       center: kakaoMap.getCenter(),
       // radius: polyline.getLength() / 2,
-      radius: 500,
+      radius: range,
       strokeWeight: 1,
       strokeColor: '#00a0e9',
       strokeOpacity: 0.1,
@@ -208,14 +207,8 @@ const MapService = () => {
     let confirmEvent = (mouseEvent) => {
       let res = confirm('이 주변 스터디를 탐색할까요?');
       if (res) {
-        kakao.maps.event.removeListener(kakaoMap, 'click', mE);
-        kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
-        marker.setMap(null);
-        circle.setMap(null);
         setActivateNear(false);
         console.log(StudyInfo.data);
-
-
 
         // from DB, get markers
 
@@ -232,9 +225,14 @@ const MapService = () => {
         //   }
         // })
 
-
-
+      } else {
+        setActivateNear(false);
       }
+      kakao.maps.event.removeListener(kakaoMap, 'click', mE);
+      kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
+      marker.setMap(null);
+      circle.setMap(null);
+      console.log(activateNear);
     }
 
     kakao.maps.event.addListener(marker, 'click', confirmEvent);
@@ -257,7 +255,16 @@ const MapService = () => {
 
   // ----------------------------------------------------------------------
 
-
+  const [range, setRange] = useState(500);
+  const onChangeRange = (e) => {
+    setRange(e.target.value);
+  }
+  // 범위 옵션
+  const rangeNear = useMemo(() => [
+    { value: 500, label: "500m" },
+    { value: 1000, label: "1km" },
+    { value: 2000, label: "2km" },
+  ], [])
 
   // 300 이었던 것
   const leftWidth = 0;
@@ -274,10 +281,16 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치</button>
-        {activateNear === false &&
+        {activateNear === false ? <>
           <button onClick={searchNear}>
             주변 스터디 탐색하기
-          </button>}
+          </button>
+          <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
+            {rangeNear.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+            {/* <option value="m500">500m</option>
+            <option value="m1000">1km</option>
+            <option value="m2000">2km</option> */}
+          </select> </> : ''}
 
         <br />
         <button onClick={checker}>체크</button>

@@ -55,7 +55,7 @@ const StudyForm = () => {
       studygrouppw: password,
     };
     console.log(data);
-    // 채워져야 할mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm 칸들이 비어져 있다면
+    // 채워져야 할 칸들이 비어져 있다면
     if (!studyName.length || !description.length) {
       return alert("모든 작성란을 입력해주세요.");
     }

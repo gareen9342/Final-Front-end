@@ -9,13 +9,12 @@ import CalendarService from "../../services/calendarService";
 import { INITIAL_EVENTS } from "./dummy-data";
 import "./Calendar.css";
 
-
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-  
+
   const [schedule, setSchedule] = useState({
     title: "",
     content: "",
@@ -27,16 +26,28 @@ const Calendar = () => {
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (loading) {
+      /**
+       * (async () => {
+        const { data : res } =  await CalendarService.CalendarSelectList();
+        if(res.data){
+          setCurrentEvents(res.data);
+          setLoading(false); // ??이건 잘 모르겠음 
+        }
+      })();
+       */
+      const data = INITIAL_EVENTS;
+      setCurrentEvents(data);
+    }
 
-  useEffect( () => {
-    (async () => {
-      const res = await CalendarService.CalendarSelectList();
-      console.log("캘린더JS에 전달되는 data : ", res.data);
-      if(res.data){
-        setCurrentEvents(res.data);
+    return () => {
+      if (loading) {
+        setLoading(false);
       }
-    })()   
-  }, []);
+    };
+  }, [loading]);
 
   // 왼쪽 사이드바
   const renderSidebar = () => {
@@ -138,15 +149,11 @@ const Calendar = () => {
     setUpdateModalOpen(false);
   };
 
-
-
   return (
     <div className="calendar-app">
       {renderSidebar()}
 
       <div className="calendar-app-main">
-        {currentEvents.length}
-        {/*console.log(currentEvents)*/}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           locale="ko"
@@ -165,7 +172,8 @@ const Calendar = () => {
           select={handleDateSelect} // 일정 누르면 일정 삽입가능
           eventContent={renderEventContent} //
           eventClick={handleEventClick} // 추가되어있는 일정 클릭시 발생 이벤트
-          eventsSet={handleEvents} // 총 일정
+          // eventsSet={handleEvents} // 총 일정
+          events={currentEvents}
         />
       </div>
       <ModalInsert
@@ -184,9 +192,6 @@ const Calendar = () => {
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
       />
-
-
-
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import React, { useState, useRef } from "react";
-import { TextField } from '@material-ui/core';
+import { TextField } from "@material-ui/core";
 import "./modal.css";
-
-
 
 const ModalUpdate = ({
   currentEvents,
@@ -29,7 +27,7 @@ const ModalUpdate = ({
 
     clickInfoApi.addEvent(newSchedule);
     setCurrentEvents([...currentEvents, newSchedule]);
-    alert('일정이 수정 되었습니다!');
+    alert("일정이 수정 되었습니다!");
     close(true);
   };
 
@@ -38,9 +36,7 @@ const ModalUpdate = ({
       clickInfo.event.remove();
     }
     close(true);
-  }
-
-
+  };
 
   return (
     <div className={open ? "openModal modal" : "modal"}>
@@ -54,9 +50,6 @@ const ModalUpdate = ({
             </button>
           </header>
           <main align="center">
-
-            
-
             <TextField
               id="standard-basic"
               label="일정"
@@ -78,13 +71,14 @@ const ModalUpdate = ({
                 shrink: true,
               }}
               onChange={(e) => {
-                if(e == null){
+                if (e == null) {
                   clickInfo.startStr = e.target.value;
                 }
                 //console.log(e.target.value);
                 clickInfo.startStr = e.target.value;
-              }} />
-
+              }}
+            />
+            {console.log(clickInfo.event.endStr)}
             <TextField
               label="End"
               type="datetime-local"
@@ -95,7 +89,8 @@ const ModalUpdate = ({
               onChange={(e) => {
                 console.log(e.target.value);
                 clickInfo.endStr = e.target.value;
-              }} />
+              }}
+            />
 
             <br />
             <br />
@@ -107,7 +102,6 @@ const ModalUpdate = ({
               multiline={true}
               rows={5}
               rowsMax={50}
-
               onChange={(e) => {
                 console.log(e.target.value);
                 setContent(e.target.value);
@@ -115,7 +109,7 @@ const ModalUpdate = ({
             />
           </main>
           <footer>
-          <button className="update" onClick={update}>
+            <button className="update" onClick={update}>
               {" "}
               update{" "}
             </button>

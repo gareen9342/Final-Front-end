@@ -1,2 +1,12 @@
 import React from "react";
-export default () => <div> this is feed</div>;
+import { Container, Card, Bar } from "./UI";
+export default () => {
+  return (
+    <>
+      <Bar username="username" />
+      <Container>
+        <Card content={"피드 내용"} username={"가린"} />
+      </Container>
+    </>
+  );
+};

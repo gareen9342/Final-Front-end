@@ -19,7 +19,7 @@ const StudyForm = () => {
   const [isPublic, onChangeIsPublic] = useInput("공개");
   const [password, onChangePassword] = useInput("");
   const [studySort, onChangeStudySort] = useInput("영어회화");
-  const [studyLoc, onChangeStudyLoc] = useInput("서울");
+  const [area, onChangeArea] = useInput("서울");
   // address 세팅
   const [address, setAddress] = useState("");
   const [addressLng, setAddressLng] = useState("");
@@ -48,14 +48,14 @@ const StudyForm = () => {
       studygroupname: studyName,
       studygroupdesc: description,
       studygroupoffline: isOffline,
-      studygrouploc: studyLoc,
+      studygrouparea: area,
       studygrouplng: addressLng,
       studygrouplat: addressLat,
       studygroupaddr: address,
       studygrouppw: password,
     };
     console.log(data);
-    // 채워져야 할 칸들이 비어져 있다면
+    // 채워져야 할mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm 칸들이 비어져 있다면
     if (!studyName.length || !description.length) {
       return alert("모든 작성란을 입력해주세요.");
     }
@@ -76,7 +76,7 @@ const StudyForm = () => {
     studyName,
     description,
     isOffline,
-    studyLoc,
+    area,
     addressLng,
     addressLat,
     address,
@@ -131,8 +131,8 @@ const StudyForm = () => {
           <Box label={"지역 선택"} required={true}>
             <SelectBox
               options={locationOptions}
-              value={studyLoc}
-              onChange={onChangeStudyLoc}
+              value={area}
+              onChange={onChangeArea}
             />
           </Box>
         </Row>

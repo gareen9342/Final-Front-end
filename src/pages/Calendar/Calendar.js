@@ -27,16 +27,23 @@ const Calendar = () => {
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
-
-  useEffect( () => {
+  // useEffect( async () => {
+  //   const res = await CalendarService.CalendarSelectList();
+  //   console.log("캘린더JS에 전달되는 data : ", res.data);
+  //   if(res.data){
+  //     setCurrentEvents(res.data);
+  //   }
+  // }, []);
+  useEffect(() => {
     (async () => {
       const res = await CalendarService.CalendarSelectList();
-      console.log("캘린더JS에 전달되는 data : ", res.data);
-      if(res.data){
-        setCurrentEvents(res.data);
-      }
-    })()   
+       console.log("캘린더JS에 전달되는 data : ", res.data);
+       if (res.data) {
+         setCurrentEvents(res.data);
+       }
+   })();
   }, []);
+  
 
   // 왼쪽 사이드바
   const renderSidebar = () => {
@@ -83,7 +90,7 @@ const Calendar = () => {
 
   function renderSidebarEvent(event) {
     return (
-      <li key={event.calendar_id}>
+      <li key={event.id}>
         <b>
           {formatDate(event.start, {
             year: "numeric",
@@ -142,11 +149,9 @@ const Calendar = () => {
 
   return (
     <div className="calendar-app">
-      {renderSidebar()}
+      {/*renderSidebar()*/}
 
       <div className="calendar-app-main">
-        {currentEvents.length}
-        {/*console.log(currentEvents)*/}
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           locale="ko"
@@ -166,6 +171,7 @@ const Calendar = () => {
           eventContent={renderEventContent} //
           eventClick={handleEventClick} // 추가되어있는 일정 클릭시 발생 이벤트
           eventsSet={handleEvents} // 총 일정
+          events={currentEvents}
         />
       </div>
       <ModalInsert

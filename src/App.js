@@ -41,12 +41,12 @@ export default function App() {
     const Member = await signIn(email);
     console.log("Member의 값" + Member);
     if( Member == "NotUser" ){
-      setUserValue(Member);
+      setUserValue(email);
       setYesUser(false);
 
       console.log("로그인했지만 회원아님");
     }else{
-      setUserValue(Member);
+      setUserValue(email);
       setYesUser(true);
 
       console.log("로그인한 회원임");
@@ -80,7 +80,7 @@ export default function App() {
         {/* 회원가입 페이지로 이동*/}
         {authenticated && !yesUser && (
           <>
-            <Route path="/" component={Register}/>
+            <Route path="/" render={() => <Register email={userValue} />}/>
           </>
         )}
 

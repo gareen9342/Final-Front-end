@@ -2,14 +2,14 @@
 import { useHistory } from 'react-router';
  import userService from '../../services/userService';
 
- const Register = () => {
+ const Register = ({email}) => {
     const history = useHistory();
     const [nickName, setNickName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [errorPhoneNumber, setErrorPhoneNumber] = useState(false);
     const [intro, setIntro] = useState("");
     const [location, setLocation] = useState("");
-
+    
     const onChangeNickName = (e) => {
         setNickName(e.target.value);
         console.log(nickName);
@@ -38,11 +38,13 @@ import { useHistory } from 'react-router';
         }
         
         if(phoneCheck(phoneNumber)){
-            console.log(nickName, phoneNumber,intro, location);
+            console.log(nickName, phoneNumber,intro, location,email);
             const data = {
+                email,
                 nickName,
                 phoneNumber,
                 intro,
+                location,
             }
         
             const res = await userService.memberInsert(data);

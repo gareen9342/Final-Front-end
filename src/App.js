@@ -71,7 +71,6 @@ export default function App() {
               <Route path="/study/generate" component={StudyForm} />
               <Route path="/calendar" component={Calendar} />
               <Route path="/payment" component={Payment} />
-              <Route path="/regist" component={Register}/>
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>
@@ -80,7 +79,7 @@ export default function App() {
         {/* 회원가입 페이지로 이동*/}
         {authenticated && !yesUser && (
           <>
-            <Route path="/" render={() => <Register email={userValue} />}/>
+            <Route path="/" render={() => <Register email={userValue} logout={logout}/>}/>
           </>
         )}
 

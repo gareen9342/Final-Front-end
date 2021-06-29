@@ -2,14 +2,14 @@
 import { useHistory } from 'react-router';
  import userService from '../../services/userService';
 
- const Register = ({email}) => {
+ const Register = ({email,logout}) => {
     const history = useHistory();
     const [nickName, setNickName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [errorPhoneNumber, setErrorPhoneNumber] = useState(false);
     const [intro, setIntro] = useState("");
     const [location, setLocation] = useState("");
-    
+
     const onChangeNickName = (e) => {
         setNickName(e.target.value);
         console.log(nickName);
@@ -49,7 +49,7 @@ import { useHistory } from 'react-router';
         
             const res = await userService.memberInsert(data);
             console.log(res);
-
+            logout();
             history.push("/");
         }else{
             console.log("전화번호 양식이 틀렷습니다.");
@@ -81,7 +81,7 @@ import { useHistory } from 'react-router';
             </div>
             <div>
                 <button onClick={Regist}>가입하기</button>
-            </div>          
+            </div>     
         </>
     )
  }

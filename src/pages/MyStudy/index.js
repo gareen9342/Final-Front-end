@@ -1,8 +1,6 @@
 import React from "react";
 import {
   Box,
-  ToDoList,
-  ToDoListItem,
   Profile,
   LeftContainer,
   NavigaionLink,
@@ -10,7 +8,7 @@ import {
   Header,
   SearchBar,
 } from "./UI";
-
+import ToDoList from "./ToDoList";
 const MyStudy = () => {
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
@@ -45,18 +43,7 @@ const MyStudy = () => {
                       (할일 전체 갯수)
                     </span>
                   </p>
-                  <ToDoList>
-                    <ToDoListItem
-                      checked={false}
-                      index={"01"}
-                      taskName={"발닦기"}
-                    />
-                    <ToDoListItem
-                      checked={true}
-                      index={"02"}
-                      taskName={"잠자기"}
-                    />
-                  </ToDoList>
+                  <ToDoList />
                 </Box>
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">

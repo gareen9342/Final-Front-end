@@ -105,54 +105,7 @@ export const Profile = ({ studyname }) => (
     </span>
   </>
 );
-export const ToDoList = ({ children }) => <ul>{children}</ul>;
-export const ToDoListItem = ({ index, checked, taskName }) => (
-  <li className="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
-    {checked ? (
-      <>
-        <div className="flex items-center justify-start text-sm">
-          <span className="mx-4">{index}</span>
-          <span className="line-through">{taskName}</span>
-        </div>
-        <svg
-          width="20"
-          height="20"
-          fill="currentColor"
-          viewBox="0 0 1024 1024"
-          className="text-green-500 mx-4"
-        >
-          <path
-            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8l157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </>
-    ) : (
-      <>
-        <div className="flex items-center justify-start text-sm">
-          <span className="mx-4"> {index} </span>
-          <span>{taskName}</span>
-        </div>
-        <svg
-          width="20"
-          height="20"
-          fill="currentColor"
-          className="mx-4 text-gray-400 dark:text-gray-300"
-          viewBox="0 0 1024 1024"
-        >
-          <path
-            d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z"
-            fill="currentColor"
-          ></path>
-          <path
-            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372s372 166.6 372 372s-166.6 372-372 372z"
-            fill="currentColor"
-          ></path>
-        </svg>
-      </>
-    )}
-  </li>
-);
+
 export const LeftContainer = ({ children }) => (
   <div className="h-screen hidden lg:block my-4 ml-4 shadow-lg relative w-80">
     <div className="bg-white h-full rounded-2xl dark:bg-gray-700">
@@ -228,4 +181,73 @@ export const SearchBar = () => (
       +
     </div>
   </div>
+);
+
+// ============== todolist ============== //
+export const AddButton = ({ onClickButton }) => (
+  <button
+    className="p-0 w-10 h-10 bg-green-500 rounded-full hover:bg-green-500 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
+    onClick={onClickButton}
+  >
+    <svg
+      viewBox="0 0 20 20"
+      enableBackground="new 0 0 20 20"
+      className="w-6 h-6 inline-block"
+    >
+      <path
+        fill="#FFFFFF"
+        d="M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601
+                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399
+                    C15.952,9,16,9.447,16,10z"
+      />
+    </svg>
+  </button>
+);
+export const ToDoList = ({ children }) => <ul>{children}</ul>;
+export const ToDoListItem = ({ index, checked, taskName }) => (
+  <li className="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
+    {checked ? (
+      <>
+        <div className="flex items-center justify-start text-sm">
+          <span className="mx-4">{index}</span>
+          <span className="line-through">{taskName}</span>
+        </div>
+        <svg
+          width="20"
+          height="20"
+          fill="currentColor"
+          viewBox="0 0 1024 1024"
+          className="text-green-500 mx-4"
+        >
+          <path
+            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8l157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </>
+    ) : (
+      <>
+        <div className="flex items-center justify-start text-sm">
+          <span className="mx-4"> {index} </span>
+          <span>{taskName}</span>
+        </div>
+        <svg
+          width="20"
+          height="20"
+          fill="currentColor"
+          className="mx-4 text-gray-400 dark:text-gray-300"
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M699 353h-46.9c-10.2 0-19.9 4.9-25.9 13.3L469 584.3l-71.2-98.8c-6-8.3-15.6-13.3-25.9-13.3H325c-6.5 0-10.3 7.4-6.5 12.7l124.6 172.8a31.8 31.8 0 0 0 51.7 0l210.6-292c3.9-5.3.1-12.7-6.4-12.7z"
+            fill="currentColor"
+          ></path>
+          <path
+            d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372s372 166.6 372 372s-166.6 372-372 372z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </>
+    )}
+  </li>
 );

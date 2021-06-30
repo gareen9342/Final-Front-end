@@ -22,7 +22,8 @@ const StudyForm = () => {
   const [studyLoc, onChangeStudyLoc] = useInput("서울");
   // address 세팅
   const [address, setAddress] = useState("");
-  const [addressId, setAddressId] = useState("");
+  const [addressLng, setAddressLng] = useState("");
+  const [addressLat, setAddressLat] = useState("");
   const [isOffline, onChangeisOffline] = useInput("N");
   // 고민중인 부분
   const [addressConfirmed, setAddressConfirmed] = useState(false);
@@ -48,7 +49,8 @@ const StudyForm = () => {
       studygroupdesc: description,
       studygroupoffline: isOffline,
       studygrouploc: studyLoc,
-      studygroupaddrid: addressId,
+      studygrouplng: addressLng,
+      studygrouplat: addressLat,
       studygroupaddr: address,
       studygrouppw: password,
     };
@@ -75,7 +77,8 @@ const StudyForm = () => {
     description,
     isOffline,
     studyLoc,
-    addressId,
+    addressLng,
+    addressLat,
     address,
     password,
   ]);
@@ -181,8 +184,9 @@ const StudyForm = () => {
             <Box label={"지역 검색하기"} required={true}>
               <MapSearchForm
                 address={address}
+                setAddressLng={setAddressLng}
+                setAddressLat={setAddressLat}
                 setAddress={setAddress}
-                setAddressId={setAddressId}
                 setAddressConfirmed={setAddressConfirmed}
                 addressConfirmed={addressConfirmed}
               />

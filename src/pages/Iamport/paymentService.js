@@ -1,0 +1,29 @@
+import ApiService from "/src/services/.apiservice";
+const PaymentService = () => {};
+
+PaymentService.selectList = (memberid) => {
+    return ApiService.post("/payment/selectList.do", memberid);
+};
+PaymentService.selectListPeriod = (PaymentDto) => {
+    return ApiService.post("/payment/selectListPeriod.do", PaymentDto);
+};
+PaymentService.selectOne = (paymentid) => {
+    return ApiService.post("/payment/selectOne.do", paymentid);
+};
+PaymentService.insert = (paymentInfo) => {
+    return ApiService.post("/payment/insert.do", paymentInfo);
+};
+PaymentService.refund = (paymentid) => {
+    return ApiService.post("/payment/refund.do", paymentid);
+};
+
+
+// TestService.postTestPosts = () => {
+//     return ApiService.post("/insert.do",{
+//         "ename" : "testname",
+//         "job" : "beaksoo",
+//         "mgr" : "7698"
+//     });
+// };
+
+export default PaymentService;

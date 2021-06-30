@@ -9,13 +9,12 @@ import CalendarService from "../../services/calendarService";
 import { INITIAL_EVENTS } from "./dummy-data";
 import "./Calendar.css";
 
-
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-  
+
   const [schedule, setSchedule] = useState({
     title: "",
     content: "",
@@ -27,23 +26,27 @@ const Calendar = () => {
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
-  // useEffect( async () => {
-  //   const res = await CalendarService.CalendarSelectList();
-  //   console.log("캘린더JS에 전달되는 data : ", res.data);
-  //   if(res.data){
-  //     setCurrentEvents(res.data);
-  //   }
-  // }, []);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    (async () => {
-      const res = await CalendarService.CalendarSelectList();
-       console.log("캘린더JS에 전달되는 data : ", res.data);
-       if (res.data) {
-         setCurrentEvents(res.data);
-       }
-   })();
-  }, []);
-  
+    if (loading) {
+       (async () => {
+        const res =  await CalendarService.CalendarSelectList();
+        // console.log("제발 ㅠㅠ : ", res.data);
+        if(res.data){
+          setCurrentEvents(res.data);
+          setLoading(false); // ??이건 잘 모르겠음 
+        }
+      })();
+      // const data = INITIAL_EVENTS;
+      // setCurrentEvents(data);
+    }
+
+    return () => {
+      if (loading) {
+        setLoading(false);
+      }
+    };
+  }, [loading]);
 
   // 왼쪽 사이드바
   const renderSidebar = () => {
@@ -112,8 +115,8 @@ const Calendar = () => {
 
   // 일정을 클릭하면 발생하는 이벤트
   const handleEventClick = (clickinfo) => {
-    // console.log(clickinfo);
     setClickInfo(clickinfo);
+    console.log("ㅁㄴㅇㄹ : ",currentEvents, clickinfo);
     openUpdateModal();
   };
 
@@ -145,12 +148,9 @@ const Calendar = () => {
     setUpdateModalOpen(false);
   };
 
-
-
   return (
     <div className="calendar-app">
-      {/*renderSidebar()*/}
-
+      {renderSidebar()}
       <div className="calendar-app-main">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -170,7 +170,7 @@ const Calendar = () => {
           select={handleDateSelect} // 일정 누르면 일정 삽입가능
           eventContent={renderEventContent} //
           eventClick={handleEventClick} // 추가되어있는 일정 클릭시 발생 이벤트
-          eventsSet={handleEvents} // 총 일정
+          // eventsSet={handleEvents} // 총 일정
           events={currentEvents}
         />
       </div>
@@ -190,9 +190,6 @@ const Calendar = () => {
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
       />
-
-
-
     </div>
   );
 };

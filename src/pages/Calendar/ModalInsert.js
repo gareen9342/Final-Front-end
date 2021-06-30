@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
-import { TextField } from '@material-ui/core';
+import { TextField } from "@material-ui/core";
 import "./modal.css";
 import CalendarService from "../../services/calendarService";
-
-
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 const ModalInsert = ({
   currentEvents,
@@ -18,8 +17,7 @@ const ModalInsert = ({
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-
-  const insert = async() => {
+  const insert = async () => {
     const selectInfoApi = selectInfo.view.calendar;
     selectInfoApi.unselect(); // clear date selection
     const newSchedule = {
@@ -27,21 +25,22 @@ const ModalInsert = ({
       study_group_id: 1234,
       title,
       content,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
+      start: selectInfo.startStr.split("T")[0] + "T09:00",
+      end: selectInfo.endStr.split("T")[0] + "T09:00",
     };
 
-    selectInfoApi.addEvent(newSchedule);
-    setCurrentEvents([...currentEvents, newSchedule]);
-    alert('일정이 등록 되었습니다!');
+    console.log(newSchedule);
+
+    // selectInfoApi.addEvent(newSchedule); // 이거랑
+    //console.log("events = ", [...currentEvents, newSchedule]);
+    setCurrentEvents([...currentEvents, newSchedule]); // 이거 둘 중 하나만 써야함!
+    alert("일정이 등록 되었습니다!");
 
     close(true);
 
     const res = await CalendarService.CalendarInsert(newSchedule);
     console.log(res);
   };
-
-
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -56,8 +55,6 @@ const ModalInsert = ({
             </button>
           </header>
           <main align="center">
-
-
             <TextField
               id="standard-basic"
               label="일정을 입력해주세요."
@@ -73,32 +70,30 @@ const ModalInsert = ({
             <TextField
               label="Start"
               type="datetime-local"
-              defaultValue={selectInfo.startStr+"T09:00"}
+              defaultValue={selectInfo.startStr + "T09:00"}
               InputLabelProps={{
                 shrink: true,
               }}
               onChange={(e) => {
                 // console.log(e.target.value.length);
                 selectInfo.startStr = e.target.value;
-              }} />
+              }}
+            />
 
             <TextField
               label="End"
               type="datetime-local"
-              defaultValue={selectInfo.endStr+"T09:00"}
+              defaultValue={selectInfo.endStr + "T09:00"}
               InputLabelProps={{
                 shrink: true,
               }}
               onChange={(e) => {
-                // console.log(e.target.value);
                 selectInfo.endStr = e.target.value;
-              }} />
-
+              }}
+            />
 
             <br />
             <br />
-
-
 
             <TextField
               id="standard-basic"

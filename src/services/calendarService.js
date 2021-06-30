@@ -8,7 +8,18 @@ CalendarService.CalendarSelectList = () => {
 };
 
 CalendarService.CalendarInsert = (data) => {
+  console.log("service : ", data);
   return ApiService.post("calendarInsert.do", data);
+};
+
+CalendarService.CalendarUpdate = (data) => {
+  console.log("service : ", data);
+  return ApiService.post("calendarUpdate.do", data);
+};
+
+CalendarService.CalendarDelete = (data) => {
+  console.log("service : ", data);
+  return ApiService.post("calendarDelete.do", data);
 };
 
 export default CalendarService;

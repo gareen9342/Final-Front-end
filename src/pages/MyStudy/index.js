@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Box,
   ToDoList,
@@ -11,6 +10,7 @@ import {
   Header,
   SearchBar,
 } from "./UI";
+
 const MyStudy = () => {
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
@@ -24,7 +24,6 @@ const MyStudy = () => {
             <NavigaionLink pathUrl={"#"} pathName={"스터디 관리"} />
           </Navigation>
         </LeftContainer>
-
         {/* end left */}
         {/* start right */}
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">

@@ -4,7 +4,8 @@ import useInput from "../../hooks/useInput";
 const MapSearchForm = ({
   address,
   setAddress,
-  setAddressId,
+  setAddressLat,
+  setAddressLng,
   addressConfirmed,
   setAddressConfirmed,
 }) => {
@@ -95,13 +96,14 @@ const MapSearchForm = ({
         position: new kakao.maps.LatLng(place.y, place.x),
       });
       //마커에 클릭 이벤트를 등록한다.
-
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         setAddress(`${place.address_name} ${place.place_name}`);
-        setAddressId(place.id);
-        console.log(place.id);
+
+        setAddressLng(place.x); // longitude : 경도, x값
+        setAddressLat(place.y); // latitude : 위도, y값
+
         infoWindow.setContent(
           `<div style="padding:5px;font-size:12px;cursor:pointer;" > ${place.place_name} </div>`
         );

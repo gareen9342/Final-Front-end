@@ -4,6 +4,7 @@ import "./style.css";
 import StudyComponent from './Sections/StudyComponent';
 import useInput from "../../hooks/useInput";
 import StudyInfo from "../../dummyData/study.json";
+import StudyService from '../../services/studyService';
 
 const { kakao } = window;
 
@@ -192,6 +193,7 @@ const MapService = () => {
     });
     circle.setMap(kakaoMap);
 
+    let lat, lng;
     let mE = (mouseEvent) => {
       // 클릭한 위도, 경도 정보를 가져옵니다
       let latlng = mouseEvent.latLng;
@@ -199,31 +201,23 @@ const MapService = () => {
       marker.setPosition(latlng);
       circle.setPosition(latlng);
 
-      // latlng.getLat(), latlng.getLng()
+      lat = latlng.getLat();
+      lng = latlng.getLng();
+
     }
 
     kakao.maps.event.addListener(kakaoMap, 'click', mE);
 
-    let confirmEvent = (mouseEvent) => {
+    let confirmEvent = () => {
       let res = confirm('이 주변 스터디를 탐색할까요?');
       if (res) {
         setActivateNear(false);
         console.log(StudyInfo.data);
 
-        // from DB, get markers
-
-        // Axios.get('/somewhere').then(response => {
-        //   if (response.data.success) {
-        //     // 마커들 가져왔슴(좌표로 가져온다.)
-        //     // 반경처리는 따로 해줘야된다.
-        //     // setLocationAddr(response.data.^^ID^^)
-        //   } else {
-        //     let makeStudy = confirm('주변에 스터디가 없어요, 하나 만들까요');
-        //     if (makeStudy) {
-        //       <Link to>
-        //     }
-        //   }
-        // })
+        if (!!lng && !!lat) {
+          StudyService.searchStudy(lat, lng);
+          console.log('request~');
+        }
 
       } else {
         setActivateNear(false);
@@ -232,7 +226,7 @@ const MapService = () => {
       kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
       marker.setMap(null);
       circle.setMap(null);
-      console.log(activateNear);
+      // console.log(activateNear);
     }
 
     kakao.maps.event.addListener(marker, 'click', confirmEvent);
@@ -287,9 +281,6 @@ const MapService = () => {
           </button>
           <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
             {rangeNear.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-            {/* <option value="m500">500m</option>
-            <option value="m1000">1km</option>
-            <option value="m2000">2km</option> */}
           </select> </> : ''}
 
         <br />

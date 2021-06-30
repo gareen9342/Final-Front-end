@@ -11,7 +11,7 @@ const StudyComponent = () => {
         <div class="max-w-md mx-auto bg-green-50 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div class="md:flex">
             <div class="md:flex-shrink-0 float-left">
-              <div class="bg-blue"><br />이<br />미<br />지</div>
+              <div class="bg-blue">이미지</div>
             </div>
             <div class="p-6">
               <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">스터디</div>

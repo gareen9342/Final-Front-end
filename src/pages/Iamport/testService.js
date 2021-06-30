@@ -2,7 +2,7 @@ import ApiService from "/src/services/.apiservice";
 const TestService = () => {};
 
 TestService.insert = (paymentInfo) => {
-    return ApiService.post("/paymentInsert.do", paymentInfo);
+    return ApiService.post("/insert.do", paymentInfo);
 };
 
 

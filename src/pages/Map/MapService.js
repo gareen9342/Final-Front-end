@@ -1,8 +1,9 @@
 import Axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./style.css";
 import StudyComponent from './Sections/StudyComponent';
 import useInput from "../../hooks/useInput";
+import StudyInfo from "../../dummyData/study.json";
 
 const { kakao } = window;
 
@@ -10,25 +11,16 @@ const MapService = () => {
   const [kakaoMap, setKakaoMap] = useState(null);
   const [kakaoPs, setKakaoPs] = useState(null);
   const [infoWindow, setInfoWindow] = useState(null);
+  // 위치 검색 input
   const [searchText, onChangeSearchText] = useInput("");
+  // 마커 객체들 정보
   const [markersPosition, setMarkersPosition] = useState([]);
+  // 위치 검색 버튼
+  const [activateNear, setActivateNear] = useState(false);
 
   const mapContainer = useRef();
 
-  // from DB, get markers
-  // useEffect(() => {
 
-  //   Axios.get('/somewhere').then(response => {
-  //     if (response.data.success) {
-  //       // 마커들 가져왔슴(주소id로 가져온다.)
-  //       // 반경처리는 따로 해줘야된다.
-  //       // setLocationAddr(response.data.^^ID^^)
-  //     } else {
-  //       alert('이지역 사람들이 공부를 안하네요~');
-  //     }
-  //   })
-
-  // }, [])
 
   // 로딩
   useEffect(() => {
@@ -62,7 +54,7 @@ const MapService = () => {
     mapContainer.current.style.width = `100%`;
     mapContainer.current.style.height = `100%`;
 
-    // relayout and...
+    // relayout
     kakaoMap.relayout();
     // restore
     kakaoMap.setCenter(center);
@@ -125,6 +117,8 @@ const MapService = () => {
     }
   };
 
+
+  // 마커 이벤트
   const displayMarker = (place) => {
     let marker = null;
     if (!!kakaoMap) {
@@ -132,23 +126,28 @@ const MapService = () => {
         map: kakaoMap,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
-      //마커에 클릭 이벤트를 등록한다.
+      //마커에 이벤트를 등록한다.
 
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        // 장소명이 인포윈도우에 표출됩니다
         infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
           place.place_name +
           "</div>" +
-          '<button style="border:1px solid skyblue;float:right;">버튼이얌</button>'
+          '<button style="border:1px solid skyblue;float:right;">버튼</button>'
         );
         infoWindow.open(kakaoMap, marker);
       });
+      kakao.maps.event.addListener(kakaoMap, "click", function () {
+        infoWindow.close();
+      });
+
     }
     return marker;
   };
 
+  // 
   const onFocusCenter = () => {
     if (kakaoMap && navigator.geolocation) {
       // GeoLocation, 접속위치 get
@@ -172,67 +171,72 @@ const MapService = () => {
     };
   };
 
-  // 'event of Click', should I have to change the name of this func. ?
-  // const infoOfClicked = () => {
-  //   let marker = new kakao.maps.Marker({
-  //     // 지도 중심 마커 생성
-  //     position: map.getCenter()
-  //   });
-  //   marker.setMap(map);
-
-  //   kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-  //     // 클릭한 위도, 경도 정보를 가져옵니다
-  //     let latlng = mouseEvent.latLng;
-  //     // 마커 위치를 클릭한 위치로 옮깁니다
-  //     marker.setPosition(latlng);
-
-  //     let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-  //     message += '경도는 ' + latlng.getLng() + ' 입니다';
-  //     console.log(message);
-  //   });
-  // }
-
-  const markerBornClick = () => {
-    kakao.maps.event.addListener(kakaoMap, "click", function (mouseEvent) {
-      let marker = new kakao.maps.Marker({
-        map: kakaoMap,
-        position: kakaoMap.center,
-      });
-      let latlng = mouseEvent.latLng;
-      // tmpMarker.push(marker);
-      // console.log(tmpMarker);
-      marker.setPosition(latlng);
-      activateCircle();
-      const tempArr = markersPosition.push(marker);
-      setMarkersPosition(tempArr);
-      // setMarkersPosition([...markersPosition, marker]);
-      console.log("tempArr = ", tempArr);
-
-      // console.log(`${latlng} was Clicked!`);
+  const searchNear = () => {
+    alert('탐색을 원하는 위치를 클릭하세요')
+    setActivateNear(true);
+    let marker = new kakao.maps.Marker({
+      position: kakaoMap.getCenter()
     });
+    marker.setMap(kakaoMap);
+
+    let circle = new kakao.maps.Circle({
+      center: kakaoMap.getCenter(),
+      // radius: polyline.getLength() / 2,
+      radius: range,
+      strokeWeight: 1,
+      strokeColor: '#00a0e9',
+      strokeOpacity: 0.1,
+      strokeStyle: 'solid',
+      fillColor: '#00a0e9',
+      fillOpacity: 0.2
+    });
+    circle.setMap(kakaoMap);
+
+    let mE = (mouseEvent) => {
+      // 클릭한 위도, 경도 정보를 가져옵니다
+      let latlng = mouseEvent.latLng;
+      // 마커 위치를 클릭한 위치로 옮깁니다
+      marker.setPosition(latlng);
+      circle.setPosition(latlng);
+
+      // latlng.getLat(), latlng.getLng()
+    }
+
+    kakao.maps.event.addListener(kakaoMap, 'click', mE);
+
+    let confirmEvent = (mouseEvent) => {
+      let res = confirm('이 주변 스터디를 탐색할까요?');
+      if (res) {
+        setActivateNear(false);
+        console.log(StudyInfo.data);
+
+        // from DB, get markers
+
+        // Axios.get('/somewhere').then(response => {
+        //   if (response.data.success) {
+        //     // 마커들 가져왔슴(좌표로 가져온다.)
+        //     // 반경처리는 따로 해줘야된다.
+        //     // setLocationAddr(response.data.^^ID^^)
+        //   } else {
+        //     let makeStudy = confirm('주변에 스터디가 없어요, 하나 만들까요');
+        //     if (makeStudy) {
+        //       <Link to>
+        //     }
+        //   }
+        // })
+
+      } else {
+        setActivateNear(false);
+      }
+      kakao.maps.event.removeListener(kakaoMap, 'click', mE);
+      kakao.maps.event.removeListener(kakaoMap, 'click', confirmEvent);
+      marker.setMap(null);
+      circle.setMap(null);
+      console.log(activateNear);
+    }
+
+    kakao.maps.event.addListener(marker, 'click', confirmEvent);
   };
-
-
-  const activateCircle = (latlng) => {
-    console.log(latlng)
-    // let circle = new kakao.maps.Circle({
-
-    //   // 수정 요
-    //   center: new kakao.maps.LatLng(),
-    //   // radius: polyline.getLength() / 2,
-    //   radius: 500,
-    //   strokeWeight: 1,
-    //   strokeColor: '#00a0e9',
-    //   strokeOpacity: 0.1,
-    //   strokeStyle: 'solid',
-    //   fillColor: '#00a0e9',
-    //   fillOpacity: 0.2
-    // });
-    // circle.setMap(kakaoMap);
-
-    // circleCenter = circle.getPosition();
-    // circleRadius = circle.getRadius();
-  }
 
 
 
@@ -251,10 +255,19 @@ const MapService = () => {
 
   // ----------------------------------------------------------------------
 
+  const [range, setRange] = useState(500);
+  const onChangeRange = (e) => {
+    setRange(e.target.value);
+  }
+  // 범위 옵션
+  const rangeNear = useMemo(() => [
+    { value: 500, label: "500m" },
+    { value: 1000, label: "1km" },
+    { value: 2000, label: "2km" },
+  ], [])
 
-
-
-  const leftWidth = 300;
+  // 300 이었던 것
+  const leftWidth = 0;
   return (
     <div>
       <div>
@@ -267,8 +280,17 @@ const MapService = () => {
         />
         <button onClick={onClickSearchButton}>검색</button>
         <br />
-        <button onClick={onFocusCenter}>현위치!!!</button>
-        <button onClick={markerBornClick}>마커</button>
+        <button onClick={onFocusCenter}>현위치</button>
+        {activateNear === false ? <>
+          <button onClick={searchNear}>
+            주변 스터디 탐색하기
+          </button>
+          <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
+            {rangeNear.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+            {/* <option value="m500">500m</option>
+            <option value="m1000">1km</option>
+            <option value="m2000">2km</option> */}
+          </select> </> : ''}
 
         <br />
         <button onClick={checker}>체크</button>
@@ -276,10 +298,10 @@ const MapService = () => {
       </div>
       {/* nav */}
       <div
-        class="border border-grey-lighter"
+        className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        <div
+        {/* <div
           class="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
@@ -287,7 +309,7 @@ const MapService = () => {
           <StudyComponent />
           <br />
           <StudyComponent />
-        </div>
+        </div> */}
 
         <div
           style={{

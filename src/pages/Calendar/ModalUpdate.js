@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect ,useRef } from "react";
 import { TextField } from "@material-ui/core";
 import "./modal.css";
 import CalendarService from "../../services/calendarService";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 const ModalUpdate = ({
   currentEvents,
@@ -10,13 +11,20 @@ const ModalUpdate = ({
   close,
   header,
   clickInfo,
-  createEventId,
 }) => {
-  const [title, setTitle] = useState(title);
-  const [content, setContent] = useState("");
 
+  const [title, setTitle] = useState(title); //clickInfo.event.title
+  const [content, setContent] = useState(content);
+
+  const [start, setStart] = useState(start);
+  const [end, setEnd] = useState(end);
+
+
+  // UPDATE
   const update = async () => {
+
     const clickInfoApi = clickInfo.view.calendar;
+
     clickInfoApi.unselect();
     const newSchedule = {
       calendar_id: clickInfo.event._def.extendedProps.calendar_id,
@@ -24,9 +32,24 @@ const ModalUpdate = ({
       study_group_id: 1234,
       title,
       content,
-      start: clickInfo.event.startStr,
-      end: clickInfo.event.endStr,
+      start: clickInfo.startStr,
+      end: clickInfo.endStr,
     };
+
+    if(newSchedule.title == undefined){
+      newSchedule.title = clickInfo.event.title;
+    }
+    if(newSchedule.content == undefined){
+      newSchedule.content = clickInfo.event.extendedProps.content;
+    }
+    if(newSchedule.start == undefined){
+      newSchedule.start = clickInfo.event.startStr.split("+")[0];
+    }
+    if(newSchedule.end == undefined){
+      newSchedule.end = clickInfo.event.endStr.split("+")[0];
+    }
+
+    console.log("이게 필요할듯??",newSchedule, clickInfo.event.title)
     
     // clickInfoApi.addEvent(newSchedule);
     setCurrentEvents([...currentEvents, newSchedule]);
@@ -39,11 +62,14 @@ const ModalUpdate = ({
     const tmp = currentEvents;
     setCurrentEvents(tmp.map(x => x.calendar_id === newSchedule.calendar_id ? newSchedule : x));
 
-    console.log("이거요!! ", newSchedule);
+    setStart(newSchedule.start);
+    setEnd(newSchedule.end);
 
     console.log(res);
   };
 
+
+  // DELETE
   const remove = async () => {
 
     const calendar_id = clickInfo.event._def.extendedProps.calendar_id;
@@ -75,13 +101,15 @@ const ModalUpdate = ({
               label="일정"
               defaultValue={clickInfo.event.title}
               onChange={(e) => {
-                console.log(e.target.value);
+                //console.log(e.target.value);
                 setTitle(e.target.value);
               }}
             />
 
+
             <br />
             <br />
+
 
             <TextField
               label="Start"
@@ -91,14 +119,11 @@ const ModalUpdate = ({
                 shrink: true,
               }}
               onChange={(e) => {
-                if (e == null) {
-                  clickInfo.startStr = e.target.value;
-                }
                 //console.log(e.target.value);
                 clickInfo.startStr = e.target.value;
               }}
             />
-            {console.log(clickInfo.event.endStr)}
+            
             <TextField
               label="End"
               type="datetime-local"
@@ -107,13 +132,15 @@ const ModalUpdate = ({
                 shrink: true,
               }}
               onChange={(e) => {
-                console.log(e.target.value);
+                //console.log(e.target.value);
                 clickInfo.endStr = e.target.value;
               }}
             />
 
+
             <br />
             <br />
+
 
             <TextField
               id="standard-basic"

@@ -6,7 +6,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import ModalInsert from "./ModalInsert";
 import ModalUpdate from "./ModalUpdate";
 import CalendarService from "../../services/calendarService";
-import { INITIAL_EVENTS } from "./dummy-data";
 import "./Calendar.css";
 
 const Calendar = () => {
@@ -15,18 +14,13 @@ const Calendar = () => {
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
-  const [schedule, setSchedule] = useState({
-    title: "",
-    content: "",
-    start: "",
-    end: "",
-  });
-
   const [selectInfo, setSelectInfo] = useState(null);
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  
   useEffect(() => {
     if (loading) {
        (async () => {
@@ -48,7 +42,7 @@ const Calendar = () => {
     };
   }, [loading]);
 
-  // 왼쪽 사이드바
+  // 왼쪽 사이드바  오른쪽 드로그바
   const renderSidebar = () => {
     return (
       <div className="calendar-app-sidebar">
@@ -114,9 +108,9 @@ const Calendar = () => {
   };
 
   // 일정을 클릭하면 발생하는 이벤트
-  const handleEventClick = (clickinfo) => {
-    setClickInfo(clickinfo);
-    console.log("ㅁㄴㅇㄹ : ",currentEvents, clickinfo);
+  const handleEventClick = (clickInfo) => {
+    setClickInfo(clickInfo);
+    console.log("aaa : ",clickInfo);
     openUpdateModal();
   };
 

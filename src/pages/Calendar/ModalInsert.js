@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { TextField } from "@material-ui/core";
 import "./modal.css";
 import CalendarService from "../../services/calendarService";
-import { ContactSupportOutlined } from "@material-ui/icons";
 
 const ModalInsert = ({
   currentEvents,

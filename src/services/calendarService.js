@@ -7,18 +7,19 @@ CalendarService.CalendarSelectList = () => {
   return ApiService.get("calendarSelectList.do");
 };
 
+CalendarService.CalendarSelectMember = (data) => {
+  return ApiService.post("calendarSelectMember.do", data);
+};
+
 CalendarService.CalendarInsert = (data) => {
-  console.log("service : ", data);
   return ApiService.post("calendarInsert.do", data);
 };
 
 CalendarService.CalendarUpdate = (data) => {
-  console.log("service : ", data);
   return ApiService.post("calendarUpdate.do", data);
 };
 
 CalendarService.CalendarDelete = (data) => {
-  console.log("service : ", data);
   return ApiService.post("calendarDelete.do", data);
 };
 

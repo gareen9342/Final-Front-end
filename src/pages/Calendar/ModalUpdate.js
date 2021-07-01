@@ -2,7 +2,6 @@ import React, { useState, useEffect ,useRef } from "react";
 import { TextField } from "@material-ui/core";
 import "./modal.css";
 import CalendarService from "../../services/calendarService";
-import { ContactSupportOutlined } from "@material-ui/icons";
 
 const ModalUpdate = ({
   currentEvents,
@@ -11,6 +10,7 @@ const ModalUpdate = ({
   close,
   header,
   clickInfo,
+  userValue,
 }) => {
 
   const [title, setTitle] = useState(title); //clickInfo.event.title
@@ -18,7 +18,6 @@ const ModalUpdate = ({
 
   const [start, setStart] = useState(start);
   const [end, setEnd] = useState(end);
-
 
   // UPDATE
   const update = async () => {
@@ -28,7 +27,7 @@ const ModalUpdate = ({
     clickInfoApi.unselect();
     const newSchedule = {
       calendar_id: clickInfo.event._def.extendedProps.calendar_id,
-      member_id: 123,
+      member_email: userValue,
       study_group_id: 1234,
       title,
       content,
@@ -49,8 +48,6 @@ const ModalUpdate = ({
       newSchedule.end = clickInfo.event.endStr.split("+")[0];
     }
 
-    console.log("이게 필요할듯??",newSchedule, clickInfo.event.title)
-    
     // clickInfoApi.addEvent(newSchedule);
     setCurrentEvents([...currentEvents, newSchedule]);
     
@@ -150,7 +147,7 @@ const ModalUpdate = ({
               rows={5}
               rowsMax={50}
               onChange={(e) => {
-                console.log(e.target.value);
+                //console.log(e.target.value);
                 setContent(e.target.value);
               }}
             />

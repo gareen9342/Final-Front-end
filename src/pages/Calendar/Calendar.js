@@ -8,7 +8,7 @@ import ModalUpdate from "./ModalUpdate";
 import CalendarService from "../../services/calendarService";
 import "./Calendar.css";
 
-const Calendar = () => {
+const Calendar = ({userValue}) => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -24,15 +24,13 @@ const Calendar = () => {
   useEffect(() => {
     if (loading) {
        (async () => {
-        const res =  await CalendarService.CalendarSelectList();
-        // console.log("제발 ㅠㅠ : ", res.data);
+        const res =  await CalendarService.CalendarSelectMember(userValue);
+        // const res =  await CalendarService.CalendarSelectList();
         if(res.data){
           setCurrentEvents(res.data);
           setLoading(false); // ??이건 잘 모르겠음 
         }
       })();
-      // const data = INITIAL_EVENTS;
-      // setCurrentEvents(data);
     }
 
     return () => {
@@ -110,7 +108,6 @@ const Calendar = () => {
   // 일정을 클릭하면 발생하는 이벤트
   const handleEventClick = (clickInfo) => {
     setClickInfo(clickInfo);
-    console.log("aaa : ",clickInfo);
     openUpdateModal();
   };
 
@@ -145,6 +142,7 @@ const Calendar = () => {
   return (
     <div className="calendar-app">
       {renderSidebar()}
+
       <div className="calendar-app-main">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -175,6 +173,7 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
+        userValue={userValue}
       />
       <ModalUpdate
         open={updateModalOpen}
@@ -183,6 +182,7 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
+        userValue={userValue}
       />
     </div>
   );

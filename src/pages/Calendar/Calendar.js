@@ -1,29 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import UploadModal from "./UploadModal";
-import dummydata, { INITIAL_EVENTS, createEventId } from "./dummy-data";
+import ModalInsert from "./ModalInsert";
+import ModalUpdate from "./ModalUpdate";
+import CalendarService from "../../services/calendarService";
 import "./Calendar.css";
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
-  const [currentEvents, setCurrentEvents] = useState(INITIAL_EVENTS); // 초기에는 이벤트 쫙 세팅해줌
 
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [uploadModalClose, setUploadModalClose] = useState("");
-  
-  const [schedule, setSchedule] = useState({
-    title: "",
-    content: "",
-    start: "",
-    end: "",
-  });
+  const [insertModalOpen, setInsertModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
   const [selectInfo, setSelectInfo] = useState(null);
+  const [clickInfo, setClickInfo] = useState(null);
 
-  // 왼쪽 사이드바
+  const [currentEvents, setCurrentEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  
+  useEffect(() => {
+    if (loading) {
+       (async () => {
+        const res =  await CalendarService.CalendarSelectList();
+        // console.log("제발 ㅠㅠ : ", res.data);
+        if(res.data){
+          setCurrentEvents(res.data);
+          setLoading(false); // ??이건 잘 모르겠음 
+        }
+      })();
+      // const data = INITIAL_EVENTS;
+      // setCurrentEvents(data);
+    }
+
+    return () => {
+      if (loading) {
+        setLoading(false);
+      }
+    };
+  }, [loading]);
+
+  // 왼쪽 사이드바  오른쪽 드로그바
   const renderSidebar = () => {
     return (
       <div className="calendar-app-sidebar">
@@ -83,31 +102,16 @@ const Calendar = () => {
 
   // 요일부분 클릭하면 발생하는 이벤트
   const handleDateSelect = (selectinfo) => {
-    console.log(selectinfo);
+    // console.log(selectinfo);
     setSelectInfo(selectinfo);
-    openUploadModal();
-    /*
-    let calendarApi = selectInfo.view.calendar
-
-    calendarApi.unselect() // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      })
-    }
-    */
+    openInsertModal();
   };
 
   // 일정을 클릭하면 발생하는 이벤트
   const handleEventClick = (clickInfo) => {
-    if (confirm(`'${clickInfo.event.title}' 일정을 정말 삭제 하시겠습니까?`)) {
-      clickInfo.event.remove();
-    }
+    setClickInfo(clickInfo);
+    console.log("aaa : ",clickInfo);
+    openUpdateModal();
   };
 
   const handleEvents = (events) => {
@@ -124,20 +128,27 @@ const Calendar = () => {
   }
 
   // 모달
-  const openUploadModal = () => {
-    setUploadModalOpen(true);
+  const openInsertModal = () => {
+    setInsertModalOpen(true);
   };
-  const closeUploadModal = () => {
-    setUploadModalOpen(false);
+  const closeInsertModal = () => {
+    setInsertModalOpen(false);
+  };
+
+  const openUpdateModal = () => {
+    setUpdateModalOpen(true);
+  };
+  const closeUpdateModal = () => {
+    setUpdateModalOpen(false);
   };
 
   return (
     <div className="calendar-app">
       {renderSidebar()}
-
       <div className="calendar-app-main">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          locale="ko"
           headerToolbar={{
             left: "prev,next today",
             center: "title",
@@ -153,17 +164,25 @@ const Calendar = () => {
           select={handleDateSelect} // 일정 누르면 일정 삽입가능
           eventContent={renderEventContent} //
           eventClick={handleEventClick} // 추가되어있는 일정 클릭시 발생 이벤트
-          eventsSet={handleEvents} // 총 일정
+          // eventsSet={handleEvents} // 총 일정
+          events={currentEvents}
         />
       </div>
-      <UploadModal
-        open={uploadModalOpen}
-        close={closeUploadModal}
+      <ModalInsert
+        open={insertModalOpen}
+        close={closeInsertModal}
         header="일정 추가"
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
-        createEventId={createEventId}
+      />
+      <ModalUpdate
+        open={updateModalOpen}
+        close={closeUpdateModal}
+        header="일정 수정"
+        currentEvents={currentEvents}
+        setCurrentEvents={setCurrentEvents}
+        clickInfo={clickInfo}
       />
     </div>
   );

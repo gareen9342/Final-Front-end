@@ -1,20 +1,18 @@
-const users = [
-    {name : "pass" , email : "pass"},
-];
+import userService from "../../services/userService";
 
-export function signIn(email ){
+export async function signIn(email){
+    
 
-    // user.name 과 이메일을 받아옴
-    const user = users.find(
-        (e) => e.email === email
-    );
-    // 유저의 DB에서 받아온다.
-    console.log("user 의 정보", user);
+    // 임시 코드
+    if(email == "pass"){
+        return email;
+    }
+    console.log("진행중");
 
-    // DB에 데이터가 없을 경우 -> 회원가입 페이지로 넘겨버려야된다.
-    if(user === undefined){
-        throw new Error();
-    } 
+    const signUser = await userService.memberCheck({email})
 
-    return user;
+    console.log("받아온데이터의 값 : " + signUser.data);
+    // 했을경우 =>  AAAAAAA@naver.com
+    // 안했을 경우 => NotUser를 날려준다.
+    return signUser.data;
 }

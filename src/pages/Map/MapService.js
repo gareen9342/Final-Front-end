@@ -18,6 +18,8 @@ const MapService = () => {
   const [markersPosition, setMarkersPosition] = useState([]);
   // 위치 검색 버튼
   const [activateNear, setActivateNear] = useState(false);
+  // 반경 정보
+  const [range, setRange] = useState(500);
 
   const mapContainer = useRef();
 
@@ -212,11 +214,11 @@ const MapService = () => {
       let res = confirm('이 주변 스터디를 탐색할까요?');
       if (res) {
         setActivateNear(false);
-        console.log(StudyInfo.data);
+        // console.log(StudyInfo.data);
 
         if (!!lng && !!lat) {
-          StudyService.searchStudy(lat, lng);
-          console.log('request~');
+          StudyService.searchStudy(lat, lng, range);
+          // console.log('req');
         }
 
       } else {
@@ -249,7 +251,6 @@ const MapService = () => {
 
   // ----------------------------------------------------------------------
 
-  const [range, setRange] = useState(500);
   const onChangeRange = (e) => {
     setRange(e.target.value);
   }

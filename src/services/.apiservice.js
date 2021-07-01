@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backUrl } from "../config/config";
 
 const backUrl = "http://192.168.0.10:8787/swith/";
 const ApiService = () => {};
@@ -44,7 +45,7 @@ ApiService.getWithHeader = async (uri, token) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  const config = { "Content-Type": "application/json" };
+  const config = { 'Content-Type': 'application/json'};
   try {
     resData = axios.post(`${uri}`, body, config);
   } catch (error) {

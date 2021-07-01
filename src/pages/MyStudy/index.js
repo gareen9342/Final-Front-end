@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Box,
   ToDoList,
@@ -11,6 +10,7 @@ import {
   Header,
   SearchBar,
 } from "./UI";
+
 const MyStudy = () => {
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
@@ -24,7 +24,6 @@ const MyStudy = () => {
             <NavigaionLink pathUrl={"#"} pathName={"스터디 관리"} />
           </Navigation>
         </LeftContainer>
-
         {/* end left */}
         {/* start right */}
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
@@ -63,7 +62,7 @@ const MyStudy = () => {
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
                   <p className="font-bold text-md p-4 text-black dark:text-white">
-                    Calendar자리
+                    캘린더자리
                   </p>
                 </Box>
               </div>

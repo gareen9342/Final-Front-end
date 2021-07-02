@@ -2,6 +2,7 @@ import { ContactSupportOutlined } from "@material-ui/icons";
 import axios from "axios";
 import { backUrl } from "../config/config";
 
+const backUrl = "http://192.168.0.10:8787/swith/";
 const ApiService = () => {};
 
 axios.defaults.baseURL = backUrl;

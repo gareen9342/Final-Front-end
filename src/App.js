@@ -22,10 +22,10 @@ import { signIn } from "./pages/login/Auth";
 export default function App() {
   
   // 유저의 이메일 정보
-  const [userEmail, setUserEmail] = useState(null); 
+  const [userEmail, setUserEmail] = useState(window.localStorage.getItem("email")); 
 
   // 회원가입 유저의 확인
-  const [yesUser, setYesUser] = useState(null);
+  const [yesUser, setYesUser] = useState(window.localStorage.getItem("yesUser"));
 
   // SNS로그인 유저의 확인
   const authenticated = userEmail != null;
@@ -53,6 +53,7 @@ export default function App() {
       setUserEmail(email);
       setYesUser(true);
       window.localStorage.setItem("email",email);
+      window.localStorage.setItem("yesUser",email);
 
       console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");

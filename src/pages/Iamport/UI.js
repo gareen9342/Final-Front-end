@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import {PaymentButton} from "./PaymentButton";
-import {PaymentModal} from "./PaymentModal";
-import './Payment.css';
 
 const Payment = (effect, deps) => {
     useEffect(() => {
@@ -25,7 +23,14 @@ const Payment = (effect, deps) => {
 
     return (
         <>
-            {/*<PaymentModal/>*/}
+            <h3>결제</h3>
+            <ul>
+                <li>결제일자</li>
+                <li>{year} / {month} / {date}</li>
+                <li>{year}</li>
+                <li>{year}</li>
+                <li>{year}</li>
+            </ul>
             <PaymentButton name="신용카드" info={info} pg="html5_inicis"/>
             <br/>
             <PaymentButton name="계좌이체" info={info} pg="html5_inicis" pay_method="trans"/>

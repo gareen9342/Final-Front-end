@@ -13,6 +13,9 @@ import {
 import Calendar from "../Calendar/Calendar";
 
 const MyStudy = () => {
+
+
+  
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
       <div className="flex items-start justify-between ">

@@ -21,33 +21,43 @@ import { signIn } from "./pages/login/Auth";
 export default function App() {
   
   // 유저의 이메일 정보
-  const [userValue, setUserValue] = useState(null); 
+  const [userEmail, setUserEmail] = useState(null); 
 
   // 회원가입 유저의 확인
   const [yesUser, setYesUser] = useState(null);
 
   // SNS로그인 유저의 확인
-  const authenticated = userValue != null;
+  const authenticated = userEmail != null;
   
 
   // user 이메일 정보 삭제할 때
   const logout = () => {
-    setUserValue(null);
+    setUserEmail(null);
     setYesUser(null);
   }
-  //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
+  
+  const saveData = () => {
+    const userObj = {email : userEmail}
+    window.localStorage.setItem("email",JSON.stringify(userObj));
+  }
+  
 
+  
+  //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
   const signUserIn = async (email) => {
     const Member = await signIn(email);
     console.log("Member의 값" + Member);
     if( Member == "NotUser" ){
-      setUserValue(email);
+      setUserEmail(email);
       setYesUser(false);
 
       console.log("로그인했지만 회원아님");
     }else{
-      setUserValue(email);
+      setUserEmail(email);
       setYesUser(true);
+      saveData();
+
+      console.log("로컬스토레이지 작동",window.localStorage.getItem("email"));
 
       console.log("로그인한 회원임");
     }
@@ -80,7 +90,7 @@ export default function App() {
         {/* 회원가입 페이지로 이동*/}
         {authenticated && !yesUser && (
           <>
-            <Route path="/" render={() => <Register email={userValue} logout={logout}/>}/>
+            <Route path="/" render={() => <Register email={userEmail} logout={logout}/>}/>
           </>
         )}
 

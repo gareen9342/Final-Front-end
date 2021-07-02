@@ -62,7 +62,32 @@ import { useHistory } from 'react-router';
 
     return(
         <>
-            <div>
+            <div className="grid min-h-screen place-items-center">
+                <div className="w-11/12 p-12 bg-white sm:w-8/12 md:w-1/2 lg:w-5/12">
+                    <h1 className="text-xl font-semibold">안녕하세요 SWith에 오신걸 환영해요! 👋, <span className="font-normal"> 당신의 정보를 작성해 주세요</span></h1>
+                    <div className="mt-6">
+                        <label htmlFor="nickName" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">닉네임</label>
+                        <input type="text" name="nickName" placeholder="닉네임을 작성해주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={nickName} onChange={onChangeNickName}/>
+                        
+                        <label htmlFor="phoneNumber" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">핸드폰번호</label>
+                        <input type="text" name="phoneNumber" placeholder="- 없이 작성해 주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={phoneNumber} onChange={onChangePhoneNumber}/>
+                        <br/>
+                        {errorPhoneNumber&&<p className="text-red-600">전화번호 입력이 잘못되었습니다!</p>}
+                        
+                        <label htmlFor="location" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">지역</label>
+                        <input  type="text" name="location" placeholder="거주지역을 작성해 주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={intro} onChange={onChangeIntro}/>
+                        
+                        <label htmlFor="intro" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">자기소개</label>
+                        <input type="text" name="intro" placeholder="자기소개해주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={location} onChange={onChangeLocation} />
+                        
+                        <button type="submit" className="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none" onClick={Regist}>
+                            가입하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* <div>
                 <label htmlFor="user-nick">닉네임</label><br/>
                 <input name="nickName" value={nickName} required onChange={onChangeNickName} />
             </div>
@@ -77,11 +102,11 @@ import { useHistory } from 'react-router';
             </div>
             <div>
                 <label htmlFor="user-intro">지역</label><br/>
-                <input name="phoneNumber" value={location} onChange={onChangeLocation} />
+                <input name="location" value={location} onChange={onChangeLocation} />
             </div>
             <div>
                 <button onClick={Regist}>가입하기</button>
-            </div>     
+            </div>      */}
         </>
     )
  }

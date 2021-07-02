@@ -10,6 +10,7 @@ import {
   Header,
   SearchBar,
 } from "./UI";
+import Calendar from "../Calendar/Calendar";
 
 const MyStudy = () => {
   return (
@@ -62,7 +63,7 @@ const MyStudy = () => {
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
                   <p className="font-bold text-md p-4 text-black dark:text-white">
-                    캘린더자리
+                    <Calendar />
                   </p>
                 </Box>
               </div>

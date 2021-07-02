@@ -141,7 +141,7 @@ const Calendar = ({userValue}) => {
 
   return (
     <div className="calendar-app">
-      {renderSidebar()}
+      {/*renderSidebar()*/}
 
       <div className="calendar-app-main">
         <FullCalendar

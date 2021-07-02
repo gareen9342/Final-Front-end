@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Payment.css';
 
 
 export const PaymentModal = () => {
 
     // 'use strict'
+    const [value, setValue] = useState("");
 
-    // const errMessages = document.querySelectorAll('#error');
+    const errMessages = document.querySelectorAll('#error');
     
-    // const toggleError = () => {
-    //     // Show error message
-    //     errMessages.forEach((el) => {
-    //     el.classNameList.toggle('hidden')
-    //     })
+    const toggleError = () => {
+        // Show error message
+        errMessages.forEach((el) => {
+        el.classNameList.toggle('hidden')
+        })
 
-    //     // Highlight input and label with red
-    //     const allBorders = document.querySelectorAll('.border-gray-200')
-    //     const allTexts = document.querySelectorAll('.text-gray-500')
-    //     allBorders.forEach((el) => {
-    //     el.classNameList.toggle('border-red-600')
-    //     })
-    //     allTexts.forEach((el) => {
-    //     el.classNameList.toggle('text-red-600')
-    //     })
-    // }
+        // Highlight input and label with red
+        const allBorders = document.querySelectorAll('.border-gray-200')
+        const allTexts = document.querySelectorAll('.text-gray-500')
+        allBorders.forEach((el) => {
+        el.classNameList.toggle('border-red-600')
+        })
+        allTexts.forEach((el) => {
+        el.classNameList.toggle('text-red-600')
+        })
+    }
     
     // document.getElementById('button').addEventListener('click', toggleError);
 
@@ -34,14 +35,11 @@ export const PaymentModal = () => {
                 <div className="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
                     <h1 className="text-2xl font-bold mb-8">Form With Floating Labels</h1>
                     <form id="form" novalidate>
- 
-                        
-
                         <div className="relative z-0 w-full mb-5">
                             <select
                             name="select"
                             value=""
-                            onclick="this.setAttribute('value', this.value);"
+                            onClick={setValue(value)}
                             className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
                             >
                             <option value="" selected disabled hidden></option>
@@ -61,7 +59,7 @@ export const PaymentModal = () => {
                                 type="text"
                                 name="date"
                                 placeholder=" "
-                                onclick="this.setAttribute('type', 'date');"
+                                onClick="this.setAttribute('type', 'date');"
                                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
                             />
                             <label for="date" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Date</label>
@@ -72,7 +70,7 @@ export const PaymentModal = () => {
                                 type="text"
                                 name="time"
                                 placeholder=" "
-                                onclick="this.setAttribute('type', 'time');"
+                                onClick="this.setAttribute('type', 'time');"
                                 className="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
                             />
                             <label for="time" className="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">Time</label>

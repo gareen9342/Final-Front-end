@@ -25,7 +25,7 @@ const Payment = (effect, deps) => {
 
     return (
         <>
-            {/*<PaymentModal/>*/}
+            <PaymentModal/>
             <PaymentButton name="신용카드" info={info} pg="html5_inicis"/>
             <br/>
             <PaymentButton name="계좌이체" info={info} pg="html5_inicis" pay_method="trans"/>

@@ -33,7 +33,6 @@ function Modal({
   }, []);
   return (
     <Portal elementId="modal-root">
-      {console.log("model")}
       <ModalOverlay visible={visible} bgColor={bgColor} />
       <ModalWrapper
         className={className}
@@ -42,11 +41,11 @@ function Modal({
         visible={visible}
       >
         <ModalInner tabIndex="0" className="modal-inner bordernone">
-          {closable && (
+          {/* {closable && (
             <button className="modal-close close" onClick={close}>
               close
             </button>
-          )}
+          )} */}
           {children}
         </ModalInner>
       </ModalWrapper>
@@ -83,7 +82,7 @@ const ModalOverlay = styled.div`
 const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
-  max-width: 1000px;
+  max-width: 780px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   border-radius: 10px;

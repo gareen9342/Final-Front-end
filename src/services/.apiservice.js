@@ -2,7 +2,7 @@ import { ContactSupportOutlined } from "@material-ui/icons";
 import axios from "axios";
 import { backUrl } from "../config/config";
 
-const ApiService = () => {};
+const ApiService = () => { };
 
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
@@ -17,7 +17,6 @@ ApiService.get = async (uri) => {
   };
   try {
     data = await axios.get(`${uri}`, config);
-    console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -44,9 +43,9 @@ ApiService.getWithHeader = async (uri, token) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  console.log("APIservice : ",body);
+  console.log("APIservice : ", body);
 
-  const config = { 'Content-Type': 'application/json'};
+  const config = { 'Content-Type': 'application/json' };
   try {
     resData = axios.post(`${uri}`, body, config);
   } catch (error) {

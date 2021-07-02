@@ -20,6 +20,9 @@ const MapService = () => {
   const [activateNear, setActivateNear] = useState(false);
   // 반경 정보
   const [range, setRange] = useState(500);
+  // 스터디 위치정보
+  const [studyResult, setstudyResult] = useState([]);
+
 
   const mapContainer = useRef();
 
@@ -150,7 +153,7 @@ const MapService = () => {
     return marker;
   };
 
-  // 
+  // 현위치
   const onFocusCenter = () => {
     if (kakaoMap && navigator.geolocation) {
       // GeoLocation, 접속위치 get
@@ -175,7 +178,7 @@ const MapService = () => {
   };
 
   const searchNear = () => {
-    alert('탐색을 원하는 위치를 클릭하세요')
+    alert('탐색을 원하는 위치를 클릭하세요');
     setActivateNear(true);
     let marker = new kakao.maps.Marker({
       position: kakaoMap.getCenter()
@@ -217,8 +220,18 @@ const MapService = () => {
         // console.log(StudyInfo.data);
 
         if (!!lng && !!lat) {
-          StudyService.searchStudy(lat, lng, range);
-          // console.log('req');
+          (async () => {
+            try {
+              const { data } = await StudyService.searchStudy(lat, lng, range);
+              if (!!data && data.length) {
+                console.log(data);
+                setstudyResult(data);
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          })();
+
         }
 
       } else {
@@ -237,7 +250,7 @@ const MapService = () => {
 
 
 
-  // ----------------------------------------------------------------------
+  // -------------------------------forTest--------------------------------
 
   const checker = () => {
     console.log("----------------------");
@@ -276,6 +289,7 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치</button>
+        <br />
         {activateNear === false ? <>
           <button onClick={searchNear}>
             주변 스터디 탐색하기

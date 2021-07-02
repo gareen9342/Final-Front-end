@@ -17,14 +17,15 @@ import StudyForm from "./pages/StudyForm";
 import MyStudy from "./pages/MyStudy";
 
 import { signIn } from "./pages/login/Auth";
+// import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
   
   // 유저의 이메일 정보
-  const [userEmail, setUserEmail] = useState(null); 
+  const [userEmail, setUserEmail] = useState(window.localStorage.getItem("email")); 
 
   // 회원가입 유저의 확인
-  const [yesUser, setYesUser] = useState(null);
+  const [yesUser, setYesUser] = useState(window.localStorage.getItem("yesUser"));
 
   // SNS로그인 유저의 확인
   const authenticated = userEmail != null;
@@ -34,11 +35,7 @@ export default function App() {
   const logout = () => {
     setUserEmail(null);
     setYesUser(null);
-  }
-  
-  const saveData = () => {
-    const userObj = {email : userEmail}
-    window.localStorage.setItem("email",JSON.stringify(userObj));
+    window.localStorage.removeItem("email");
   }
   
 
@@ -55,10 +52,10 @@ export default function App() {
     }else{
       setUserEmail(email);
       setYesUser(true);
-      saveData();
+      window.localStorage.setItem("email",email);
+      window.localStorage.setItem("yesUser",email);
 
-      console.log("로컬스토레이지 작동",window.localStorage.getItem("email"));
-
+      console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");
     }
     

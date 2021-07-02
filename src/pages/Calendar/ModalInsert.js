@@ -10,6 +10,7 @@ const ModalInsert = ({
   close,
   header,
   selectInfo,
+  userValue,
 }) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   // const { open, close, header } = props;
@@ -20,14 +21,15 @@ const ModalInsert = ({
     const selectInfoApi = selectInfo.view.calendar;
     selectInfoApi.unselect(); // clear date selection
     const newSchedule = {
-      member_id: 123,
+      member_email: userValue,
       study_group_id: 1234,
       title,
       content,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      calendar_id: "asdas1",
+      start: selectInfo.startStr.split("T")[0] + "T09:00",
+      end: selectInfo.endStr.split("T")[0] + "T09:00",
     };
+
+    console.log(newSchedule.member_email);
 
     // selectInfoApi.addEvent(newSchedule); // 이거랑
     //console.log("events = ", [...currentEvents, newSchedule]);

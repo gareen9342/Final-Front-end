@@ -6,40 +6,31 @@ import interactionPlugin from "@fullcalendar/interaction";
 import ModalInsert from "./ModalInsert";
 import ModalUpdate from "./ModalUpdate";
 import CalendarService from "../../services/calendarService";
-import { INITIAL_EVENTS } from "./dummy-data";
 import "./Calendar.css";
 
-const Calendar = () => {
+const Calendar = ({userValue}) => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
-
-  const [schedule, setSchedule] = useState({
-    title: "",
-    content: "",
-    start: "",
-    end: "",
-  });
 
   const [selectInfo, setSelectInfo] = useState(null);
   const [clickInfo, setClickInfo] = useState(null);
 
   const [currentEvents, setCurrentEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  
   useEffect(() => {
     if (loading) {
-      /**
-       * (async () => {
-        const { data : res } =  await CalendarService.CalendarSelectList();
+       (async () => {
+        const res =  await CalendarService.CalendarSelectMember(userValue);
+        // const res =  await CalendarService.CalendarSelectList();
         if(res.data){
           setCurrentEvents(res.data);
           setLoading(false); // ??이건 잘 모르겠음 
         }
       })();
-       */
-      const data = INITIAL_EVENTS;
-      setCurrentEvents(data);
     }
 
     return () => {
@@ -49,7 +40,7 @@ const Calendar = () => {
     };
   }, [loading]);
 
-  // 왼쪽 사이드바
+  // 왼쪽 사이드바  오른쪽 드로그바
   const renderSidebar = () => {
     return (
       <div className="calendar-app-sidebar">
@@ -94,7 +85,7 @@ const Calendar = () => {
 
   function renderSidebarEvent(event) {
     return (
-      <li key={event.calendar_id}>
+      <li key={event.id}>
         <b>
           {formatDate(event.start, {
             year: "numeric",
@@ -115,9 +106,8 @@ const Calendar = () => {
   };
 
   // 일정을 클릭하면 발생하는 이벤트
-  const handleEventClick = (clickinfo) => {
-    // console.log(clickinfo);
-    setClickInfo(clickinfo);
+  const handleEventClick = (clickInfo) => {
+    setClickInfo(clickInfo);
     openUpdateModal();
   };
 
@@ -183,6 +173,7 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
+        userValue={userValue}
       />
       <ModalUpdate
         open={updateModalOpen}
@@ -191,6 +182,7 @@ const Calendar = () => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
+        userValue={userValue}
       />
     </div>
   );

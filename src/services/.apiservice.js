@@ -1,3 +1,4 @@
+import { ContactSupportOutlined } from "@material-ui/icons";
 import axios from "axios";
 import { backUrl } from "../config/config";
 
@@ -20,7 +21,6 @@ ApiService.get = async (uri) => {
   } catch (error) {
     console.error(error);
   }
-
   return data;
 };
 
@@ -44,6 +44,8 @@ ApiService.getWithHeader = async (uri, token) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
+  console.log("APIservice : ",body);
+
   const config = { 'Content-Type': 'application/json'};
   try {
     resData = axios.post(`${uri}`, body, config);

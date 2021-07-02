@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.css";
 
 import Header from "./components/Header";
@@ -10,6 +10,7 @@ import Payment from "./pages/Iamport/Payment";
 
 import Calendar from "./pages/Calendar/Calendar";
 import Login from "./pages/login/Login";
+import Register from "./pages/login/Register";
 
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
@@ -18,25 +19,59 @@ import MyStudy from "./pages/MyStudy";
 import { signIn } from "./pages/login/Auth";
 
 export default function App() {
-  const [email, setEmail] = useState("");
-  const [userValue, setUserValue] = useState(null);
-  const authenticated = userValue != null;
-  const logout = () => setUserValue(null);
+  
+  // 유저의 이메일 정보
+  const [userEmail, setUserEmail] = useState(null); 
 
-  //로그인한 유저정보를 가지고 온다 . name과 email로 가지고 오게 된다.
-  const signUserIn = (email) => {
-    setEmail(email);
-    return setUserValue(signIn(email));
+  // 회원가입 유저의 확인
+  const [yesUser, setYesUser] = useState(null);
+
+  // SNS로그인 유저의 확인
+  const authenticated = userEmail != null;
+  
+
+  // user 이메일 정보 삭제할 때
+  const logout = () => {
+    setUserEmail(null);
+    setYesUser(null);
+  }
+  
+  const saveData = () => {
+    const userObj = {email : userEmail}
+    window.localStorage.setItem("email",JSON.stringify(userObj));
+  }
+  
+
+  
+  //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
+  const signUserIn = async (email) => {
+    const Member = await signIn(email);
+    console.log("Member의 값" + Member);
+    if( Member == "NotUser" ){
+      setUserEmail(email);
+      setYesUser(false);
+
+      console.log("로그인했지만 회원아님");
+    }else{
+      setUserEmail(email);
+      setYesUser(true);
+      saveData();
+
+      console.log("로컬스토레이지 작동",window.localStorage.getItem("email"));
+
+      console.log("로그인한 회원임");
+    }
+    
   }
 
   return (
     <Router>
       <div>
         {/* 로그인 했을경우 Header가 보여지게 된다. */}
-        {authenticated && <Header logout={logout} />}
+        {authenticated && yesUser && <Header logout={logout} />}
 
         {/* 로그인 했을 경우 */}
-        {authenticated && (
+        {authenticated && yesUser && (
           <>
             <Switch>
               <Route exact path="/" component={Home} />
@@ -44,14 +79,23 @@ export default function App() {
               <Route exact path="/map" component={MapService} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
-              <Route path="/calendar" component={Calendar} />
+              <Route path="/calendar"  render={() => <Calendar userValue={userValue}/>} /> 
+
+              <Route path="/payment" component={Payment} />
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>
         )}
+        
+        {/* 회원가입 페이지로 이동*/}
+        {authenticated && !yesUser && (
+          <>
+            <Route path="/" render={() => <Register email={userEmail} logout={logout}/>}/>
+          </>
+        )}
 
         {/* 로그인하지 못했을 경우 */}
-        {!authenticated && (
+        {!authenticated && !yesUser && (
           <>
             <Route path="/" render={() => <Login signUserIn={signUserIn} />} />
           </>

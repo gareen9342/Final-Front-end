@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {ShinYongCard, GyeJwaEche, MuTongJang, KakaoPay, NaverPay, Payco} from "./PaymentButton";
+import {ShinYongCard, GyeJwaEche, MuTongJang, KakaoPay, Payco} from "./PaymentButton";
 
 const Payment = (effect, deps) => {
     useEffect(() => {
@@ -24,8 +24,6 @@ const Payment = (effect, deps) => {
             <MuTongJang/>
             <br/>
             <KakaoPay/>
-            <br/>
-            <NaverPay/>
             <br/>
             <Payco/>
         </>

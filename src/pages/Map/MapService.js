@@ -156,15 +156,12 @@ const MapService = () => {
           "</div>";
         // + `<button onClick="pickHere()" style="border:1px solid skyblue;float:right;">탐색</button>`;
 
-
         infoWindow.setContent(content);
         infoWindow.open(kakaoMap, marker);
       });
       kakao.maps.event.addListener(kakaoMap, "click", function () {
         infoWindow.close();
       });
-
-
     }
     return marker;
   };
@@ -240,10 +237,23 @@ const MapService = () => {
           (async () => {
             try {
               const { data } = await StudyService.searchStudy(lat, lng, range);
+              let marker = null;
               if (!!data && data.length) {
                 setStudyResult([]);
                 console.log(data);
                 setStudyResult(data);
+                let tmpMarker = [];
+                for (const d of data) {
+                  marker = new kakao.maps.Marker({
+                    map: kakaoMap,
+                    position: new kakao.maps.LatLng(d.studygrouplat, d.studygrouplng),
+                  });
+                  tmpMarker.push(marker);
+                  // marker.setMap(kakaoMap);
+                }
+                setMarkersPosition(tmpMarker);
+                console.log(markersPosition);
+                markersPosition.forEach((study) => { study.setMap(kakaoMap) });
               }
             } catch (err) {
               console.error(err);
@@ -277,6 +287,7 @@ const MapService = () => {
   };
 
   const deleter = () => {
+    markersPosition.forEach((study) => { study.setMap(null) });
     setMarkersPosition([]);
   };
 

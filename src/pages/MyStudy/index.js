@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Profile,
@@ -9,7 +9,24 @@ import {
   SearchBar,
 } from "./UI";
 import ToDoList from "./ToDoList";
+import StudyService from "../../services/studyService";
 const MyStudy = () => {
+  const [mystudyLoading, setMystudyLoading] = useState(true);
+  const [myStudies, setMyStudies] = useState([]);
+  const email = localStorage.getItem("email");
+  useEffect(() => {
+    (async () => {
+      const { data } = await StudyService.getMyStudies(email);
+      if (data && data.length) {
+        setMyStudies(data);
+      }
+    })();
+    return () => {
+      if (mystudyLoading) {
+        setMystudyLoading(false);
+      }
+    };
+  }, []);
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
       <div className="flex items-start justify-between ">
@@ -32,7 +49,20 @@ const MyStudy = () => {
             <div className="flex flex-col flex-wrap sm:flex-row">
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  <Profile studyname={"스터디 이름"} />
+                  {console.log(myStudies)}
+                  {myStudies &&
+                    myStudies.length > 0 &&
+                    myStudies.map((x) => (
+                      <Profile
+                        studyname={x.studygroupname}
+                        key={x.studygroupid}
+                        isAdmin={
+                          x.studygroupadmin && x.studygroupadmin === email
+                        }
+                        isOffline={x.studygroupoffline}
+                      />
+                    ))}
+                  {!myStudies.length && <p>가입한 스터디가 없습니다. </p>}
                 </Box>
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">

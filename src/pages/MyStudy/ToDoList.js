@@ -4,9 +4,6 @@ import { todolist } from "../../dummyData/todos";
 import Modal from "../../components/Modal";
 import StudyService from "../../services/studyService";
 
-
-
-
 const ToDos = () => {
   const [todos, setTodos] = useState(todolist);
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,17 +19,15 @@ const ToDos = () => {
     openModal();
   };
   const onClickCheckHeader = async () => {
-    try{
-     const res = await StudyService.checkHeader();
-     console.log(res)
-    }catch(err){
+    try {
+      const res = await StudyService.checkHeader();
+      console.log(res);
+    } catch (err) {
       console.error(err);
     }
-      
-  }
+  };
   return (
     <ToDoList>
-      <button onClick={onClickCheckHeader}>check</button>
       {todos.map((item, idx) => (
         <ToDoListItem
           key={item.todolist_id}

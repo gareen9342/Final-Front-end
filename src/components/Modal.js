@@ -6,19 +6,13 @@ function Modal({
   className,
   onClose,
   maskClosable,
-  closable,
+  
   visible,
   children,
   bgColor,
 }) {
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose(e);
-    }
-  };
-
-  const close = (e) => {
-    if (onClose) {
       onClose(e);
     }
   };
@@ -41,11 +35,6 @@ function Modal({
         visible={visible}
       >
         <ModalInner tabIndex="0" className="modal-inner bordernone">
-          {/* {closable && (
-            <button className="modal-close close" onClick={close}>
-              close
-            </button>
-          )} */}
           {children}
         </ModalInner>
       </ModalWrapper>

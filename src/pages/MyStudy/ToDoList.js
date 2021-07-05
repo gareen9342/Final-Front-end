@@ -18,14 +18,7 @@ const ToDos = () => {
     console.log("onclick");
     openModal();
   };
-  const onClickCheckHeader = async () => {
-    try {
-      const res = await StudyService.checkHeader();
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
   return (
     <ToDoList>
       {todos.map((item, idx) => (

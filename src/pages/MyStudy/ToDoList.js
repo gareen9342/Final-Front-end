@@ -1,12 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { ToDoList, ToDoListItem, AddButton } from "./UI";
 import { todolist } from "../../dummyData/todos";
 import Modal from "../../components/Modal";
-import StudyService from "../../services/studyService";
+import TodoInput from "./TodoInput";
+import TodoService from "../../services/todoService";
 
 const ToDos = () => {
-  const [todos, setTodos] = useState(todolist);
+  const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      (async () => {
+        try {
+          const { data } = await TodoService.getMyTodos(
+            localStorage.getItem("email")
+          );
+          if (data && data.length) {
+            console.log(data);
+            setTodos(data);
+            setLoading(false);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+
+    return () => {
+      setLoading(false);
+    };
+  }, [loading]);
+
   const openModal = () => {
     setModalVisible(true);
   };
@@ -14,23 +40,13 @@ const ToDos = () => {
     setModalVisible(false);
   };
 
-  const onClickAddButton = () => {
-    console.log("onclick");
-    openModal();
-  };
-  const onClickCheckHeader = async () => {
-    try {
-      const res = await StudyService.checkHeader();
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   return (
     <ToDoList>
+      {loading && "loading..."}
+      {!loading && !todos.length && "할일이 아직 없습니다."}
       {todos.map((item, idx) => (
         <ToDoListItem
-          key={item.todolist_id}
+          key={item.todomyid}
           checked={item.is_done}
           index={idx}
           taskName={item.title}
@@ -38,7 +54,7 @@ const ToDos = () => {
       ))}
       <br />
       <div className="text-center">
-        <AddButton onClickButton={onClickAddButton} />
+        <AddButton onClickButton={openModal} />
       </div>
       {modalVisible && (
         <Modal
@@ -48,30 +64,11 @@ const ToDos = () => {
           onClose={closeModal}
           bgColor={"rgba(0,0,0,0.3)"}
         >
-          <div className="py-3 sm:max-w-xl sm:mx-auto">
-            <div className="px-12 py-5">
-              <h2 className="text-gray-800 text-3xl font-semibold">
-                Your opinion matters to us!
-              </h2>
-            </div>
-            <div className="bg-gray-200 w-full flex flex-col items-center">
-              <div className="flex flex-col items-center py-6 space-y-3"></div>
-              <div className="w-3/4 flex flex-col">
-                <textarea
-                  rows="3"
-                  className="p-4 text-gray-500 rounded-xl resize-none"
-                >
-                  contents
-                </textarea>
-                <button className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white">
-                  okay
-                </button>
-              </div>
-            </div>
-            <div className="h-20 flex items-center justify-center">
-              <button onClick={() => closeModal()}>maybe later</button>
-            </div>
-          </div>
+          <TodoInput
+            todos={todos}
+            setTodos={setTodos}
+            closeModal={closeModal}
+          />
         </Modal>
       )}
     </ToDoList>

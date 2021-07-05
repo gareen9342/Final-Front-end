@@ -45,7 +45,7 @@ const StudyForm = () => {
     [studyName, studyNameWarn]
   );
 
-  const onClickSubmit = useCallback(async() => {
+  const onClickSubmit = useCallback(async () => {
     const studydata = {
       studygroupname: studyName,
       studygroupdesc: description,
@@ -73,15 +73,16 @@ const StudyForm = () => {
       return alert("비공개 설정시 비밀번호를 반드시 작성해주세요");
     }
 
-    const {data} = await StudyService.uploadStudy(studydata, localStorage.getItem("email"));
-    if(data.success === "true"){
+    const { data } = await StudyService.uploadStudy(
+      studydata,
+      localStorage.getItem("email")
+    );
+    if (data.success === "true") {
       alert("업로드 성공");
       history.push("/mystudy");
-    }else{
-      alert("업로드하는데 실패했습니다.")
+    } else {
+      alert("업로드하는데 실패했습니다.");
     }
-    
-    
   }, [
     studyName,
     description,

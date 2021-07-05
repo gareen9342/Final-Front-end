@@ -12,6 +12,7 @@ import MapSearchForm from "./MapSearchForm";
 import SelectBox from "./SelectBox";
 import { Container, Form, Row, Box } from "./UI";
 import Editor from "./TextEditor";
+import { useHistory } from "react-router";
 const StudyForm = () => {
   const [studyName, setStudyName] = useState("");
   const [studyNameWarn, setStudyNameWarn] = useState("");
@@ -28,8 +29,9 @@ const StudyForm = () => {
   // 고민중인 부분
   const [addressConfirmed, setAddressConfirmed] = useState(false);
   const [description, setDescription] = useState("");
-
   //editor values
+
+  const history = useHistory();
 
   const onChangeStudyName = useCallback(
     (e) => {
@@ -43,8 +45,8 @@ const StudyForm = () => {
     [studyName, studyNameWarn]
   );
 
-  const onClickSubmit = useCallback(() => {
-    const data = {
+  const onClickSubmit = useCallback(async() => {
+    const studydata = {
       studygroupname: studyName,
       studygroupdesc: description,
       studygroupoffline: isOffline,
@@ -54,7 +56,7 @@ const StudyForm = () => {
       studygroupaddr: address,
       studygrouppw: password,
     };
-    console.log(data);
+
     // 채워져야 할 칸들이 비어져 있다면
     if (!studyName.length || !description.length) {
       return alert("모든 작성란을 입력해주세요.");
@@ -70,8 +72,16 @@ const StudyForm = () => {
     if (isPublic === "비공개" && !password.length) {
       return alert("비공개 설정시 비밀번호를 반드시 작성해주세요");
     }
-    const res = StudyService.uploadStudy(data);
-    console.log("res = ", res);
+
+    const {data} = await StudyService.uploadStudy(studydata, localStorage.getItem("email"));
+    if(data.success === "true"){
+      alert("업로드 성공");
+      history.push("/mystudy");
+    }else{
+      alert("업로드하는데 실패했습니다.")
+    }
+    
+    
   }, [
     studyName,
     description,

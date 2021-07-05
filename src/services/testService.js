@@ -13,4 +13,7 @@ TestService.postTestPosts = () => {
   });
 };
 
+TestService.checkRequestHeader = () => {
+  return ApiService.get("/displayheaderinfo.do");
+} 
 export default TestService;

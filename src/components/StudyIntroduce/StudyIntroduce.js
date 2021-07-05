@@ -15,7 +15,6 @@ const StudyIntroduce = () => {
                             <button class="w-3 h-3 mx-2 bg-red-300 rounded-full md:mx-0 focus:outline-none hover:bg-blue-500"></button>
                             <button class="w-3 h-3 mx-2 bg-gray-300 rounded-full md:mx-0 focus:outline-none hover:bg-blue-500"></button>
                         </div>
-                        +
                         <div class="max-w-lg md:mx-12 md:order-2">
                             <h1 class="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">스터디이름</h1>
                             <p class="mt-4 text-gray-600 dark:text-gray-300">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut quia asperiores alias vero magnam recusandae adipisci ad vitae laudantium quod rem voluptatem eos accusantium cumque.</p>

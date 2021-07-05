@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , Switch, Route, Router } from "react-router-dom";
+
 export const Box = ({ children }) => (
   <div className="mb-4 mx-0 sm:ml-4 xl:mr-4 ">
     <div className="shadow-lg rounded-2xl bg-white p-2 dark:bg-gray-700 w-full">
@@ -11,11 +12,13 @@ export const Profile = ({ studyname, isAdmin, isOffline }) => (
   <>
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center">
+        <Link to="/GroupStudy">
         <div className="flex flex-col">
           <span className="font-bold text-md text-black dark:text-white ml-2">
             {studyname}
           </span>
         </div>
+        </Link>
       </div>
       <div className="flex items-center">
         <button className="border p-1 border-gray-200 rounded-full">

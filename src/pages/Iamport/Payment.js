@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import {PaymentButton} from "./PaymentButton";
-import {PaymentModal} from "./PaymentModal";
-import './Payment.css';
 
 const Payment = (effect, deps) => {
     useEffect(() => {
@@ -18,10 +16,7 @@ const Payment = (effect, deps) => {
     }, []);
 
     const info = "";    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    const date = today.getDate();
+
 
     return (
         <>

@@ -10,7 +10,7 @@ const ModalUpdate = ({
   close,
   header,
   clickInfo,
-  userValue,
+  userEmail,
 }) => {
 
   const [title, setTitle] = useState(title); //clickInfo.event.title
@@ -27,7 +27,7 @@ const ModalUpdate = ({
     clickInfoApi.unselect();
     const newSchedule = {
       calendar_id: clickInfo.event._def.extendedProps.calendar_id,
-      member_email: userValue,
+      member_email: userEmail,
       study_group_id: 1234,
       title,
       content,

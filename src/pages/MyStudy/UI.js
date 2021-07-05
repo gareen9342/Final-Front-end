@@ -12,7 +12,15 @@ export const Profile = ({ studyname, isAdmin, isOffline }) => (
   <>
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center">
-        <Link to="/GroupStudy">
+        <Link to={
+          {
+            pathname : '/GroupStudy',
+            state : {
+              studyname : studyname,
+              isAdmin : isAdmin,
+            }
+          }
+        }>
         <div className="flex flex-col">
           <span className="font-bold text-md text-black dark:text-white ml-2">
             {studyname}

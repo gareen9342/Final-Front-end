@@ -6,11 +6,7 @@ import { backUrl } from "../../config/config";
 
 const TextEditor = ({ setText }) => {
   const editorRef = useRef();
-  // ========== base64 렌더링 및 이미지 두 번 삽입되던 문제 해결 ============= //
-  /**
-   * componentWillMount 못 쓴 이유 : removeHook이 editorRef가 먼저 떠야 뜸
-   * TODO:점점 무거워져서... 최적화랑 로직 쪼금 바꾸긴 해야함
-   */
+  
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.getInstance().removeHook("addImageBlobHook");

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useInput from "../../hooks/useInput";
 import TodoService from "../../services/todoService";
 
-const TodoInput = ({ setTodos, closeModal }) => {
+const TodoInput = ({ setTodos, todos, closeModal }) => {
   const [content, onChangeContent] = useInput("");
   const [title, onChangeTitle] = useInput("");
   const onInsertTodo = async () => {
@@ -11,12 +11,18 @@ const TodoInput = ({ setTodos, closeModal }) => {
       content,
     };
     try {
-      const res = await TodoService.insertMyTodo(
+      const { data } = await TodoService.insertMyTodo(
         todoData,
         localStorage.getItem("email")
       );
 
-      console.log(res);
+      console.log(data);
+      if (data.success == "true") {
+        alert("할일 추가 성공");
+        setTodos([...todos, data.todo]);
+      } else {
+        alert("할일을 추가하는 데에 오류발생");
+      }
     } catch (err) {
       console.error(err);
     }

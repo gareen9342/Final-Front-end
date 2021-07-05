@@ -1,13 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { ToDoList, ToDoListItem, AddButton } from "./UI";
 import { todolist } from "../../dummyData/todos";
 import Modal from "../../components/Modal";
 import TodoInput from "./TodoInput";
-import StudyService from "../../services/studyService";
+import TodoService from "../../services/todoService";
 
 const ToDos = () => {
-  const [todos, setTodos] = useState(todolist);
+  const [loading, setLoading] = useState(true);
+  const [todos, setTodos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      (async () => {
+        try {
+          const { data } = await TodoService.getMyTodos(
+            localStorage.getItem("email")
+          );
+          if (data && data.length) {
+            console.log(data);
+            setTodos(data);
+            setLoading(false);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    }
+
+    return () => {
+      setLoading(false);
+    };
+  }, [loading]);
 
   const openModal = () => {
     setModalVisible(true);
@@ -16,16 +40,13 @@ const ToDos = () => {
     setModalVisible(false);
   };
 
-  const onClickAddButton = () => {
-    console.log("onclick");
-    openModal();
-  };
-
   return (
     <ToDoList>
+      {loading && "loading..."}
+      {!loading && !todos.length && "할일이 아직 없습니다."}
       {todos.map((item, idx) => (
         <ToDoListItem
-          key={item.todolist_id}
+          key={item.todomyid}
           checked={item.is_done}
           index={idx}
           taskName={item.title}
@@ -33,7 +54,7 @@ const ToDos = () => {
       ))}
       <br />
       <div className="text-center">
-        <AddButton onClickButton={onClickAddButton} />
+        <AddButton onClickButton={openModal} />
       </div>
       {modalVisible && (
         <Modal
@@ -43,7 +64,11 @@ const ToDos = () => {
           onClose={closeModal}
           bgColor={"rgba(0,0,0,0.3)"}
         >
-          <TodoInput setTodos={setTodos} closeModal={closeModal} />
+          <TodoInput
+            todos={todos}
+            setTodos={setTodos}
+            closeModal={closeModal}
+          />
         </Modal>
       )}
     </ToDoList>

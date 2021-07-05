@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import {PaymentButton} from "./PaymentButton";
+import { PaymentButton } from "./PaymentButton";
+import { PaymentModal } from './PaymentModal';
 
-const Payment = (effect, deps) => {
+const Payment = () => {
     useEffect(() => {
         const jquery = document.createElement("script");
         jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";

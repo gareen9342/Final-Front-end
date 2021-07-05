@@ -20,6 +20,9 @@ const MapService = () => {
   const [activateNear, setActivateNear] = useState(false);
   // 반경 정보
   const [range, setRange] = useState(500);
+  // 스터디 위치정보
+  const [studyResult, setStudyResult] = useState([]);
+
 
   const mapContainer = useRef();
 
@@ -129,28 +132,41 @@ const MapService = () => {
         map: kakaoMap,
         position: new kakao.maps.LatLng(place.y, place.x),
       });
-      //마커에 이벤트를 등록한다.
-
+      // 마커에 이벤트 등록
       kakao.maps.event.addListener(marker, "click", function () {
         // console.log(place.address_name, place.id);
-        // 장소명이 인포윈도우에 표출됩니다
-        infoWindow.setContent(
-          '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
+
+        // 선택 기준 탐색 (보류)
+        // const pickHere = (async () => {
+        //   try {
+        //     const { data } = await StudyService.searchStudy(place.y, place.x, range);
+        //     if (!!data && data.length) {
+        //       setStudyResult([]);
+        //       console.log(data);
+        //       setStudyResult(data);
+        //     }
+        //   } catch (err) {
+        //     console.error(err);
+        //   }
+        // })();
+
+        // 마커 인포윈도우
+        let content = '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
           place.place_name +
-          "</div>" +
-          '<button style="border:1px solid skyblue;float:right;">버튼</button>'
-        );
+          "</div>";
+        // + `<button onClick="pickHere()" style="border:1px solid skyblue;float:right;">탐색</button>`;
+
+        infoWindow.setContent(content);
         infoWindow.open(kakaoMap, marker);
       });
       kakao.maps.event.addListener(kakaoMap, "click", function () {
         infoWindow.close();
       });
-
     }
     return marker;
   };
 
-  // 
+  // 현위치
   const onFocusCenter = () => {
     if (kakaoMap && navigator.geolocation) {
       // GeoLocation, 접속위치 get
@@ -174,8 +190,9 @@ const MapService = () => {
     };
   };
 
+  // 마커 기준 주변 위치 탐색
   const searchNear = () => {
-    alert('탐색을 원하는 위치를 클릭하세요')
+    alert('탐색을 원하는 위치를 클릭하세요');
     setActivateNear(true);
     let marker = new kakao.maps.Marker({
       position: kakaoMap.getCenter()
@@ -217,8 +234,32 @@ const MapService = () => {
         // console.log(StudyInfo.data);
 
         if (!!lng && !!lat) {
-          StudyService.searchStudy(lat, lng, range);
-          // console.log('req');
+          (async () => {
+            try {
+              const { data } = await StudyService.searchStudy(lat, lng, range);
+              let marker = null;
+              if (!!data && data.length) {
+                setStudyResult([]);
+                console.log(data);
+                setStudyResult(data);
+                let tmpMarker = [];
+                for (const d of data) {
+                  marker = new kakao.maps.Marker({
+                    map: kakaoMap,
+                    position: new kakao.maps.LatLng(d.studygrouplat, d.studygrouplng),
+                  });
+                  tmpMarker.push(marker);
+                  // marker.setMap(kakaoMap);
+                }
+                setMarkersPosition(tmpMarker);
+                console.log(markersPosition);
+                markersPosition.forEach((study) => { study.setMap(kakaoMap) });
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          })();
+
         }
 
       } else {
@@ -237,7 +278,7 @@ const MapService = () => {
 
 
 
-  // ----------------------------------------------------------------------
+  // -------------------------------forTest--------------------------------
 
   const checker = () => {
     console.log("----------------------");
@@ -246,6 +287,7 @@ const MapService = () => {
   };
 
   const deleter = () => {
+    markersPosition.forEach((study) => { study.setMap(null) });
     setMarkersPosition([]);
   };
 
@@ -262,7 +304,7 @@ const MapService = () => {
   ], [])
 
   // 300 이었던 것
-  const leftWidth = 0;
+  const leftWidth = 300;
   return (
     <div>
       <div>
@@ -276,6 +318,7 @@ const MapService = () => {
         <button onClick={onClickSearchButton}>검색</button>
         <br />
         <button onClick={onFocusCenter}>현위치</button>
+        <br />
         {activateNear === false ? <>
           <button onClick={searchNear}>
             주변 스터디 탐색하기
@@ -293,15 +336,14 @@ const MapService = () => {
         className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        {/* <div
+        <div
           class="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
           <div class="bg-hotpink rounded-3xl p-5">yap</div>
-          <StudyComponent />
+          <StudyComponent studies={studyResult} />
           <br />
-          <StudyComponent />
-        </div> */}
+        </div>
 
         <div
           style={{

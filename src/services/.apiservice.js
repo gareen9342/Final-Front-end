@@ -27,12 +27,12 @@ ApiService.getWithHeader = async (uri, email) => {
   let data = [];
 
   const config = {
-    headers : {
+    headers: {
       "Content-Type": "application/json",
-      "Email": email,
-    }
+      Email: email,
+    },
   };
-    
+
   try {
     data = await axios.get(`${uri}`, config);
   } catch (error) {
@@ -44,11 +44,11 @@ ApiService.getWithHeader = async (uri, email) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  console.log("APIservice : ",body);
+  console.log("APIservice : ", body);
 
-  const config = { 'Content-Type': 'application/json'};
+  const config = { "Content-Type": "application/json" };
   try {
-    resData = axios.post(`${uri}`, body, config);
+    resData = await axios.post(`${uri}`, body, config);
   } catch (error) {
     console.error(error);
   }
@@ -59,14 +59,14 @@ ApiService.post = async (uri, body) => {
 ApiService.postWithHeader = async (uri, body, email) => {
   let resData = {};
   const config = {
-    headers : {
+    headers: {
       "Content-Type": "application/json",
-      "Email": email,
-    }
+      Email: email,
+    },
   };
-  
+
   try {
-    resData = axios.post(`${uri}`, body, config);
+    resData = await axios.post(`${uri}`, body, config);
   } catch (error) {
     console.error(error);
   }
@@ -74,4 +74,31 @@ ApiService.postWithHeader = async (uri, body, email) => {
   return resData;
 };
 
+ApiService.delete = async (uri, data) => {
+  let resData = {};
+
+  try {
+    resData = await axios.delete(uri, data);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return resData;
+};
+
+ApiService.putWithHeader = async (uri, data, email) => {
+  let res = {};
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Email: email,
+    },
+  };
+  try {
+    res = await axios.put(uri, data, config);
+  } catch (err) {
+    console.error(err);
+  }
+  return res;
+};
 export default ApiService;

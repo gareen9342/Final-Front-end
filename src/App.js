@@ -36,6 +36,7 @@ export default function App() {
     setUserEmail(null);
     setYesUser(null);
     window.localStorage.removeItem("email");
+    window.localStorage.removeItem("yesUser");
   }
   
 

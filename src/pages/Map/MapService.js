@@ -304,7 +304,7 @@ const MapService = () => {
   ], [])
 
   // 300 이었던 것
-  const leftWidth = 0;
+  const leftWidth = 300;
   return (
     <div>
       <div>
@@ -336,15 +336,14 @@ const MapService = () => {
         className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        {/* <div
+        <div
           class="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
           <div class="bg-hotpink rounded-3xl p-5">yap</div>
-          <StudyComponent />
+          <StudyComponent studies={studyResult} />
           <br />
-          <StudyComponent />
-        </div> */}
+        </div>
 
         <div
           style={{

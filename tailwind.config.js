@@ -21,6 +21,7 @@ module.exports = {
       fuchsia: colors.fuchsia,
       purple: colors.purple,
       emerald: colors.emerald,
+      blue: colors.blue,
     },
     fontFamily: { body: "Open Sans" },
   },

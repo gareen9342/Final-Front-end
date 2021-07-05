@@ -7,14 +7,12 @@ export const PaymentModal = () => {
     const background_css = {
         'background': 'rgba(0,0,0,.7)'
     }
-    //const all_modals = ['main-modal']
 
     const modal = useRef();
     useEffect(()=>{
         modal.current.classList.remove("fadeIn");
         modal.current.classList.add("fadeOut");
         modal.current.style.display = "none";
-        console.log(main_modal.current.style);
     },[]);
 
 
@@ -29,18 +27,18 @@ export const PaymentModal = () => {
     }
 
     // Modal 호출버튼 클릭 시
-    const openModal = (modal) => {
-        const modalToOpen = document.querySelector('.'+modal);
-        // modalToOpen.classNameList.remove('fadeOut');
-        // modalToOpen.classNameList.add('fadeIn');
-        // modalToOpen.style.display = 'flex';
+    const openModal = () => {
+        console.log(modal);
+        modal.current.classList.remove("fadeOut");
+        modal.current.classList.add("fadeIn");
+        modal.current.style.display = "flex";
     }
 
 
     return (
         <>
             <div>
-                <button onClick={openModal('main-modal')} className='bg-blue-500 text-white p-2 rounded text-2xl font-bold'>Open Modal</button>
+                <button onClick={openModal()} className='bg-blue-500 text-white p-2 rounded text-2xl font-bold'>Open Modal</button>
             </div>
 
             <div className="main-modal fixed w-full inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster" style={background_css} ref={modal}>
@@ -49,7 +47,7 @@ export const PaymentModal = () => {
                         {/* Title */}
                         <div className="flex justify-between items-center pb-3">
                             <p className="text-2xl font-bold text-gray-500">Add Caretaker</p>
-                            <div className="modal-close cursor-pointer z-50" onClick={modalClose('main-modal')}>
+                            <div className="modal-close cursor-pointer z-50" onClick={modalClose('modal')}>
                                 <svg className="fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                     viewBox="0 0 18 18">
                                     <path

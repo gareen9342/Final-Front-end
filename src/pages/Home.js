@@ -23,7 +23,7 @@ export default () => {
       <div>"home"</div>
       {tests && tests.length > 0 && tests.map(x => <div key={x.empno}>{x.ename}</div>)}
       <button onClick={onClickButton}>click to test post request</button>
-      <MemberList study_id="test" onClickButton={onClickButton}/>
+      
     </>
   );
 };

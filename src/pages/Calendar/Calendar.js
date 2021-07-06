@@ -24,7 +24,6 @@ const Calendar = ({userEmail}) => {
   useEffect(() => {
     if (loading) {
        (async () => {
-        console.log("왜 언디파인드임?", userEmail);
         const res =  await CalendarService.CalendarSelectMember(userEmail);
         // const res =  await CalendarService.CalendarSelectList();
         if(res.data){

@@ -1,6 +1,7 @@
 import React from 'react'
 
-const StudyComponent = ({ studies }) => {
+// 오프라인 스터디
+const OffStudyComponent = ({ studies }) => {
 
   // const [studies, setStudies] = useState([]);
 
@@ -48,4 +49,4 @@ const StudyComponent = ({ studies }) => {
   )
 }
 
-export default StudyComponent
+export default OffStudyComponent

@@ -1,7 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./style.css";
-import StudyComponent from './Sections/StudyComponent';
+import OffStudyComponent from './Sections/OffStudyComponent';
 import useInput from "../../hooks/useInput";
 import StudyInfo from "../../dummyData/study.json";
 import StudyService from '../../services/studyService';
@@ -341,9 +341,9 @@ const MapService = () => {
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
           <div className="bg-hotpink rounded-3xl p-5">
-            {studyResult > 0 ? `${studyResult}개의 스터디가 있습니다.` : `스터디가 없어~`}
+            {`${studyResult.length}개의 스터디가 있습니다.`}
           </div>
-          <StudyComponent studies={studyResult} />
+          <OffStudyComponent studies={studyResult} />
           <br />
         </div>
 

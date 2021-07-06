@@ -80,9 +80,7 @@ const MyStudy = () => {
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  <p className="font-bold text-md p-4 text-black dark:text-white">
-                    <Calendar userEmail={window.localStorage.getItem("email")} />
-                  </p>
+                  <Calendar userEmail={window.localStorage.getItem("email")} />
                 </Box>
               </div>
             </div>

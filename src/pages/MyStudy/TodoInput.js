@@ -1,32 +1,10 @@
 import React, { useState } from "react";
 import useInput from "../../hooks/useInput";
-import TodoService from "../../services/todoService";
 
-const TodoInput = ({ setTodos, todos, closeModal }) => {
+const TodoInput = ({ onClickAction, closeModal }) => {
   const [content, onChangeContent] = useInput("");
   const [title, onChangeTitle] = useInput("");
-  const onInsertTodo = async () => {
-    const todoData = {
-      title,
-      content,
-    };
-    try {
-      const { data } = await TodoService.insertMyTodo(
-        todoData,
-        localStorage.getItem("email")
-      );
 
-      console.log(data);
-      if (data.success == "true") {
-        alert("할일 추가 성공");
-        setTodos([...todos, data.todo]);
-      } else {
-        alert("할일을 추가하는 데에 오류발생");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
   return (
     <div className="py-3 sm:max-w-xl sm:mx-auto">
       <div className="px-12 py-5">
@@ -50,7 +28,7 @@ const TodoInput = ({ setTodos, todos, closeModal }) => {
           />
           <br />
           <button
-            onClick={onInsertTodo}
+            onClick={() => onClickAction({ title, content })}
             className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
           >
             추가하기

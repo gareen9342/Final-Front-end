@@ -1,4 +1,5 @@
 import React , {useState} from "react";
+import groupStudyService from "../../services/groupStudyService";
 
 const GroupStudy = (props) => {
     
@@ -8,9 +9,9 @@ const GroupStudy = (props) => {
     const [role, setRole] = useState(null);
 
     const email = window.localStorage.getItem("email");
-    const studyId = props.localStorage.state.studyId;
+    const studyId = props.location.state.studyId;
     
-    
+    const res = groupStudyService.getRole(email,studyId);
 
     // 2. studyid 값으로 들어올때
     // props.location.state.studyId 스터디      => id 값

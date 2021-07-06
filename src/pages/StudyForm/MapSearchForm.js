@@ -147,9 +147,6 @@ const MapSearchForm = ({
         )}
       </div>
       <div id="container" ref={container} />
-      <p className="text-sm text-red-500 hidden mt-3" id="error">
-        Please fill out this field.
-      </p>
     </>
   );
 };

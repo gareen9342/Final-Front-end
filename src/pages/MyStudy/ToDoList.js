@@ -1,14 +1,15 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ToDoList, ToDoListItem, AddButton } from "./UI";
-import { todolist } from "../../dummyData/todos";
 import Modal from "../../components/Modal";
 import TodoInput from "./TodoInput";
 import TodoService from "../../services/todoService";
 
 const ToDos = () => {
   const [loading, setLoading] = useState(true);
+  const [cbLoading, setCbLoading] = useState(false);
   const [todos, setTodos] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [insertModalVisible, setInsertModalVisible] = useState(false);
+  const [updateModalVisible, setUpdateModalVisible] = useState(false);
 
   useEffect(() => {
     if (loading) {
@@ -33,13 +34,69 @@ const ToDos = () => {
     };
   }, [loading]);
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
   const closeModal = () => {
-    setModalVisible(false);
+    if (insertModalVisible) {
+      setInsertModalVisible(false);
+    }
+    if (updateModalVisible) {
+      setUpdateModalVisible(false);
+    }
   };
 
+  const toggleTodo = async (todoid) => {
+    console.log(todoid);
+    if (!cbLoading) {
+      try {
+        setCbLoading(true);
+        const { data } = await TodoService.toggleTodo(todoid);
+        if (data.success === "true") {
+          todoid = +todoid;
+          const tempArr = todos.map((x) => {
+            if (x.todomyid === todoid) {
+              const temp = x;
+              temp.isdone = x.isdone === 0 ? 1 : 0;
+              return temp;
+            } else {
+              return x;
+            }
+          });
+          setTodos(tempArr);
+        } else {
+          alert("실패!");
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setCbLoading(false);
+      }
+    }
+  };
+  const onClickAddButton = () => {
+    setInsertModalVisible(true);
+  };
+
+  const onInsertTodo = useCallback(
+    async (todoData) => {
+      try {
+        const { data } = await TodoService.insertMyTodo(
+          todoData,
+          localStorage.getItem("email")
+        );
+
+        console.log(data);
+        if (data.success == "true") {
+          alert("할일 추가 성공");
+          setTodos([...todos, data.todo]);
+          setInsertModalVisible(false);
+        } else {
+          alert("할일을 추가하는 데에 오류발생");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    [todos]
+  );
   return (
     <ToDoList>
       {loading && "loading..."}
@@ -47,28 +104,26 @@ const ToDos = () => {
       {todos.map((item, idx) => (
         <ToDoListItem
           key={item.todomyid}
-          checked={item.is_done}
+          todoid={item.todomyid}
+          checked={item.isdone === 1}
           index={idx}
           taskName={item.title}
+          toggleTodo={toggleTodo}
         />
       ))}
       <br />
       <div className="text-center">
-        <AddButton onClickButton={openModal} />
+        <AddButton onClickButton={onClickAddButton} />
       </div>
-      {modalVisible && (
+      {insertModalVisible && (
         <Modal
-          visible={modalVisible}
+          visible={insertModalVisible}
           closable={true}
           maskClosable={true}
           onClose={closeModal}
           bgColor={"rgba(0,0,0,0.3)"}
         >
-          <TodoInput
-            todos={todos}
-            setTodos={setTodos}
-            closeModal={closeModal}
-          />
+          <TodoInput onClickAction={onInsertTodo} closeModal={closeModal} />
         </Modal>
       )}
     </ToDoList>

@@ -105,3 +105,4 @@ dist
 
 # 임시로
 .TextEditor
+config.js

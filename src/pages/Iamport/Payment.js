@@ -16,12 +16,17 @@ const Payment = () => {
         }
     }, []);
 
-    const info = "";    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
+    const info = {
+        name : "프리미엄 기능",
+        price: "1000",
+        email: localStorage.getItem('email'),
+        phone: "01099558701"
+    };    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
 
 
     return (
         <>
-            <PaymentModal/>
+            <PaymentModal info={info}/>
             <PaymentButton name="신용카드" info={info} pg="html5_inicis"/>
             <br/>
             <PaymentButton name="계좌이체" info={info} pg="html5_inicis" pay_method="trans"/>

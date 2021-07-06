@@ -3,9 +3,9 @@ import Modal from '../../components/Modal';
 import { PaymentButton } from "./PaymentButton";
 import "./PaymentModal.css";
 
-export const PaymentModal = () => {
-
+export const PaymentModal = (paymentInfo) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [info, setInfo] = useState(false);
     const width_100per = {
         width: "100%"
     };
@@ -16,13 +16,6 @@ export const PaymentModal = () => {
 
     const closeModal = () => {
         setModalVisible(false);
-    }
-
-    const payment = (e) => {
-        e.preventDefault();
-        return (
-                <PaymentButton info="" pg=""></PaymentButton>
-        )
     }
 
     return (
@@ -41,7 +34,7 @@ export const PaymentModal = () => {
                             <div className="modal-content py-4 text-left px-6">
                                 {/* Title */}
                                 <div className="flex justify-between items-center pb-3">
-                                    <p className="text-2xl font-bold text-gray-500">SWith 구독 시스템 결제</p>
+                                    <p className="text-2xl font-bold text-gray-500">SWith 프리미엄 기능 결제</p>
                                     <div className="modal-close cursor-pointer z-50" onClick={closeModal}>
                                         <svg className="fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 18 18">
@@ -56,22 +49,22 @@ export const PaymentModal = () => {
                                     <form action="{{url_for('default.add_caretaker', apartment_id = apartment.id)}}" method="POST" id="add_caretaker_form"  className="w-full">
                                         <div className="">
                                             <div className="">
-                                                <label htmlFor="names" className="text-md text-gray-600">Full Names</label>
+                                                <label htmlFor="names" className="text-md text-gray-600">결제명</label>
                                             </div>
                                             <div className="">
-                                                <input type="text" id="names" autoComplete="off" name="names" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Example. John Doe"/>
+                                                <input type="text" value={info.name} id="names" autoComplete="off" name="names" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Example. John Doe"/>
                                             </div>
                                             <div className="">
-                                                <label htmlFor="phone" className="text-md text-gray-600">Phone Number</label>
+                                                <label htmlFor="phone" className="text-md text-gray-600">핸드폰 번호</label>
                                             </div>
                                             <div className="">
-                                                <input type="text" id="phone" autoComplete="off" name="phone" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Example. 0729400426"/>
+                                                <input type="text" value={info.phone} id="phone" autoComplete="off" name="phone" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Example. 0729400426"/>
                                             </div>
                                             <div className="">
-                                                <label htmlFor="id_number" className="text-md text-gray-600">ID Number</label>
+                                                <label htmlFor="payment" className="text-md text-gray-600">결제 유형</label>
                                             </div>
                                             <div className="">
-                                                <input type="number" id="id_number" autoComplete="off" name="id_number" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="Caretaker's ID number"/>
+                                                <input type="number" id="payment" autoComplete="off" name="payment" className="h-3 p-6 w-full border-2 border-gray-300 mb-5 rounded-md" placeholder="결제유형"/>
                                             </div>
                                         </div>
                                     </form>
@@ -82,9 +75,9 @@ export const PaymentModal = () => {
                                         취소
                                     </button>
                                         
-                                    <button className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
-                                        <PaymentButton name="결제" info="" pg=""/>
-                                    </button>
+                                    {/* <button className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"> */}
+                                        <PaymentButton name="결제" info={info} pg="" className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"/>
+                                    {/* </button> */}
                                 </div>
                             </div>
                         </div>

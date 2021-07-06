@@ -1,5 +1,6 @@
 import React from "react";
 import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
+import CalendarGroup from "../Calendar/CalendarGroup";
 
 const GroupStudy = (props) => {
     
@@ -29,6 +30,12 @@ const GroupStudy = (props) => {
                 count="5"
                 content="스터디 소개 블라블라블라........"
             />
+
+
+            <CalendarGroup 
+                studyGroupId={123}
+            />
+
             {console.log(props)}
 
             {props.location.state.studyname}

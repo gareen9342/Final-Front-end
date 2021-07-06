@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TestService from "../services/testService";
-import MemberList from "../components/MeberList/MemberList";
 
 
 export default () => {

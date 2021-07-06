@@ -78,7 +78,7 @@ export default function App() {
               <Route exact path="/map" component={MapService} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
-              <Route path="/calendar"  render={() => <Calendar userValue={userValue}/>} /> 
+              <Route path="/calendar"  render={() => <Calendar userEmail={window.localStorage.getItem("email")}/>} /> 
 
               <Route path="/payment" component={Payment} />
               <Route path="/GroupStudy" component={GroupStudy}/>

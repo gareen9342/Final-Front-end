@@ -8,7 +8,7 @@ import ModalUpdate from "./ModalUpdate";
 import CalendarService from "../../services/calendarService";
 import "./Calendar.css";
 
-const Calendar = ({userValue}) => {
+const Calendar = ({userEmail}) => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -24,7 +24,7 @@ const Calendar = ({userValue}) => {
   useEffect(() => {
     if (loading) {
        (async () => {
-        const res =  await CalendarService.CalendarSelectMember(userValue);
+        const res =  await CalendarService.CalendarSelectMember(userEmail);
         // const res =  await CalendarService.CalendarSelectList();
         if(res.data){
           setCurrentEvents(res.data);
@@ -141,7 +141,7 @@ const Calendar = ({userValue}) => {
 
   return (
     <div className="calendar-app">
-      {renderSidebar()}
+      {/*renderSidebar()*/}
 
       <div className="calendar-app-main">
         <FullCalendar
@@ -173,7 +173,7 @@ const Calendar = ({userValue}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
-        userValue={userValue}
+        userEmail={userEmail}
       />
       <ModalUpdate
         open={updateModalOpen}
@@ -182,7 +182,7 @@ const Calendar = ({userValue}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
-        userValue={userValue}
+        userEmail={userEmail}
       />
     </div>
   );

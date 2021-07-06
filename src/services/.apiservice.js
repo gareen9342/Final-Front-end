@@ -101,4 +101,14 @@ ApiService.putWithHeader = async (uri, data, email) => {
   }
   return res;
 };
+
+ApiService.patch = async (uri, data) => {
+  let res = {};
+  try {
+    res = await axios.patch(uri, data);
+  } catch (err) {
+    console.error(err);
+  }
+  return res;
+};
 export default ApiService;

@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
-  ToDoList,
-  ToDoListItem,
   Profile,
   LeftContainer,
   NavigaionLink,
@@ -10,8 +8,26 @@ import {
   Header,
   SearchBar,
 } from "./UI";
-
+import Calendar from "../Calendar/Calendar";
+import ToDoList from "./ToDoList";
+import StudyService from "../../services/studyService";
 const MyStudy = () => {
+  const [mystudyLoading, setMystudyLoading] = useState(true);
+  const [myStudies, setMyStudies] = useState([]);
+  const email = localStorage.getItem("email");
+  useEffect(() => {
+    (async () => {
+      const { data } = await StudyService.getMyStudies(email);
+      if (data && data.length) {
+        setMyStudies(data);
+      }
+    })();
+    return () => {
+      if (mystudyLoading) {
+        setMystudyLoading(false);
+      }
+    };
+  }, []);
   return (
     <main className="bg-gray-100 dark:bg-gray-800 rounded-2xl relative h-screen overflow-hidden relative">
       <div className="flex items-start justify-between ">
@@ -34,7 +50,30 @@ const MyStudy = () => {
             <div className="flex flex-col flex-wrap sm:flex-row">
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  <Profile studyname={"스터디 이름"} />
+                  {/* 테스트코드입니다. 나중에 테스트 끝나면 삭제하겠습니다. */}
+                  <Profile
+                    studyname={"test"}
+                    key={"test"}
+                    isAdmin={
+                      "N"
+                    }
+                    isOffline={"N"}
+                  />
+                  {/* 테스트코드 종료 */}
+                  {console.log(myStudies)}
+                  {myStudies &&
+                    myStudies.length > 0 &&
+                    myStudies.map((x) => (
+                      <Profile
+                        studyname={x.studygroupname}
+                        key={x.studygroupid}
+                        isAdmin={
+                          x.studygroupadmin && x.studygroupadmin === email
+                        }
+                        isOffline={x.studygroupoffline}
+                      />
+                    ))}
+                  {!myStudies.length && <p>가입한 스터디가 없습니다. </p>}
                 </Box>
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
@@ -45,24 +84,13 @@ const MyStudy = () => {
                       (할일 전체 갯수)
                     </span>
                   </p>
-                  <ToDoList>
-                    <ToDoListItem
-                      checked={false}
-                      index={"01"}
-                      taskName={"발닦기"}
-                    />
-                    <ToDoListItem
-                      checked={true}
-                      index={"02"}
-                      taskName={"잠자기"}
-                    />
-                  </ToDoList>
+                  <ToDoList />
                 </Box>
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
                   <p className="font-bold text-md p-4 text-black dark:text-white">
-                    캘린더자리
+                    <Calendar userEmail={window.localStorage.getItem("email")} />
                   </p>
                 </Box>
               </div>

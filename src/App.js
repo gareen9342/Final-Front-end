@@ -15,40 +15,49 @@ import Register from "./pages/login/Register";
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
 import MyStudy from "./pages/MyStudy";
+import GroupStudy from "./pages/GroupStudy/GroupStudy";
 
 import { signIn } from "./pages/login/Auth";
+// import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
   
   // 유저의 이메일 정보
-  const [userValue, setUserValue] = useState(null); 
+  const [userEmail, setUserEmail] = useState(window.localStorage.getItem("email")); 
 
   // 회원가입 유저의 확인
-  const [yesUser, setYesUser] = useState(null);
+  const [yesUser, setYesUser] = useState(window.localStorage.getItem("yesUser"));
 
   // SNS로그인 유저의 확인
-  const authenticated = userValue != null;
+  const authenticated = userEmail != null;
   
 
   // user 이메일 정보 삭제할 때
   const logout = () => {
-    setUserValue(null);
+    setUserEmail(null);
     setYesUser(null);
+    window.localStorage.removeItem("email");
+    window.localStorage.removeItem("yesUser");
   }
-  //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
+  
 
+  
+  //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
   const signUserIn = async (email) => {
     const Member = await signIn(email);
     console.log("Member의 값" + Member);
     if( Member == "NotUser" ){
-      setUserValue(email);
+      setUserEmail(email);
       setYesUser(false);
 
       console.log("로그인했지만 회원아님");
     }else{
-      setUserValue(email);
+      setUserEmail(email);
       setYesUser(true);
+      window.localStorage.setItem("email",email);
+      window.localStorage.setItem("yesUser",email);
 
+      console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");
     }
     
@@ -69,9 +78,10 @@ export default function App() {
               <Route exact path="/map" component={MapService} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
-              <Route path="/calendar"  render={() => <Calendar userValue={userValue}/>} /> 
+              <Route path="/calendar"  render={() => <Calendar userEmail={userEmail}/>} /> 
 
               <Route path="/payment" component={Payment} />
+              <Route path="/GroupStudy" component={GroupStudy}/>
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>
@@ -80,7 +90,7 @@ export default function App() {
         {/* 회원가입 페이지로 이동*/}
         {authenticated && !yesUser && (
           <>
-            <Route path="/" render={() => <Register email={userValue} logout={logout}/>}/>
+            <Route path="/" render={() => <Register email={userEmail} logout={logout}/>}/>
           </>
         )}
 

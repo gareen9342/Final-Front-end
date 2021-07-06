@@ -1,4 +1,3 @@
-import { ContactSupportOutlined } from "@material-ui/icons";
 import axios from "axios";
 import { backUrl } from "../config/config";
 
@@ -11,7 +10,7 @@ ApiService.get = async (uri) => {
   let data = [];
 
   const config = {
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
   };
@@ -23,15 +22,16 @@ ApiService.get = async (uri) => {
   return data;
 };
 
-ApiService.getWithHeader = async (uri, token) => {
+ApiService.getWithHeader = async (uri, email) => {
   let data = [];
 
   const config = {
-    header: {
+    headers: {
       "Content-Type": "application/json",
-      Authorization: "bearer " + token,
+      Email: email,
     },
   };
+
   try {
     data = await axios.get(`${uri}`, config);
   } catch (error) {
@@ -45,9 +45,11 @@ ApiService.post = async (uri, body) => {
   let resData = {};
   console.log("APIservice : ", body);
 
-  const config = { 'Content-Type': 'application/json' };
+
+  const config = { "Content-Type": "application/json" };
+
   try {
-    resData = axios.post(`${uri}`, body, config);
+    resData = await axios.post(`${uri}`, body, config);
   } catch (error) {
     console.error(error);
   }
@@ -55,14 +57,17 @@ ApiService.post = async (uri, body) => {
   return resData;
 };
 
-ApiService.postWithHeader = async (uri, body, token) => {
+ApiService.postWithHeader = async (uri, body, email) => {
   let resData = {};
   const config = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    headers: {
+      "Content-Type": "application/json",
+      Email: email,
+    },
   };
+
   try {
-    resData = axios.post(`${uri}`, body, config);
+    resData = await axios.post(`${uri}`, body, config);
   } catch (error) {
     console.error(error);
   }
@@ -70,4 +75,31 @@ ApiService.postWithHeader = async (uri, body, token) => {
   return resData;
 };
 
+ApiService.delete = async (uri, data) => {
+  let resData = {};
+
+  try {
+    resData = await axios.delete(uri, data);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return resData;
+};
+
+ApiService.putWithHeader = async (uri, data, email) => {
+  let res = {};
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Email: email,
+    },
+  };
+  try {
+    res = await axios.put(uri, data, config);
+  } catch (err) {
+    console.error(err);
+  }
+  return res;
+};
 export default ApiService;

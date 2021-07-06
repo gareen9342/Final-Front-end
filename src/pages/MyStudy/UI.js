@@ -8,7 +8,7 @@ export const Box = ({ children }) => (
     </div>
   </div>
 );
-export const Profile = ({ studyname, isAdmin, isOffline }) => (
+export const Profile = ({ studyId, studyname, isAdmin, isOffline }) => (
   <>
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center">
@@ -16,6 +16,7 @@ export const Profile = ({ studyname, isAdmin, isOffline }) => (
           {
             pathname : '/GroupStudy',
             state : {
+              studyId : studyId,
               studyname : studyname,
               isAdmin : isAdmin,
             }

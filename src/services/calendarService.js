@@ -1,4 +1,3 @@
-import { ContactSupportOutlined } from "@material-ui/icons";
 import ApiService from "./.apiservice";
 
 const CalendarService = () => {};
@@ -12,7 +11,7 @@ CalendarService.CalendarSelectMember = (data) => {
 };
 
 CalendarService.CalendarSelectStudy = (data) => {
-  return ApiService.post("calendarSelectStudy.do", data);
+  return ApiService.post("calendarSelectStudy.do?studyGroupId="+data);
 };
 
 CalendarService.CalendarInsert = (data) => {

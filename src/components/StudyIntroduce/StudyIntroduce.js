@@ -1,33 +1,34 @@
-import React from "react";
-import "./StudyIntroduce.css";
-import { Grid, Paper, makeStyles } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import StudyIntroduceService from "../../services/studyIntroduceService";
 
+const StudyIntroduce = ({ studyGroupId }) => {
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-    },
-}));
+    // const [studySelectOne, setStudySelectOne] = useState(null);
 
-const StudyIntroduce = () => {
-    const classes = useStyles();
+    // useEffect(() => {
+    //     (async () => {
+    //         const res = await StudyIntroduceService.StudyIntroduceSelectOne(studyGroupId);
+    //         if (res.data) {
+    //             setStudySelectOne(res.data);
+    //         }
+    //     })();
+    // }, []);
 
     return (
         <>
+            {console.log("스터디소개", studyGroupId)}
             <header className="bg-white dark:bg-gray-800">
                 <div className="container flex flex-col px-6 py-4 mx-auto space-y-6 md:h-128 md:py-16 md:flex-row md:items-center md:space-x-6">
                     {/* <div className="flex flex-col items-center w-full md:flex-row md:w-1/2"> */}
                     <div className="flex-auto items-center justify-center max-w-lg w-full md:w-1/2">
-                                
+
                         <div className="max-w-lg md:mx-12 md:order-2">
                             <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">스터디이름부분</h1>
-                            <br/>
+                            <br />
 
                             <div className="relative max-w-lg min-w-full rounded-2xl shadow-lg overflow-hidden mr-8">
                                 <div className="flex flex-col">
-                            
+
                                     <div className="flex justify-between px-4 text-gray-100 z-30 mb-10 mt-10">
                                         <div className="flex flex-col items-start">
                                             <span className="font-thin">스터디 방식</span>
@@ -53,7 +54,7 @@ const StudyIntroduce = () => {
                             </div>
 
 
-                            <br/>
+                            <br />
                             <p>
                                 스터디 소개 부분
                             </p>

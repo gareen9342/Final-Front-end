@@ -142,7 +142,7 @@ const CalendarGroup = ({studyGroupId}) => {
   return (
     <div className="calendar-app">
       {/*renderSidebar()*/}
-
+      
       <div className="calendar-app-main">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -173,6 +173,7 @@ const CalendarGroup = ({studyGroupId}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
+        userEmail={window.localStorage.getItem("email")}
         studyGroupId={studyGroupId}
       />
       <ModalUpdate
@@ -182,6 +183,7 @@ const CalendarGroup = ({studyGroupId}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
+        userEmail={window.localStorage.getItem("email")}
         studyGroupId={studyGroupId}
       />
     </div>

@@ -14,7 +14,7 @@ const GroupStudy = (props) => {
     const email = window.localStorage.getItem("email");
     const studyId = props.location.state.studyId;
     
-    const res = groupStudyService.getRole(email,studyId);
+    //const res = groupStudyService.getRole(email,studyId);
 
     // 2. studyid 값으로 들어올때
     // props.location.state.studyId 스터디      => id 값
@@ -39,18 +39,12 @@ const GroupStudy = (props) => {
             {props.location.state.isAdmin&&<>관리자입니다.</>}
 
             <StudyIntroduce 
-                studyname="스터디 이름.... 어쩌고..."
-                area="서울 동대문구 답십리2동 스타벅스 답십리점"
-                addr="서울"
-                isOffline="N"
-                studyid="100"
-                count="5"
-                content="스터디 소개 블라블라블라........"
+                studyGroupId={props.location.state.studyId}
             />
 
-
             <CalendarGroup 
-                studyGroupId={123}
+                studyGroupId={props.location.state.studyId}
+                userEmail={window.localStorage.getItem("email")}
             />
 
             <MemberList/>

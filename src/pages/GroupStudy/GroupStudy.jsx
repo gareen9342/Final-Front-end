@@ -1,6 +1,7 @@
 import React , {useState} from "react";
 import groupStudyService from "../../services/groupStudyService";
 import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
+import MemberList from "../../components/MemberList/MemberList";
 
 const GroupStudy = (props) => {
     
@@ -45,6 +46,8 @@ const GroupStudy = (props) => {
                 count="5"
                 content="스터디 소개 블라블라블라........"
             />
+
+            <MemberList/>
         </>
     );
 }

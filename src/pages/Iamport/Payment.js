@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import {PaymentButton} from "./PaymentButton";
-import {PaymentModal} from "./PaymentModal";
-import './Payment.css';
+import { PaymentButton } from "./PaymentButton";
+import { PaymentModal } from './PaymentModal';
 
-const Payment = (effect, deps) => {
+const Payment = () => {
     useEffect(() => {
         const jquery = document.createElement("script");
         jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -17,15 +16,17 @@ const Payment = (effect, deps) => {
         }
     }, []);
 
-    const info = "";    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    const date = today.getDate();
+    const info = {
+        name : "프리미엄 기능",
+        price: "1000",
+        email: localStorage.getItem('email'),
+        phone: "01099558701"
+    };    // 주문명, 금액, 구매자 전화번호, 구매자 이메일 들어가야함
+
 
     return (
         <>
-            {/*<PaymentModal/>*/}
+            <PaymentModal info={info}/>
             <PaymentButton name="신용카드" info={info} pg="html5_inicis"/>
             <br/>
             <PaymentButton name="계좌이체" info={info} pg="html5_inicis" pay_method="trans"/>

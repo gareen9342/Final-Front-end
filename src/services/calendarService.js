@@ -11,6 +11,10 @@ CalendarService.CalendarSelectMember = (data) => {
   return ApiService.post("calendarSelectMember.do", data);
 };
 
+CalendarService.CalendarSelectStudy = (data) => {
+  return ApiService.post("calendarSelectStudy.do", data);
+};
+
 CalendarService.CalendarInsert = (data) => {
   return ApiService.post("calendarInsert.do", data);
 };

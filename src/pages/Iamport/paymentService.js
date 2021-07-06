@@ -1,3 +1,4 @@
+// Spring과 통신하기위한 결제 설정
 import ApiService from "/src/services/.apiservice";
 const PaymentService = () => {};
 

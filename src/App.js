@@ -15,6 +15,7 @@ import Register from "./pages/login/Register";
 import "./index.css";
 import StudyForm from "./pages/StudyForm";
 import MyStudy from "./pages/MyStudy";
+import GroupStudy from "./pages/GroupStudy/GroupStudy";
 
 import { signIn } from "./pages/login/Auth";
 // import { useLocalStorage } from "./services/useLocalStorage";
@@ -36,6 +37,7 @@ export default function App() {
     setUserEmail(null);
     setYesUser(null);
     window.localStorage.removeItem("email");
+    window.localStorage.removeItem("yesUser");
   }
   
 
@@ -76,9 +78,10 @@ export default function App() {
               <Route exact path="/map" component={MapService} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
-              <Route path="/calendar"  render={() => <Calendar userValue={userValue}/>} /> 
+              <Route path="/calendar"  render={() => <Calendar userEmail={userEmail}/>} /> 
 
               <Route path="/payment" component={Payment} />
+              <Route path="/GroupStudy" component={GroupStudy}/>
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>

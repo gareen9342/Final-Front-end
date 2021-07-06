@@ -50,23 +50,13 @@ const MyStudy = () => {
             <div className="flex flex-col flex-wrap sm:flex-row">
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  {/* 테스트코드입니다. 나중에 테스트 끝나면 삭제하겠습니다. */}
-                  <Profile
-                    studyname={"test"}
-                    key={"test"}
-                    isAdmin={
-                      "N"
-                    }
-                    isOffline={"N"}
-                    addr={"서울"}
-                  />
-                  {/* 테스트코드 종료 */}
                   {console.log(myStudies)}
                   {myStudies &&
                     myStudies.length > 0 &&
                     myStudies.map((x) => (
                       <Profile
                         studyname={x.studygroupname}
+                        studyId={x.studygroupid}
                         key={x.studygroupid}
                         isAdmin={
                           x.studygroupadmin && x.studygroupadmin === email

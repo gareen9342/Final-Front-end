@@ -69,5 +69,5 @@ const callback = async (response) => {
 };
 
 export const PaymentButton = ({name, info, pg, pay_method="card"}) => (
-    <button onClick={() => onClickPayment({info, pg, pay_method})}>{name}</button>
+    <button onClick={() => onClickPayment({info, pg, pay_method})} className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">{name}</button>
 )

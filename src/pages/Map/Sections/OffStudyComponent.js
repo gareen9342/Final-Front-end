@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 // 오프라인 스터디
 const OffStudyComponent = ({ studies }) => {
@@ -29,7 +30,17 @@ const OffStudyComponent = ({ studies }) => {
               <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>
             </div>
             <div className="p-6">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
+              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                <Link to={
+                  {
+                    pathname: '/GroupStudy',
+                    state: {
+                      studyId: item.studygroupid,
+                      studyname: item.studygroupname,
+                      isAdmin: item.studygroupadmin,
+                    }
+                  }
+                }>{item.studygroupname}</Link></div>
               <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</a>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>

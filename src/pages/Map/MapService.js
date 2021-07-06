@@ -34,7 +34,6 @@ const MapService = () => {
   const mapContainer = useRef();
 
 
-
   // 로딩
   useEffect(() => {
     const center = new kakao.maps.LatLng(37.50802, 127.062835); // 초기 지도 센터값 세팅은 아무데로나 했음

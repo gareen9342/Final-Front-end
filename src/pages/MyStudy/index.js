@@ -58,6 +58,7 @@ const MyStudy = () => {
                       "N"
                     }
                     isOffline={"N"}
+                    addr={"서울"}
                   />
                   {/* 테스트코드 종료 */}
                   {console.log(myStudies)}

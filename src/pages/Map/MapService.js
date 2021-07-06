@@ -3,8 +3,13 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./style.css";
 import OffStudyComponent from './Sections/OffStudyComponent';
 import useInput from "../../hooks/useInput";
-import StudyInfo from "../../dummyData/study.json";
 import StudyService from '../../services/studyService';
+import {
+  meetOptions,
+  rangeOptions,
+} from "./Sections/MapConfig";
+import SelectBox from "../StudyForm/SelectBox";
+
 
 const { kakao } = window;
 
@@ -19,9 +24,11 @@ const MapService = () => {
   // 위치 검색 버튼
   const [activateNear, setActivateNear] = useState(false);
   // 반경 정보
-  const [range, setRange] = useState(500);
+  const [rangeOption, onChangeRangeOption] = useInput(500);
   // 스터디 위치정보
   const [studyResult, setStudyResult] = useState([]);
+  // 온라인 오프라인
+  const [isOffLine, onChangeIsOffLine] = useInput("N");
 
 
   const mapContainer = useRef();
@@ -202,7 +209,7 @@ const MapService = () => {
     let circle = new kakao.maps.Circle({
       center: kakaoMap.getCenter(),
       // radius: polyline.getLength() / 2,
-      radius: range,
+      radius: rangeOption,
       strokeWeight: 1,
       strokeColor: '#00a0e9',
       strokeOpacity: 0.1,
@@ -236,7 +243,7 @@ const MapService = () => {
         if (!!lng && !!lat) {
           (async () => {
             try {
-              const { data } = await StudyService.searchStudy(lat, lng, range);
+              const { data } = await StudyService.searchStudy(lat, lng, rangeOption);
               let marker = null;
               if (!!data && data.length) {
                 setStudyResult([]);
@@ -296,12 +303,6 @@ const MapService = () => {
   const onChangeRange = (e) => {
     setRange(e.target.value);
   }
-  // 범위 옵션
-  const rangeNear = useMemo(() => [
-    { value: 500, label: "500m" },
-    { value: 1000, label: "1km" },
-    { value: 2000, label: "2km" },
-  ], [])
 
   // 300 이었던 것
   const leftWidth = 300;
@@ -315,21 +316,29 @@ const MapService = () => {
           placeholder="장소를 입력하세요!"
           onChange={onChangeSearchText}
         />
-        <button onClick={onClickSearchButton}>검색</button>
+        <button onClick={onClickSearchButton} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+          검색</button>
         <br />
-        <button onClick={onFocusCenter}>현위치</button>
+        <button onClick={onFocusCenter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+          현위치</button>
         <br />
         {activateNear === false ? <>
-          <button onClick={searchNear}>
+          <button onClick={searchNear} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
             주변 스터디 탐색하기
           </button>
-          <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
+          {/* <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
             {rangeNear.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select> </> : ''}
+          </select> </> : ''} */}
+
+          <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </> : ''}
 
         <br />
-        <button onClick={checker}>체크</button>
-        <button onClick={deleter}>del</button>
+        {/* 아직은 아무 기능을 하지 않음 */}
+        <SelectBox options={meetOptions} onChange={onChangeIsOffLine} value={isOffLine} />
+        <button onClick={checker} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+          체크</button>
+        <button onClick={deleter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+          del</button>
       </div>
       {/* nav */}
       <div
@@ -340,7 +349,7 @@ const MapService = () => {
           className="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
-          <div className="bg-hotpink rounded-3xl p-5">
+          <div className="bg-hotpink-100 rounded-3xl p-5">
             {`${studyResult.length}개의 스터디가 있습니다.`}
           </div>
           <OffStudyComponent studies={studyResult} />

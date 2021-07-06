@@ -23,7 +23,7 @@ const OffStudyComponent = ({ studies }) => {
 
     return (
       <div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
-        <div className="max-w-md mx-auto bg-pink-200 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <div className="max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0 float-left">
               <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>

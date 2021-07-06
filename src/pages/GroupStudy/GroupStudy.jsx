@@ -1,28 +1,53 @@
-import React from "react";
+import React , {useState} from "react";
+import groupStudyService from "../../services/groupStudyService";
+import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
+import MemberList from "../../components/MemberList/MemberList";
 
 const GroupStudy = (props) => {
     
     // 1. 이 페이지를 볼때 현재 유저가 그룹에 속해있는지 확인해야됨
     // 2. db에서 조회해서 데이터를 띄어줘야됨
 
-    // 1. 가린누나한테 studyid도 값 넘겨달라고 하기
+    const [role, setRole] = useState(null);
+
+    const email = window.localStorage.getItem("email");
+    const studyId = props.location.state.studyId;
+    
+    const res = groupStudyService.getRole(email,studyId);
 
     // 2. studyid 값으로 들어올때
-    // 2-1. 비회원일 경우 읽기 전용으로 들어가기, 가입신청하기 버튼 만들기
+    // props.location.state.studyId 스터디      => id 값
+    // window.localStorage.getItem("email")    => user email값 을 받을 수 있음
 
-    // 2-1-1. 비공개일 경우 비공개 페이지입니다. 더이상 가입신청불가능
+    // 2-1. 회원일 경우 작성과 수정이 가능하게 하기
+    // 2-2. 관리자일 경우 작성, 수정, 관리버튼 나오게하기
+    // 2-3. 비회원일 경우 읽기 전용으로 들어가기, 가입신청하기 버튼 만들기
+    // 2-3-1. 비공개일 경우 비공개 페이지입니다. 더이상 가입신청불가능
 
-    // 2-2. 회원일 경우 작성과 수정이 가능하게 하기
-    // 2-3. 관리자일 경우 작성, 수정, 관리버튼 나오게하기
-    
-    //
 
     return(
         <>
-            {console.log(props.location.state.studyname)}
-            {props.location.state.studyname}
-            <br/>
-            {props.location.state.isAdmin}
+            {console.log(props.location.state)}
+
+            {/* 스터디이름 */}
+            {props.location.state.studyname}<br/>
+            {/* 스터디 아이디 */}
+            {props.location.state.studyId}<br/>
+            {/* 관리자여부 확인 true false 값으로 전달됨*/}
+            {props.location.state.isAdmin}<br/>
+            {props.location.state.isAdmin&&<>관리자입니다.</>}
+
+            <StudyIntroduce 
+                studyname="스터디 이름.... 어쩌고..."
+                area="서울 동대문구 답십리2동 스타벅스 답십리점"
+                addr="서울"
+                isOffline="N"
+                studyid="100"
+                count="5"
+                content="스터디 소개 블라블라블라........"
+            />
+
+            <MemberList/>
         </>
     );
 }

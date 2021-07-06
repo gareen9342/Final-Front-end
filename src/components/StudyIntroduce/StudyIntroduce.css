@@ -1,0 +1,22 @@
+.textbox {
+    position:relative;
+    background: #B2CCFF;
+    width: 100px;
+    max-width: 100%;
+    text-align: center;
+    padding: 12px;
+    color:black;
+}
+
+.textbox:before {
+    content: "";
+    position: absolute;
+    top:0;
+    right:0;
+    border-width:0 16px 16px 0;
+    border-style: solid;
+    border-color: #FFFFFF #FFFFFF #0054FF #0054FF;
+    background: #0054FF;
+    display:block;
+    width:0;
+}

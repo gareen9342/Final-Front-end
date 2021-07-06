@@ -337,10 +337,12 @@ const MapService = () => {
         style={{ display: "flex", minHeight: "100vh" }}
       >
         <div
-          class="border border-grey-lighter"
+          className="border border-grey-lighter"
           style={{ width: `${leftWidth}px`, height: "100%" }}
         >
-          <div class="bg-hotpink rounded-3xl p-5">yap</div>
+          <div className="bg-hotpink rounded-3xl p-5">
+            {studyResult > 0 ? `${studyResult}개의 스터디가 있습니다.` : `스터디가 없어~`}
+          </div>
           <StudyComponent studies={studyResult} />
           <br />
         </div>

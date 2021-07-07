@@ -1,36 +1,21 @@
 import React, { useState } from "react";
 import useInput from "../../hooks/useInput";
-import TodoService from "../../services/todoService";
 
-const TodoInput = ({ setTodos, todos, closeModal }) => {
-  const [content, onChangeContent] = useInput("");
-  const [title, onChangeTitle] = useInput("");
-  const onInsertTodo = async () => {
-    const todoData = {
-      title,
-      content,
-    };
-    try {
-      const { data } = await TodoService.insertMyTodo(
-        todoData,
-        localStorage.getItem("email")
-      );
+const TodoInput = ({
+  onClickAction,
+  closeModal,
+  inputTitle,
+  inputButtonText,
+  defaultTitle,
+  defaultContent,
+}) => {
+  const [content, onChangeContent] = useInput(defaultContent);
+  const [title, onChangeTitle] = useInput(defaultTitle);
 
-      console.log(data);
-      if (data.success == "true") {
-        alert("할일 추가 성공");
-        setTodos([...todos, data.todo]);
-      } else {
-        alert("할일을 추가하는 데에 오류발생");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
   return (
     <div className="py-3 sm:max-w-xl sm:mx-auto">
       <div className="px-12 py-5">
-        <h2 className="text-gray-800 text-3xl font-semibold">할 일 추가하기</h2>
+        <h2 className="text-gray-800 text-3xl font-semibold">{inputTitle}</h2>
       </div>
       <div className="bg-gray-200 w-full flex flex-col items-center">
         <div className="flex flex-col items-center py-6 space-y-3"></div>
@@ -50,10 +35,10 @@ const TodoInput = ({ setTodos, todos, closeModal }) => {
           />
           <br />
           <button
-            onClick={onInsertTodo}
+            onClick={() => onClickAction({ title, content })}
             className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
           >
-            추가하기
+            {inputButtonText}
           </button>
         </div>
       </div>

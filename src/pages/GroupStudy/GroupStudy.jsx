@@ -1,6 +1,7 @@
 import React , {useState, useEffect} from "react";
 import groupStudyService from "../../services/groupStudyService";
 import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
+import CalendarGroup from "../Calendar/CalendarGroup";
 import MemberList from "../../components/MemberList/MemberList";
 
 const GroupStudy = (props) => {
@@ -21,7 +22,6 @@ const GroupStudy = (props) => {
             setRole(res.data);
         })();
       }, []);
-    
     
     
 
@@ -66,10 +66,13 @@ const GroupStudy = (props) => {
             가입신청취소하기
           </button>: ""}
             {/* 회원일 경우 어서오세요 나오게하기 */}
-
             {role==="user" ? <h1>어서오세요</h1> : ""}
             <StudyIntroduce studyid={studyId} />
             <MemberList/>
+            <CalendarGroup 
+                studyGroupId={props.location.state.studyId}
+                userEmail={window.localStorage.getItem("email")}
+            />
         </>
     );
 }

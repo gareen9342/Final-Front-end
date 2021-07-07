@@ -8,7 +8,7 @@ import ModalUpdate from "./ModalUpdate";
 import CalendarService from "../../services/calendarService";
 import "./Calendar.css";
 
-const Calendar = ({userEmail}) => {
+const CalendarGroup = ({studyGroupId}) => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
 
   const [insertModalOpen, setInsertModalOpen] = useState(false);
@@ -24,7 +24,7 @@ const Calendar = ({userEmail}) => {
   useEffect(() => {
     if (loading) {
        (async () => {
-        const res =  await CalendarService.CalendarSelectMember(userEmail);
+        const res =  await CalendarService.CalendarSelectStudy(studyGroupId);
         // const res =  await CalendarService.CalendarSelectList();
         if(res.data){
           setCurrentEvents(res.data);
@@ -173,7 +173,8 @@ const Calendar = ({userEmail}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         selectInfo={selectInfo}
-        userEmail={userEmail}
+        userEmail={window.localStorage.getItem("email")}
+        studyGroupId={studyGroupId}
       />
       <ModalUpdate
         open={updateModalOpen}
@@ -182,10 +183,11 @@ const Calendar = ({userEmail}) => {
         currentEvents={currentEvents}
         setCurrentEvents={setCurrentEvents}
         clickInfo={clickInfo}
-        userEmail={userEmail}
+        userEmail={window.localStorage.getItem("email")}
+        studyGroupId={studyGroupId}
       />
     </div>
   );
 };
 
-export default Calendar;
+export default CalendarGroup;

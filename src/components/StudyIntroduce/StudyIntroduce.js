@@ -25,11 +25,11 @@ const StudyIntroduce = ({studyId}) => {
                                 
                         <div className="max-w-lg md:mx-12 md:order-2">
                             <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">스터디이름부분</h1>
-                            <br/>
+                            <br />
 
                             <div className="relative max-w-full min-w-full rounded-2xl shadow-lg overflow-hidden mr-8">
                                 <div className="flex flex-col">
-                            
+
                                     <div className="flex justify-between px-4 text-gray-100 z-30 mb-10 mt-10">
                                         <div className="flex flex-col items-start">
                                             <span className="font-thin">스터디 방식</span>
@@ -55,7 +55,7 @@ const StudyIntroduce = ({studyId}) => {
                             </div>
 
 
-                            <br/>
+                            <br />
                             <p>
                                 스터디 소개 부분
                             </p>

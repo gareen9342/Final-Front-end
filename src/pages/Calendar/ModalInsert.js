@@ -11,6 +11,7 @@ const ModalInsert = ({
   header,
   selectInfo,
   userEmail,
+  studyGroupId,
 }) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   // const { open, close, header } = props;
@@ -22,7 +23,7 @@ const ModalInsert = ({
     selectInfoApi.unselect(); // clear date selection
     const newSchedule = {
       member_email: userEmail,
-      study_group_id: 1234,
+      study_group_id: studyGroupId,
       title,
       content,
       start: selectInfo.startStr.split("T")[0] + "T09:00",

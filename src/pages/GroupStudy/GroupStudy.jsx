@@ -70,7 +70,7 @@ const GroupStudy = (props) => {
             <StudyIntroduce studyid={studyId} />
             <MemberList/>
             <CalendarGroup 
-                studyGroupId={props.location.state.studyId}
+                studyGroupId={studyId}
                 userEmail={window.localStorage.getItem("email")}
             />
         </>

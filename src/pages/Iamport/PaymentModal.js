@@ -5,10 +5,8 @@ import { PaymentCustomInput } from "./UI/PaymentCustomInput";
 import { PaymentCustomRadio } from "./UI/PaymentCustomRadio";
 import useInput from "../../hooks/useInput";
 import "./Payment.css";
-import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
-export const PaymentModal = ({ info }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+export const PaymentModal = ({ info, openModal, closeModal, modalVisible }) => {
   const [email, setEmail] = useState(info.email);
   const [phone, setPhone] = useState(info.phone);
   const [payMethod, onChangePayMethod] = useInput("신용카드");
@@ -24,14 +22,6 @@ export const PaymentModal = ({ info }) => {
     width: "100%",
   };
 
-  /* 모달 open, close */
-  const openModal = () => {
-    setModalVisible(true);
-  };
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
   /* onChange Function */
   const emailChange = (e) => {
     setEmail(e.target.value);
@@ -43,14 +33,14 @@ export const PaymentModal = ({ info }) => {
 
   return (
     <>
-      <div>
+      {/* <div onClick="">
         <button
           onClick={openModal}
           className="bg-blue-500 text-white p-2 rounded text-2xl font-bold"
         >
           Open Modal
         </button>
-      </div>
+      </div> */}
       {modalVisible && (
         <Modal visible={modalVisible} maskClosable={true} onClose={closeModal} bgColor={"rgba(0,0,0,0.3)"}>
             <div className="main-modal w-full inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster">

@@ -17,7 +17,7 @@ import StudyForm from "./pages/StudyForm";
 import MyStudy from "./pages/MyStudy";
 import GroupStudy from "./pages/GroupStudy/GroupStudy";
 
-import { signIn } from "./pages/login/Auth";
+import { signIn, premium } from "./pages/login/Auth";
 // import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
@@ -56,10 +56,14 @@ export default function App() {
       setYesUser(true);
       window.localStorage.setItem("email",email);
       window.localStorage.setItem("yesUser",email);
+      const premiumCheck = await premium(email);
+      window.localStorage.setItem("premium",premiumCheck); // True False
+      console.log("premuim : ", premiumCheck);
 
       console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");
     }
+    
     
   }
 

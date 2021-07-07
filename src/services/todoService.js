@@ -10,7 +10,7 @@ TodoService.getMyTodos = (email) => {
 };
 
 TodoService.deleteMyTodo = (id) => {
-  return ApiService.delete("/mytodo.do", id);
+  return ApiService.delete(`/mytodo.do?id=${id}`);
 };
 
 TodoService.updateMyTodo = (data, email) => {

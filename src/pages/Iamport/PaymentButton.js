@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PaymentService from "./paymentService";
+import PaymentService from "/src/services/paymentService";
 
 const onClickPayment = ({info}) => {
   const { IMP } = window;
@@ -37,8 +37,8 @@ const onClickPayment = ({info}) => {
 
 const today = new Date();
 const year = today.getFullYear();
-const month = today.getMonth();
-const date = today.getDate();
+const month = ((today.getMonth()+1).length === 2) ? today.getMonth()+1 : "0"+(today.getMonth()+1);
+const date = (today.getDate().length === 2) ? today.getDate() : "0"+today.getDate();
 
 const callback = async (response) => {
   const {
@@ -64,7 +64,7 @@ const callback = async (response) => {
 
   if (success) {
     const res = await PaymentService.insert(paymentInfo);
-    console.log(res);
+    console.log("res",res);
     alert("결제 성공");
   } else {
     alert(`결제 실패 : ${error_msg}`);

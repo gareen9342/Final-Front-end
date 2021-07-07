@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import useInput from "../../hooks/useInput";
 
-const TodoInput = ({ onClickAction, closeModal }) => {
-  const [content, onChangeContent] = useInput("");
-  const [title, onChangeTitle] = useInput("");
+const TodoInput = ({
+  onClickAction,
+  closeModal,
+  inputTitle,
+  inputButtonText,
+  defaultTitle,
+  defaultContent,
+}) => {
+  const [content, onChangeContent] = useInput(defaultContent);
+  const [title, onChangeTitle] = useInput(defaultTitle);
 
   return (
     <div className="py-3 sm:max-w-xl sm:mx-auto">
       <div className="px-12 py-5">
-        <h2 className="text-gray-800 text-3xl font-semibold">할 일 추가하기</h2>
+        <h2 className="text-gray-800 text-3xl font-semibold">{inputTitle}</h2>
       </div>
       <div className="bg-gray-200 w-full flex flex-col items-center">
         <div className="flex flex-col items-center py-6 space-y-3"></div>
@@ -31,7 +38,7 @@ const TodoInput = ({ onClickAction, closeModal }) => {
             onClick={() => onClickAction({ title, content })}
             className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
           >
-            추가하기
+            {inputButtonText}
           </button>
         </div>
       </div>

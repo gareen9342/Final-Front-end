@@ -64,7 +64,7 @@ const callback = async (response) => {
 
   if (success) {
     const res = await PaymentService.insert(paymentInfo);
-    console.log("res",res);
+    window.localStorage.setItem("premium",true);
     alert("결제 성공");
   } else {
     alert(`결제 실패 : ${error_msg}`);
@@ -73,7 +73,10 @@ const callback = async (response) => {
 
 export const PaymentButton = ({ name, info, pg, pay_method = "card" }) => (
   <button
-    onClick={() => onClickPayment({ info, pg, pay_method })}
+    onClick={() => {
+      onClickPayment({ info, pg, pay_method });
+    }
+  }
     className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
   >
     {name}

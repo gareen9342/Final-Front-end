@@ -75,7 +75,7 @@ export const PaymentModal = ({ info, openModal, closeModal, modalVisible }) => {
                         {/* Footer */}
                         <div className="flex justify-end pt-2 space-x-14">
                             <button onClick={closeModal} className="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold">취소</button>
-                            <PaymentButton name="결제" info={paymentInfo} />
+                            <PaymentButton name="결제" info={paymentInfo}  onClick={closeModal} />
                         </div>
                     </div>
                 </div>

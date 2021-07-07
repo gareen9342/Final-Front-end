@@ -2,6 +2,7 @@ import Axios from "axios";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./style.css";
 import OffStudyComponent from './Sections/OffStudyComponent';
+import OnStudyComponent from './Sections/OnStudyComponent';
 import useInput from "../../hooks/useInput";
 import StudyService from '../../services/studyService';
 import {
@@ -28,7 +29,7 @@ const MapService = () => {
   // 스터디 위치정보
   const [studyResult, setStudyResult] = useState([]);
   // 온라인 오프라인
-  const [isOffLine, onChangeIsOffLine] = useInput("N");
+  const [isOffLine, onChangeIsOffLine] = useInput("Y");
 
 
   const mapContainer = useRef();
@@ -51,9 +52,8 @@ const MapService = () => {
     setInfoWindow(infowindow);
   }, [mapContainer]);
 
-  /**
-   * ================= 지도 센터값 세팅
-   */
+
+  // 지도 센터값 세팅
   useEffect(() => {
     if (kakaoMap === null) {
       return;
@@ -299,15 +299,12 @@ const MapService = () => {
 
   // ----------------------------------------------------------------------
 
-  const onChangeRange = (e) => {
-    setRange(e.target.value);
-  }
-
-  // 300 이었던 것
   const leftWidth = 300;
   return (
     <div>
       <div>
+        {/* online/offline, 아직은 아무 기능을 하지 않음 */}
+        <SelectBox options={meetOptions} onChange={onChangeIsOffLine} value={isOffLine} />
         <input
           type="text"
           maxLength="30"
@@ -332,8 +329,6 @@ const MapService = () => {
           <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </> : ''}
 
         <br />
-        {/* 아직은 아무 기능을 하지 않음 */}
-        <SelectBox options={meetOptions} onChange={onChangeIsOffLine} value={isOffLine} />
         <button onClick={checker} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
           체크</button>
         <button onClick={deleter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
@@ -344,26 +339,37 @@ const MapService = () => {
         className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        <div
-          className="border border-grey-lighter"
-          style={{ width: `${leftWidth}px`, height: "100%" }}
-        >
-          <div className="bg-hotpink-100 rounded-3xl p-5">
-            {`${studyResult.length}개의 스터디가 있습니다.`}
+        {{ meetOptions } === "Y" ? <>
+          <div
+            className="border border-grey-lighter"
+            style={{ width: `${leftWidth}px`, height: "100%" }}
+          >
+            <div className="bg-hotpink-100 rounded-3xl p-5">
+              {`${studyResult.length}개의 스터디가 있습니다.`}
+            </div>
+            <OffStudyComponent studies={studyResult} />
+            <br />
           </div>
-          <OffStudyComponent studies={studyResult} />
-          <br />
-        </div>
 
-        <div
-          style={{
-            height: "calc(100vh - 90px)",
-            width: `calc(100% - ${leftWidth}px)`,
-            border: "1px solid ",
-          }}
-        >
-          <div id="mapContainer" ref={mapContainer} />
-        </div>
+          <div
+            style={{
+              height: "calc(100vh - 90px)",
+              width: `calc(100% - ${leftWidth}px)`,
+              border: "1px solid ",
+            }}
+          >
+            <div id="mapContainer" ref={mapContainer} />
+          </div>
+        </>
+          : <>
+            <div style={{
+              height: "calc(100vh - 90px)",
+              width: 'calc1=(100%)',
+              border: "1px solid",
+            }}>
+              {/* <OnStudyComponent studies={studyResult} /> */}
+            </div>
+          </>}
       </div>
     </div>
   );

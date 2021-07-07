@@ -37,7 +37,7 @@ const OffStudyComponent = ({ studies }) => {
                     state: {
                       studyId: item.studygroupid,
                       studyname: item.studygroupname,
-                      isAdmin: item.studygroupadmin,
+                      isAdmin: true,
                     }
                   }
                 }>{item.studygroupname}</Link></div>

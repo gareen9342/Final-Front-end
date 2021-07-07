@@ -142,7 +142,7 @@ const Calendar = ({userEmail}) => {
   return (
     <div className="calendar-app">
       {/*renderSidebar()*/}
-
+      
       <div className="calendar-app-main">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

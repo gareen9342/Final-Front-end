@@ -6,5 +6,4 @@ StudyIntroduceService.StudyIntroduceSelectOne = (data) => {
   return ApiService.post("studyIntroduceSelectOne.do", data);
 };
 
-
 export default StudyIntroduceService;

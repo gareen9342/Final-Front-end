@@ -3,16 +3,26 @@ import StudyIntroduceService from "../../services/studyIntroduceService";
 
 const StudyIntroduce = ({ studyGroupId }) => {
 
-    // const [studySelectOne, setStudySelectOne] = useState(null);
+    const [studySelectOne, setStudySelectOne] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const res = await StudyIntroduceService.StudyIntroduceSelectOne(studyGroupId);
-    //         if (res.data) {
-    //             setStudySelectOne(res.data);
-    //         }
-    //     })();
-    // }, []);
+    useEffect(() => {
+        if (loading) {
+            (async () => {
+                const res = await StudyIntroduceService.StudyIntroduceSelectOne(studyGroupId);
+                if (res.data) {
+                    setStudySelectOne(res.data);
+                    setLoading(false);
+                }
+            })();
+        }
+    return () => {
+        if (loading) {
+            setLoading(false);
+        }
+      };
+    }, [loading]);
+
 
     return (
         <>

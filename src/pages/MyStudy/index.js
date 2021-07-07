@@ -11,6 +11,7 @@ import {
 import Calendar from "../Calendar/Calendar";
 import ToDoList from "./ToDoList";
 import StudyService from "../../services/studyService";
+import Payment from "../Iamport/Payment";
 const MyStudy = () => {
   const [mystudyLoading, setMystudyLoading] = useState(true);
   const [myStudies, setMyStudies] = useState([]);
@@ -80,7 +81,14 @@ const MyStudy = () => {
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  <Calendar userEmail={window.localStorage.getItem("email")} />
+                    {
+                    localStorage.getItem("premium") ? <Calendar userEmail={window.localStorage.getItem("email")} /> : 
+                      <Payment>
+                        <div style={{"opacity" : "0.5", "backgrounColor" : "gray", "pointerEvents": "none"}}>
+                          <Calendar userEmail={window.localStorage.getItem("email")} />
+                        </div>
+                      </Payment>
+                    }
                 </Box>
               </div>
             </div>

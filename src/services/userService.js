@@ -12,4 +12,8 @@ userService.memberInsert = (data) => {
     return ApiService.post("MemberInsert.do", data);
 }
 
+userService.premiumCheck = (data) => {
+    return ApiService.post("/payment/premiumCheck.do?email="+data.email);
+}
+
 export default userService;

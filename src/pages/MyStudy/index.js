@@ -15,6 +15,7 @@ import Payment from "../Iamport/Payment";
 const MyStudy = () => {
   const [mystudyLoading, setMystudyLoading] = useState(true);
   const [myStudies, setMyStudies] = useState([]);
+  const [premium, setPremium] = useState(localStorage.getItem("premium"));
   const email = localStorage.getItem("email");
   useEffect(() => {
     (async () => {
@@ -83,11 +84,9 @@ const MyStudy = () => {
                 <Box>
                       {console.log(localStorage.getItem("premium"))}
                     {
-                    localStorage.getItem("premium") === "true" ? <Calendar userEmail={window.localStorage.getItem("email")} /> : 
+                    (premium === "true") ? <Calendar userEmail={window.localStorage.getItem("email")} /> : 
                       <Payment>
-                        <div style={{"opacity" : "0.5", "backgrounColor" : "gray", "pointerEvents": "none"}}>
-                          <Calendar userEmail={window.localStorage.getItem("email")} />
-                        </div>
+                        <Calendar userEmail={window.localStorage.getItem("email")} />
                       </Payment>
                     }
                 </Box>

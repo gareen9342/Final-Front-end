@@ -1,7 +1,20 @@
 import React, { useState } from "react";
 import PaymentService from "/src/services/paymentService";
 
-const onClickPayment = ({info}) => {
+
+export const PaymentButton = ({ name, info, pg, pay_method = "card", closeModal }) => (
+  <button
+    onClick={() => {
+      onClickPayment({ info, pg, pay_method, closeModal })
+    }
+  }
+    className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
+  >
+    {name}
+  </button>
+);
+
+const onClickPayment = ({info, closeModal}) => {
   const { IMP } = window;
   IMP.init("imp77220765"); // 가맹점 식별코드
   let pg = "";
@@ -33,6 +46,7 @@ const onClickPayment = ({info}) => {
   };
 
   IMP.request_pay(data, callback);
+  closeModal();
 };
 
 const today = new Date();
@@ -70,15 +84,3 @@ const callback = async (response) => {
     alert(`결제 실패 : ${error_msg}`);
   }
 };
-
-export const PaymentButton = ({ name, info, pg, pay_method = "card" }) => (
-  <button
-    onClick={() => {
-      onClickPayment({ info, pg, pay_method });
-    }
-  }
-    className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
-  >
-    {name}
-  </button>
-);

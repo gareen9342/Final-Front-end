@@ -6,7 +6,7 @@ import { PaymentCustomRadio } from "./UI/PaymentCustomRadio";
 import useInput from "../../hooks/useInput";
 import "./Payment.css";
 
-export const PaymentModal = ({ info, openModal, closeModal, modalVisible }) => {
+export const PaymentModal = ({ info, closeModal, modalVisible }) => {
   const [email, setEmail] = useState(info.email);
   const [phone, setPhone] = useState(info.phone);
   const [payMethod, onChangePayMethod] = useInput("신용카드");
@@ -75,7 +75,7 @@ export const PaymentModal = ({ info, openModal, closeModal, modalVisible }) => {
                         {/* Footer */}
                         <div className="flex justify-end pt-2 space-x-14">
                             <button onClick={closeModal} className="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold">취소</button>
-                            <PaymentButton name="결제" info={paymentInfo}  onClick={closeModal} />
+                            <PaymentButton name="결제" info={paymentInfo} closeModal={closeModal}/>
                         </div>
                     </div>
                 </div>

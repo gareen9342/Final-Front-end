@@ -35,9 +35,11 @@ const Payment = ({ children }) => {
   return (
     <>
       <div onClick={openModal} className="paymentDiv">
+        <div style={{"opacity" : "0.5", "backgrounColor" : "gray", "pointerEvents": "none"}}>
           {children} {/* <Payment>태그 안쪽에 들어가는 DOM을 children이란 이름으로 가져옴 */}
+        </div>
       </div>
-      <PaymentModal info={info} openModal={openModal} closeModal={closeModal} modalVisible={modalVisible} />
+      <PaymentModal info={info} closeModal={closeModal} modalVisible={modalVisible} />
     </>
   );
 };

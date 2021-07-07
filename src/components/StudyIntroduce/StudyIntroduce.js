@@ -1,18 +1,20 @@
-import React from "react";
-import "./StudyIntroduce.css";
-import { Grid, Paper, makeStyles } from "@material-ui/core";
+import React, {useState, useEffect} from "react";
+import groupStudyService from "../../services/groupStudyService";
 
+const StudyIntroduce = ({studyId}) => {
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(1),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-    },
-}));
+    const [studyName, setStudyName ] = useState(null);
+    const [studyIsOnline, setStudyIsOnline] = useState(null);
+    const [studyLocation, setStudyLocation] = useState(null);
+    const [studyCount, setStudyCount] = useState(null);
+    const [studyIntro, setStudyIntro] = useState(null)
 
-const StudyIntroduce = () => {
-    const classes = useStyles();
+    // useEffect(()=>{
+    //     (async () => {
+    //         const res = await groupStudyService.getStudyIntro(studyId)
+    //     })();
+    // },[])
+    
 
     return (
         <>

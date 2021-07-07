@@ -68,16 +68,7 @@ const GroupStudy = (props) => {
             {/* 회원일 경우 어서오세요 나오게하기 */}
 
             {role==="user" ? <h1>어서오세요</h1> : ""}
-            <StudyIntroduce 
-                studyname="스터디 이름.... 어쩌고..."
-                area="서울 동대문구 답십리2동 스타벅스 답십리점"
-                addr="서울"
-                isOffline="N"
-                studyid="100"
-                count="5"
-                content="스터디 소개 블라블라블라........"
-            />
-
+            <StudyIntroduce studyid={studyId} />
             <MemberList/>
         </>
     );

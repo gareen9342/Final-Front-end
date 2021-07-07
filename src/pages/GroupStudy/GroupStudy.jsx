@@ -47,7 +47,7 @@ const GroupStudy = (props) => {
             {/* 관리하기 버튼 */}
             {role==="admin" ? <button
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
-            >
+          >
             관리하기
           </button>: ""}
 
@@ -55,6 +55,7 @@ const GroupStudy = (props) => {
             {/* 가입신청하기 버튼 */}
             {role==="null" ? <button
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
+            // onClick={groupStudyService.postStudySignIn()}
           >
             가입신청하기
           </button>: ""}
@@ -62,6 +63,7 @@ const GroupStudy = (props) => {
             {/* 가입신청 취소하기 버튼 */}
             {role==="wating" ? <button
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
+            // onClick={groupStudyService.postStudySignOut()}
           >
             가입신청취소하기
           </button>: ""}

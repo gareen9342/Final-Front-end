@@ -107,6 +107,7 @@ const ToDos = () => {
       if (!cbLoading) {
         tododata.todomyid = modalVal.id;
         try {
+          setCbLoading(true);
           const { data } = await TodoService.updateMyTodo(
             tododata,
             localStorage.getItem("email")
@@ -136,6 +137,27 @@ const ToDos = () => {
     },
     [modalVal, cbLoading]
   );
+
+  const onDeleteTodo = async (id) => {
+    console.log(id);
+    const okay = confirm("정말로 삭제하시겠습니까?");
+
+    if (!cbLoading && okay) {
+      try {
+        setCbLoading(true);
+        const { data } = await TodoService.deleteMyTodo(id);
+        if (data.success === "true") {
+          setTodos(todos.filter((x) => x.todomyid === id));
+        } else {
+          alert("삭제 실패");
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setCbLoading(false);
+      }
+    }
+  };
   return (
     <ToDoList>
       {loading && "loading..."}
@@ -148,6 +170,7 @@ const ToDos = () => {
           index={idx}
           taskName={item.title}
           toggleTodo={toggleTodo}
+          onDeleteTodo={() => onDeleteTodo(item.todomyid)}
           onClickUpdateButton={() =>
             onClickUpdateButton(item.todomyid, item.title, item.content)
           }

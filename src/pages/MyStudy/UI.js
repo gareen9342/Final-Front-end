@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Edit, CheckCircleOutline, CheckCircle } from "@material-ui/icons";
+import {
+  Edit,
+  CheckCircleOutline,
+  CheckCircle,
+  DeleteOutline,
+} from "@material-ui/icons";
 export const Box = ({ children }) => (
   <div className="mb-4 mx-0 sm:ml-4 xl:mr-4 ">
     <div className="shadow-lg rounded-2xl bg-white p-2 dark:bg-gray-700 w-full">
@@ -185,6 +190,7 @@ export const ToDoListItem = ({
   toggleTodo,
   todoid,
   onClickUpdateButton,
+  onDeleteTodo,
 }) => (
   <li className="flex items-center text-gray-600 dark:text-gray-200 justify-between py-3 border-b-2 border-gray-100 dark:border-gray-800">
     {checked ? (
@@ -214,6 +220,9 @@ export const ToDoListItem = ({
           </button>
           <button onClick={() => toggleTodo(todoid)}>
             <CheckCircleOutline />
+          </button>
+          <button onClick={onDeleteTodo}>
+            <DeleteOutline />
           </button>
         </div>
       </>

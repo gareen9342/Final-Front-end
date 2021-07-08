@@ -30,8 +30,6 @@ const ModalInsert = ({
       end: selectInfo.endStr.split("T")[0] + "T09:00",
     };
 
-    console.log(newSchedule.member_email);
-
     // selectInfoApi.addEvent(newSchedule); // 이거랑
     //console.log("events = ", [...currentEvents, newSchedule]);
     setCurrentEvents([...currentEvents, newSchedule]); // 이거 둘 중 하나만 써야함!
@@ -40,7 +38,7 @@ const ModalInsert = ({
     close(true);
 
     const res = await CalendarService.CalendarInsert(newSchedule);
-    console.log(res);
+    //console.log(res);
   };
 
   return (

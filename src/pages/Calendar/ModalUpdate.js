@@ -63,7 +63,7 @@ const ModalUpdate = ({
     setStart(newSchedule.start);
     setEnd(newSchedule.end);
 
-    console.log(res);
+    //console.log(res);
   };
 
 
@@ -77,7 +77,7 @@ const ModalUpdate = ({
 
       const tmp = currentEvents;
       setCurrentEvents(tmp.filter(x => x.calendar_id !== calendar_id));
-      console.log(res);
+      // console.log(res);
     }
     close(true);
   };

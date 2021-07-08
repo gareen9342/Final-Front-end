@@ -10,7 +10,6 @@ const StudyIntroduce = ({studyId}) => {
     const [studyCount, setStudyCount] = useState(null);
     const [studyIntro, setStudyIntro] = useState(null)
     const [groupStudyList, setGroupStudyList] = useState([]);
-    const [groupMemberList, setGroupMemberList] = useState([]);
     const [loading, setLoading] = useState(true);
   
     
@@ -19,9 +18,25 @@ const StudyIntroduce = ({studyId}) => {
          (async () => {
           const res =  await groupStudyService.getStudyIntro(studyId);
           if(res.data){
-            console.log(data);
+            // console.log(res.data);
             setGroupStudyList(res.data);
+            setStudyName(res.data[0]?.studygroupname);
+            setStudyIsOnline(res.data[0]?.studygroupoffline);
+            setStudyLocation(res.data[0]?.studygroupaddr);
+            setStudyIntro(res.data[0]?.studygroupdesc);
+            setStudyCount(res.data[0]?.study_member_count);
             setLoading(false);
+
+            if(studyLocation == null || studyLocation == "" || studyLocation == undefined){
+                setStudyLocation("-");
+            }
+
+            if(studyIsOnline == "Y"){
+                setStudyIsOnline("온라인 스터디");
+            } else {
+                setStudyIsOnline("오프라인 스터디");
+            }
+            
           }
         })();
       }
@@ -33,37 +48,15 @@ const StudyIntroduce = ({studyId}) => {
       };
     }, [loading]);
 
-
-    useEffect(() => {
-        if (loading) {
-           (async () => {
-            const res =  await groupStudyService.getStudyMemberList(studyId);
-            if(res.data){
-              console.log(data);
-              setGroupMemberList(res.data);
-              setLoading(false);
-            }
-          })();
-        }
-    
-        return () => {
-          if (loading) {
-            setLoading(false);
-          }
-        };
-      }, [loading]);
-
-
     return (
         <>
-        {console.log("ㅎㅎㅎㅎㅎ",groupStudyList)}
             <header className="bg-white dark:bg-gray-800">
                 <div className="container flex flex-col px-6 py-4 mx-auto space-y-6 md:h-128 md:py-16 md:flex-row md:items-center md:space-x-6">
                     {/* <div className="flex flex-col items-center w-full md:flex-row md:w-1/2"> */}
                     <div className="flex-auto items-center justify-center w-full md:w-1/2">
                                 
                         <div className="max-w-lg md:mx-12 md:order-2">
-                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">{}</h1>
+                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">{studyName}</h1>
                             <br />
 
                             <div className="relative max-w-full min-w-full rounded-2xl shadow-lg overflow-hidden mr-8">
@@ -75,8 +68,8 @@ const StudyIntroduce = ({studyId}) => {
                                             <span className="font-thin">스터디 지역</span>
                                         </div>
                                         <div className="flex flex-col items-end">
-                                            <span className="tracking-widest text-xl"> 온라인 스터디</span>
-                                            <span className="tracking-widest text-xl">서울</span>
+                                            <span className="tracking-widest text-xl">{studyIsOnline}</span>
+                                            <span className="tracking-widest text-xl">{studyLocation}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between px-4 h-16 z-30 text-white bg-indigo-900">
@@ -84,7 +77,7 @@ const StudyIntroduce = ({studyId}) => {
                                             <span className="text-2xl">스터디 인원</span>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl">5명</span>
+                                            <span className="text-2xl">{studyCount}명</span>
                                         </div>
                                     </div>
                                     <div
@@ -96,7 +89,7 @@ const StudyIntroduce = ({studyId}) => {
 
                             <br />
                             <p>
-                                {groupStudyList.studygroupdesc}
+                                {studyIntro}
                             </p>
                         </div>
                     </div>

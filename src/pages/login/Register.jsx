@@ -43,8 +43,8 @@ import { useHistory } from 'react-router';
                 email,
                 nickName,
                 phoneNumber,
-                intro,
                 location,
+                intro,
             }
         
             const res = await userService.memberInsert(data);
@@ -75,10 +75,10 @@ import { useHistory } from 'react-router';
                         {errorPhoneNumber&&<p className="text-red-600">전화번호 입력이 잘못되었습니다!</p>}
                         
                         <label htmlFor="location" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">지역</label>
-                        <input  type="text" name="location" placeholder="거주지역을 작성해 주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={intro} onChange={onChangeIntro}/>
+                        <input  type="text" name="location" placeholder="거주지역을 작성해 주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={location} onChange={onChangeLocation}/>
                         
                         <label htmlFor="intro" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">자기소개</label>
-                        <input type="text" name="intro" placeholder="자기소개해주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={location} onChange={onChangeLocation} />
+                        <input type="text" name="intro" placeholder="자기소개해주세요"  className="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner" required value={intro} onChange={onChangeIntro} />
                         
                         <button type="submit" className="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none" onClick={Regist}>
                             가입하기

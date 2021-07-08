@@ -70,7 +70,7 @@ const GroupStudy = (props) => {
             {/* 회원일 경우 어서오세요 나오게하기 */}
             {role==="user" ? <h1>어서오세요</h1> : ""}
             <StudyIntroduce studyId={studyId} />
-            <MemberList/>
+            <MemberList studyId={studyId}/>
             <CalendarGroup 
                 studyGroupId={studyId}
                 userEmail={window.localStorage.getItem("email")}

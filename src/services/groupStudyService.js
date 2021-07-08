@@ -21,8 +21,11 @@ groupStudyService.getStudyIntro = (studyId) => {
 
 // 멤버리스트에대한 정보를 가지고 온다.
 groupStudyService.getStudyMemberList = (studyId) => {
+    const data = {
+        studyId
+    }
 
-    return ApiService.post("/groupstudy/groupStudygetList.do",studyId);
+    return ApiService.post("/groupstudy/groupStudygetList.do",data);
 }
 
 // 가입신청

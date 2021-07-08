@@ -35,11 +35,13 @@ const callback = async (response) => {
     const res = await PaymentService.insert(paymentInfo);
     // window.localStorage.setItem("premium",true);
     alert("결제 성공");
+    closeModal();
+    setPremium("true");
   } else {
     alert(`결제 실패 : ${error_msg}`);
   }
 };
-const onClickPayment = ({info, closeModal, setPremium}) => {
+const onClickPayment = ({info}) => {
   const { IMP } = window;
   IMP.init("imp77220765"); // 가맹점 식별코드
   let pg = "";
@@ -71,8 +73,6 @@ const onClickPayment = ({info, closeModal, setPremium}) => {
   };
 
   IMP.request_pay(data, callback);
-  closeModal();
-  setPremium(true);
 };
 
 return (

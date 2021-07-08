@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PaymentModal } from "./PaymentModal";
 
-const Payment = ({ children }) => {
+const Payment = ({ children, setPremium }) => {
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -39,7 +39,7 @@ const Payment = ({ children }) => {
           {children} {/* <Payment>태그 안쪽에 들어가는 DOM을 children이란 이름으로 가져옴 */}
         </div>
       </div>
-      <PaymentModal info={info} closeModal={closeModal} modalVisible={modalVisible} />
+      <PaymentModal info={info} closeModal={closeModal} modalVisible={modalVisible} setPremium={setPremium} />
     </>
   );
 };

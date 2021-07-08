@@ -2,19 +2,44 @@ import React, { useState } from "react";
 import PaymentService from "/src/services/paymentService";
 
 
-export const PaymentButton = ({ name, info, pg, pay_method = "card", closeModal }) => (
-  <button
-    onClick={() => {
-      onClickPayment({ info, pg, pay_method, closeModal })
-    }
-  }
-    className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
-  >
-    {name}
-  </button>
-);
+export const PaymentButton = ({ name, info, pg, pay_method = "card", closeModal, setPremium }) => {
+  
+const today = new Date();
+const year = today.getFullYear();
+const month = ((today.getMonth()+1).length === 2) ? today.getMonth()+1 : "0"+(today.getMonth()+1);
+const date = (today.getDate().length === 2) ? today.getDate() : "0"+today.getDate();
 
-const onClickPayment = ({info, closeModal}) => {
+const callback = async (response) => {
+  const {
+    success,
+    error_msg,
+    imp_uid, // 고유 주문번호
+    paid_amount, // 결제 금액
+    name, // 주문명
+    buyer_email,
+    pg_provider, // pg사
+    pay_method, // 결제수단
+    status, // 상태(성공, 실패, 환불 등등)
+  } = response;
+
+  const paymentInfo = {
+    paymentid: imp_uid,
+    memberemail: buyer_email,
+    paymentprice: paid_amount,
+    paymentdate: `${year}-${month}-${date}`,
+    paymentcontent: name,
+    paymentkinds: `${pg_provider}-${pay_method}`,
+  };
+
+  if (success) {
+    const res = await PaymentService.insert(paymentInfo);
+    // window.localStorage.setItem("premium",true);
+    alert("결제 성공");
+  } else {
+    alert(`결제 실패 : ${error_msg}`);
+  }
+};
+const onClickPayment = ({info, closeModal, setPremium}) => {
   const { IMP } = window;
   IMP.init("imp77220765"); // 가맹점 식별코드
   let pg = "";
@@ -45,42 +70,24 @@ const onClickPayment = ({info, closeModal}) => {
     buyer_email: info.email, // 구매자 이메일
   };
 
-  IMP.request_pay(data, callback);
+  // IMP.request_pay(data, callback);
   closeModal();
+  setPremium(true);
 };
 
-const today = new Date();
-const year = today.getFullYear();
-const month = ((today.getMonth()+1).length === 2) ? today.getMonth()+1 : "0"+(today.getMonth()+1);
-const date = (today.getDate().length === 2) ? today.getDate() : "0"+today.getDate();
-
-const callback = async (response) => {
-  const {
-    success,
-    error_msg,
-    imp_uid, // 고유 주문번호
-    paid_amount, // 결제 금액
-    name, // 주문명
-    buyer_email,
-    pg_provider, // pg사
-    pay_method, // 결제수단
-    status, // 상태(성공, 실패, 환불 등등)
-  } = response;
-
-  const paymentInfo = {
-    paymentid: imp_uid,
-    memberemail: buyer_email,
-    paymentprice: paid_amount,
-    paymentdate: `${year}-${month}-${date}`,
-    paymentcontent: name,
-    paymentkinds: `${pg_provider}-${pay_method}`,
-  };
-
-  if (success) {
-    const res = await PaymentService.insert(paymentInfo);
-    window.localStorage.setItem("premium",true);
-    alert("결제 성공");
-  } else {
-    alert(`결제 실패 : ${error_msg}`);
+return (
+<button
+    onClick={() => {
+      onClickPayment({ info, pg, pay_method, closeModal, setPremium })
+    }
   }
-};
+    className="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400"
+  >
+    {name}
+  </button>
+)
+
+}
+  
+
+

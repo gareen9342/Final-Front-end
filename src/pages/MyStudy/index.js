@@ -82,10 +82,9 @@ const MyStudy = () => {
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                      {console.log(localStorage.getItem("premium"))}
                     {
-                    (premium === "true") ? <Calendar userEmail={window.localStorage.getItem("email")} /> : 
-                      <Payment>
+                    premium ? <Calendar userEmail={window.localStorage.getItem("email")} />   : 
+                      <Payment setPremium={setPremium}>
                         <Calendar userEmail={window.localStorage.getItem("email")} />
                       </Payment>
                     }

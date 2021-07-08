@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, {useState, useEffect} from "react";
 import groupStudyService from "../../services/groupStudyService";
 
@@ -8,23 +9,61 @@ const StudyIntroduce = ({studyId}) => {
     const [studyLocation, setStudyLocation] = useState(null);
     const [studyCount, setStudyCount] = useState(null);
     const [studyIntro, setStudyIntro] = useState(null)
-
-    // useEffect(()=>{
-    //     (async () => {
-    //         const res = await groupStudyService.getStudyIntro(studyId)
-    //     })();
-    // },[])
+    const [groupStudyList, setGroupStudyList] = useState([]);
+    const [groupMemberList, setGroupMemberList] = useState([]);
+    const [loading, setLoading] = useState(true);
+  
     
+    useEffect(() => {
+      if (loading) {
+         (async () => {
+          const res =  await groupStudyService.getStudyIntro(studyId);
+          if(res.data){
+            console.log(data);
+            setGroupStudyList(res.data);
+            setLoading(false);
+          }
+        })();
+      }
+  
+      return () => {
+        if (loading) {
+          setLoading(false);
+        }
+      };
+    }, [loading]);
+
+
+    useEffect(() => {
+        if (loading) {
+           (async () => {
+            const res =  await groupStudyService.getStudyMemberList(studyId);
+            if(res.data){
+              console.log(data);
+              setGroupMemberList(res.data);
+              setLoading(false);
+            }
+          })();
+        }
+    
+        return () => {
+          if (loading) {
+            setLoading(false);
+          }
+        };
+      }, [loading]);
+
 
     return (
         <>
+        {console.log("ㅎㅎㅎㅎㅎ",groupStudyList)}
             <header className="bg-white dark:bg-gray-800">
                 <div className="container flex flex-col px-6 py-4 mx-auto space-y-6 md:h-128 md:py-16 md:flex-row md:items-center md:space-x-6">
                     {/* <div className="flex flex-col items-center w-full md:flex-row md:w-1/2"> */}
                     <div className="flex-auto items-center justify-center w-full md:w-1/2">
                                 
                         <div className="max-w-lg md:mx-12 md:order-2">
-                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">스터디이름부분</h1>
+                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">{}</h1>
                             <br />
 
                             <div className="relative max-w-full min-w-full rounded-2xl shadow-lg overflow-hidden mr-8">
@@ -57,7 +96,7 @@ const StudyIntroduce = ({studyId}) => {
 
                             <br />
                             <p>
-                                스터디 소개 부분
+                                {groupStudyList.studygroupdesc}
                             </p>
                         </div>
                     </div>

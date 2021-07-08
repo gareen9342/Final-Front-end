@@ -1,15 +1,13 @@
 import Axios from "axios";
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import "./style.css";
-import OffStudyComponent from './Sections/OffStudyComponent';
-import OnStudyComponent from './Sections/OnStudyComponent';
-import useInput from "../../hooks/useInput";
-import StudyService from '../../services/studyService';
+import "../style.css";
+import OffStudyComponent from './OffStudyComponent';
+import useInput from "../../../hooks/useInput";
+import StudyService from '../../../services/studyService';
 import {
-  meetOptions,
   rangeOptions,
-} from "./Sections/MapConfig";
-import SelectBox from "../StudyForm/SelectBox";
+} from "./MapConfig";
+import SelectBox from "../../StudyForm/SelectBox";
 
 
 const { kakao } = window;
@@ -93,15 +91,6 @@ const MapService = () => {
     setMarkersPosition([]);
     console.log(e.latLng.toString());
   };
-
-  // const eventRemover = (e) => {
-  //   console.log(markersPosition);
-  //   markersPosition.map(x => x.setMap(null));
-  //   infoWindow.close();
-  // }
-
-  // kakao.maps.event.addListener(kakaoMap, 'rightclick', eventRemover);
-  // kakao.maps.event.removeListener(kakaoMap, 'rightclick', eventRemover);
 
   const onClickSearchButton = () => {
     if (kakaoPs == null) {
@@ -303,8 +292,6 @@ const MapService = () => {
   return (
     <div>
       <div>
-        {/* online/offline, 아직은 아무 기능을 하지 않음 */}
-        <SelectBox options={meetOptions} onChange={onChangeIsOffLine} value={isOffLine} />
         <input
           type="text"
           maxLength="30"
@@ -322,11 +309,8 @@ const MapService = () => {
           <button onClick={searchNear} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
             주변 스터디 탐색하기
           </button>
-          {/* <select onChange={onChangeRange} value={range}>{console.log("range = ", range)}
-            {rangeNear.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-          </select> </> : ''} */}
-
-          <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </> : ''}
+          <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </>
+          : ''}
 
         <br />
         <button onClick={checker} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
@@ -339,37 +323,27 @@ const MapService = () => {
         className="border border-grey-lighter"
         style={{ display: "flex", minHeight: "100vh" }}
       >
-        {{ meetOptions } === "Y" ? <>
-          <div
-            className="border border-grey-lighter"
-            style={{ width: `${leftWidth}px`, height: "100%" }}
-          >
-            <div className="bg-hotpink-100 rounded-3xl p-5">
-              {`${studyResult.length}개의 스터디가 있습니다.`}
-            </div>
-            <OffStudyComponent studies={studyResult} />
-            <br />
-          </div>
 
-          <div
-            style={{
-              height: "calc(100vh - 90px)",
-              width: `calc(100% - ${leftWidth}px)`,
-              border: "1px solid ",
-            }}
-          >
-            <div id="mapContainer" ref={mapContainer} />
+        <div
+          className="border border-grey-lighter"
+          style={{ width: `${leftWidth}px`, height: "100%" }}
+        >
+          <div className="bg-hotpink-100 rounded-3xl p-5">
+            {`${studyResult.length}개의 스터디가 있습니다.`}
           </div>
-        </>
-          : <>
-            <div style={{
-              height: "calc(100vh - 90px)",
-              width: 'calc1=(100%)',
-              border: "1px solid",
-            }}>
-              {/* <OnStudyComponent studies={studyResult} /> */}
-            </div>
-          </>}
+          <OffStudyComponent studies={studyResult} />
+          <br />
+        </div>
+
+        <div
+          style={{
+            height: "calc(100vh - 90px)",
+            width: `calc(100% - ${leftWidth}px)`,
+            border: "1px solid ",
+          }}
+        >
+          <div id="mapContainer" ref={mapContainer} />
+        </div>
       </div>
     </div>
   );

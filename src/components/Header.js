@@ -11,7 +11,7 @@ const Header = ({ logout }) => {
     //       <Link to="/feed">feed</Link>
     //     </li>
     //     <li className="px-8 text-blue-400">
-    //       <Link to="/map">map</Link>
+    //       <Link to="/search">search</Link>
     //     </li>
     //     <li className="px-8">
     //       <Link to="/mystudy">my study</Link>
@@ -58,10 +58,10 @@ const Header = ({ logout }) => {
             Feed
           </Link>
           <Link
-            to="/map"
+            to="/search"
             className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
           >
-            map
+            search
           </Link>
           <Link
             to="/mystudy"

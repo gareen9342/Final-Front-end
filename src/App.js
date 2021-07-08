@@ -58,7 +58,7 @@ export default function App() {
       window.localStorage.setItem("yesUser",email);
       const premiumCheck = await premium(email);
       window.localStorage.setItem("premium",premiumCheck); // True False
-      console.log("premuim : ", premiumCheck);
+      console.log("premium : ", premiumCheck);
 
       console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");

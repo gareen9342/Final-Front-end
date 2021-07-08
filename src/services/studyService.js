@@ -3,12 +3,14 @@ import ApiService from "./.apiservice";
 const StudyService = () => { };
 
 StudyService.uploadStudy = (data, email) => {
-  return ApiService.postWithHeader("/study.do", data , email);
+  return ApiService.postWithHeader("/study.do", data, email);
 };
 
 StudyService.searchStudy = (lat, lng, dist) => {
   return ApiService.get(`/studylist.do?lat=${lat}&lng=${lng}&dist=${dist}`);
 };
+
+// searchAllStudy 예비
 
 StudyService.getMyStudies = (email) => {
   return ApiService.getWithHeader("/mystudy.do", email);

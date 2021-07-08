@@ -29,7 +29,7 @@ const Payment = ({ children, setPremium }) => {
     name: "프리미엄 기능",
     price: "1000",
     email: localStorage.getItem("email"),
-    phone: "01099558701",
+    phone: "",
   }; // 주문명, 금액, 이메일, 전화번호 들어가야함
 
   return (

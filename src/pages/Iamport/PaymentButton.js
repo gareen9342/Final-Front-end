@@ -70,7 +70,7 @@ const onClickPayment = ({info, closeModal, setPremium}) => {
     buyer_email: info.email, // 구매자 이메일
   };
 
-  // IMP.request_pay(data, callback);
+  IMP.request_pay(data, callback);
   closeModal();
   setPremium(true);
 };

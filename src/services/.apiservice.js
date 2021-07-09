@@ -17,7 +17,7 @@ ApiService.get = async (uri) => {
   try {
     data = await axios.get(`${uri}`, config);
   } catch (error) {
-    console.error(error);
+    //console.error(error);
   }
   return data;
 };
@@ -43,7 +43,6 @@ ApiService.getWithHeader = async (uri, email) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  console.log("APIservice : ", body);
 
 
   const config = { "Content-Type": "application/json" };

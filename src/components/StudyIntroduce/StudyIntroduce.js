@@ -21,22 +21,20 @@ const StudyIntroduce = ({studyId}) => {
             // console.log(res.data);
             setGroupStudyList(res.data);
             setStudyName(res.data[0]?.studygroupname);
-            setStudyIsOnline(res.data[0]?.studygroupoffline);
             setStudyLocation(res.data[0]?.studygroupaddr);
             setStudyIntro(res.data[0]?.studygroupdesc);
             setStudyCount(res.data[0]?.study_member_count);
             setLoading(false);
 
-            if(studyLocation == null || studyLocation == "" || studyLocation == undefined){
-                setStudyLocation("-");
-            }
-
-            if(studyIsOnline == "Y"){
+            if(res.data[0]?.studygroupoffline == "N"){
                 setStudyIsOnline("온라인 스터디");
             } else {
                 setStudyIsOnline("오프라인 스터디");
             }
-            
+
+            if(studyLocation == null || studyLocation == "" || studyLocation == undefined){
+                setStudyLocation("-");
+            }
           }
         })();
       }

@@ -26,8 +26,8 @@ const SearchMain = () => {
         <Route path='/search/offline' component={MapService} />
         <Route path='/search/online' render={() => <OnStudyComponent studies={teste} />} />
       </div>
-    </div >
+    </div>
   )
 }
 
-export default SearchMain
+export default SearchMain;

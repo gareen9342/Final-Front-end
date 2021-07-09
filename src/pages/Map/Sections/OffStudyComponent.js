@@ -60,4 +60,4 @@ const OffStudyComponent = ({ studies }) => {
   )
 }
 
-export default OffStudyComponent
+export default OffStudyComponent;

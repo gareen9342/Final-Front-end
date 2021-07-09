@@ -10,8 +10,8 @@ StudyService.searchStudy = (lat, lng, dist) => {
   return ApiService.get(`/studylist.do?lat=${lat}&lng=${lng}&dist=${dist}`);
 };
 
-StudyService.searchAllStudy = () => {
-  return ApiService.get();
+StudyService.searchAllStudy = (searched) => {
+  return ApiService.get(`/searchstudy.do?searched=${encodeURIComponent(searched)}`);
 };
 
 StudyService.getMyStudies = (email) => {

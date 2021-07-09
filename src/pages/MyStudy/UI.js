@@ -221,7 +221,7 @@ export const ToDoListItem = ({
           <button onClick={() => toggleTodo(todoid)}>
             <CheckCircleOutline />
           </button>
-          <button onClick={onDeleteTodo}>
+          <button onClick={() => onDeleteTodo(todoid)}>
             <DeleteOutline />
           </button>
         </div>

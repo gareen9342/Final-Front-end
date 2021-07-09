@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PaymentModal } from "./PaymentModal";
 
-const Payment = () => {
+const Payment = ({ children, setPremium }) => {
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -15,16 +15,31 @@ const Payment = () => {
     };
   }, []);
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  /* 모달 open, close */
+  const openModal = () => {
+    setModalVisible(true);
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   const info = {
     name: "프리미엄 기능",
     price: "1000",
     email: localStorage.getItem("email"),
-    phone: "01099558701",
+    phone: "",
   }; // 주문명, 금액, 이메일, 전화번호 들어가야함
 
   return (
     <>
-      <PaymentModal info={info} />
+      <div onClick={openModal} className="paymentDiv">
+        <div style={{"opacity" : "0.5", "backgrounColor" : "gray", "pointerEvents": "none"}}>
+          {children} {/* <Payment>태그 안쪽에 들어가는 DOM을 children이란 이름으로 가져옴 */}
+        </div>
+      </div>
+      <PaymentModal info={info} closeModal={closeModal} modalVisible={modalVisible} setPremium={setPremium} />
     </>
   );
 };

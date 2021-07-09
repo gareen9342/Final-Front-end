@@ -18,13 +18,4 @@ PaymentService.refund = (paymentid) => {
     return ApiService.post("/payment/refund.do", paymentid);
 };
 
-
-// TestService.postTestPosts = () => {
-//     return ApiService.post("/insert.do",{
-//         "ename" : "testname",
-//         "job" : "beaksoo",
-//         "mgr" : "7698"
-//     });
-// };
-
 export default PaymentService;

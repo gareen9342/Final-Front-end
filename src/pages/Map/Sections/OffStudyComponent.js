@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const StudyComponent = ({ studies }) => {
+// 오프라인 스터디
+const OffStudyComponent = ({ studies }) => {
 
   // const [studies, setStudies] = useState([]);
 
@@ -22,13 +24,23 @@ const StudyComponent = ({ studies }) => {
 
     return (
       <div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
-        <div className="max-w-md mx-auto bg-pink-200 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <div className="max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0 float-left">
               <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>
             </div>
             <div className="p-6">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
+              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                <Link to={
+                  {
+                    pathname: '/GroupStudy',
+                    state: {
+                      studyId: item.studygroupid,
+                      studyname: item.studygroupname,
+                      isAdmin: true,
+                    }
+                  }
+                }>{item.studygroupname}</Link></div>
               <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</a>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>
@@ -48,4 +60,4 @@ const StudyComponent = ({ studies }) => {
   )
 }
 
-export default StudyComponent
+export default OffStudyComponent

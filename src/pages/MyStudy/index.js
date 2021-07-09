@@ -11,9 +11,11 @@ import {
 import Calendar from "../Calendar/Calendar";
 import ToDoList from "./ToDoList";
 import StudyService from "../../services/studyService";
+import Payment from "../Iamport/Payment";
 const MyStudy = () => {
   const [mystudyLoading, setMystudyLoading] = useState(true);
   const [myStudies, setMyStudies] = useState([]);
+  const [premium, setPremium] = useState(localStorage.getItem("premium"));
   const email = localStorage.getItem("email");
   useEffect(() => {
     (async () => {
@@ -80,7 +82,13 @@ const MyStudy = () => {
               </div>
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  <Calendar userEmail={window.localStorage.getItem("email")} />
+                  {console.log("premium",premium)}
+                    {
+                    (premium === "true")  ? <Calendar userEmail={window.localStorage.getItem("email")} />   : 
+                      <Payment setPremium={setPremium}>
+                        <Calendar userEmail={window.localStorage.getItem("email")} />
+                      </Payment>
+                    }
                 </Box>
               </div>
             </div>

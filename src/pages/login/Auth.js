@@ -16,3 +16,14 @@ export async function signIn(email){
     // 안했을 경우 => NotUser를 날려준다.
     return signUser.data;
 }
+
+export async function premium(email) {
+    
+    if(email == "pass") {
+        return true;
+    }
+
+    const premiumCheck = await userService.premiumCheck({email});
+    
+    return premiumCheck.data;
+}

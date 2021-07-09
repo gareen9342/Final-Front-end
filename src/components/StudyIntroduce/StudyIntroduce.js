@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, {useState, useEffect} from "react";
 import groupStudyService from "../../services/groupStudyService";
 
@@ -8,13 +9,44 @@ const StudyIntroduce = ({studyId}) => {
     const [studyLocation, setStudyLocation] = useState(null);
     const [studyCount, setStudyCount] = useState(null);
     const [studyIntro, setStudyIntro] = useState(null)
-
-    // useEffect(()=>{
-    //     (async () => {
-    //         const res = await groupStudyService.getStudyIntro(studyId)
-    //     })();
-    // },[])
+    const [groupStudyList, setGroupStudyList] = useState([]);
+    const [loading, setLoading] = useState(true);
+  
     
+    useEffect(() => {
+      if (loading) {
+         (async () => {
+          const res =  await groupStudyService.getStudyIntro(studyId);
+          if(res.data){
+            // console.log(res.data);
+            setGroupStudyList(res.data);
+            setStudyName(res.data[0]?.studygroupname);
+            setStudyIsOnline(res.data[0]?.studygroupoffline);
+            setStudyLocation(res.data[0]?.studygroupaddr);
+            setStudyIntro(res.data[0]?.studygroupdesc);
+            setStudyCount(res.data[0]?.study_member_count);
+            setLoading(false);
+
+            if(studyLocation == null || studyLocation == "" || studyLocation == undefined){
+                setStudyLocation("-");
+            }
+
+            if(studyIsOnline == "Y"){
+                setStudyIsOnline("온라인 스터디");
+            } else {
+                setStudyIsOnline("오프라인 스터디");
+            }
+            
+          }
+        })();
+      }
+  
+      return () => {
+        if (loading) {
+          setLoading(false);
+        }
+      };
+    }, [loading]);
 
     return (
         <>
@@ -24,7 +56,7 @@ const StudyIntroduce = ({studyId}) => {
                     <div className="flex-auto items-center justify-center w-full md:w-1/2">
                                 
                         <div className="max-w-lg md:mx-12 md:order-2">
-                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">스터디이름부분</h1>
+                            <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">{studyName}</h1>
                             <br />
 
                             <div className="relative max-w-full min-w-full rounded-2xl shadow-lg overflow-hidden mr-8">
@@ -36,8 +68,8 @@ const StudyIntroduce = ({studyId}) => {
                                             <span className="font-thin">스터디 지역</span>
                                         </div>
                                         <div className="flex flex-col items-end">
-                                            <span className="tracking-widest text-xl"> 온라인 스터디</span>
-                                            <span className="tracking-widest text-xl">서울</span>
+                                            <span className="tracking-widest text-xl">{studyIsOnline}</span>
+                                            <span className="tracking-widest text-xl">{studyLocation}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between px-4 h-16 z-30 text-white bg-indigo-900">
@@ -45,7 +77,7 @@ const StudyIntroduce = ({studyId}) => {
                                             <span className="text-2xl">스터디 인원</span>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl">5명</span>
+                                            <span className="text-2xl">{studyCount}명</span>
                                         </div>
                                     </div>
                                     <div
@@ -57,7 +89,7 @@ const StudyIntroduce = ({studyId}) => {
 
                             <br />
                             <p>
-                                스터디 소개 부분
+                                {studyIntro}
                             </p>
                         </div>
                     </div>

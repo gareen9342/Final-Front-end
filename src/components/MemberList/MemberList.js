@@ -1,19 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import groupStudyService from '../../services/groupStudyService';
 
-const people = [
-    {
-      name: 'Jane Cooper',
-      title: 'Regional Paradigm Technician',
-      department: 'Optimization',
-      role: 'Admin',
-      email: 'jane.cooper@example.com',
-      image:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-  ]
-  
 
-const MemberList = ({name, title, department, role, email, image}) => {
+const MemberList = ({studyId}) => {
 
 
     const [follow, setFollow] = useState("");
@@ -22,6 +11,13 @@ const MemberList = ({name, title, department, role, email, image}) => {
     const toggleFollow = (isFollow) => {
         return isFollow ? false : true
     }
+
+    useEffect(() => {
+        (async () => {
+            const res = await groupStudyService.getStudyMemberList(studyId);
+            console.log("리스트작동",res);
+        })();
+      }, []);
 
     return (
         <>
@@ -62,7 +58,7 @@ const MemberList = ({name, title, department, role, email, image}) => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {people.map((person) => (
+                                    {/* {people.map((person) => (
                                     <tr key={email}>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
@@ -87,7 +83,7 @@ const MemberList = ({name, title, department, role, email, image}) => {
                                         </button>
                                         </td>
                                     </tr>
-                                    ))}
+                                    ))} */}
                                 </tbody>
                             </table>
                         </div>

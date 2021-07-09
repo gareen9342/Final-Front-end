@@ -86,7 +86,7 @@ const MemberList = ({studyId}) => {
                                         <div className="text-sm text-gray-900">{person?.member_loc}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">{person?.role}</div>
+                                        <div className="text-sm text-gray-900">{person?.member_phonenumber}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

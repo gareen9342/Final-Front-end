@@ -203,7 +203,7 @@ export const ToDoListItem = ({
           <button onClick={onClickUpdateButton}>
             <Edit />
           </button>
-          <button onClick={() => toggleTodo(todoid)}>
+          <button onClick={toggleTodo}>
             <CheckCircle className="text-green-500" />
           </button>
         </div>
@@ -218,10 +218,10 @@ export const ToDoListItem = ({
           <button onClick={onClickUpdateButton}>
             <Edit />
           </button>
-          <button onClick={() => toggleTodo(todoid)}>
+          <button onClick={toggleTodo}>
             <CheckCircleOutline />
           </button>
-          <button onClick={onDeleteTodo}>
+          <button onClick={() => onDeleteTodo(todoid)}>
             <DeleteOutline />
           </button>
         </div>

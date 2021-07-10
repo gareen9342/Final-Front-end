@@ -106,59 +106,59 @@ const MapService = () => {
       var bounds = new kakao.maps.LatLngBounds();
       // 마커 초기화부터 진행
       markersPosition.map((x) => x.setMap(null));
-      const tempArr = [];
+      // const tempArr = [];
       for (var i = 0; i < data.length; i++) {
-        const newMarker = displayMarker(data[i]);
-        tempArr.push(newMarker);
+        // const newMarker = displayMarker(data[i]);
+        // tempArr.push(newMarker);
         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        // }
+        // setMarkersPosition(tempArr);
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        kakaoMap.setBounds(bounds);
       }
-      setMarkersPosition(tempArr);
-      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-      kakaoMap.setBounds(bounds);
-    }
-  };
+    };
 
 
-  // 마커 이벤트
-  const displayMarker = (place) => {
-    let marker = null;
-    if (!!kakaoMap) {
-      marker = new kakao.maps.Marker({
-        map: kakaoMap,
-        position: new kakao.maps.LatLng(place.y, place.x),
-      });
-      // 마커에 이벤트 등록
-      kakao.maps.event.addListener(marker, "click", function () {
-        // console.log(place.address_name, place.id);
+    // 마커 이벤트
+    // const displayMarker = (place) => {
+    //   let marker = null;
+    //   if (!!kakaoMap) {
+    //     marker = new kakao.maps.Marker({
+    //       map: kakaoMap,
+    //       position: new kakao.maps.LatLng(place.y, place.x),
+    //     });
+    //     // 마커에 이벤트 등록
+    //     kakao.maps.event.addListener(marker, "click", function () {
+    // console.log(place.address_name, place.id);
 
-        // 선택 기준 탐색 (보류)
-        // const pickHere = (async () => {
-        //   try {
-        //     const { data } = await StudyService.searchStudy(place.y, place.x, range);
-        //     if (!!data && data.length) {
-        //       setStudyResult([]);
-        //       console.log(data);
-        //       setStudyResult(data);
-        //     }
-        //   } catch (err) {
-        //     console.error(err);
-        //   }
-        // })();
+    // 선택 기준 탐색 (보류)
+    // const pickHere = (async () => {
+    //   try {
+    //     const { data } = await StudyService.searchStudy(place.y, place.x, range);
+    //     if (!!data && data.length) {
+    //       setStudyResult([]);
+    //       console.log(data);
+    //       setStudyResult(data);
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // })();
 
-        // 마커 인포윈도우
-        let content = '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
-          place.place_name +
-          "</div>";
-        // + `<button onClick="pickHere()" style="border:1px solid skyblue;float:right;">탐색</button>`;
+    // 마커 인포윈도우
+    //       let content = '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
+    //         place.place_name +
+    //         "</div>";
+    //       // + `<button onClick="pickHere()" style="border:1px solid skyblue;float:right;">탐색</button>`;
 
-        infoWindow.setContent(content);
-        infoWindow.open(kakaoMap, marker);
-      });
-      kakao.maps.event.addListener(kakaoMap, "click", function () {
-        infoWindow.close();
-      });
-    }
-    return marker;
+    //       infoWindow.setContent(content);
+    //       infoWindow.open(kakaoMap, marker);
+    //     });
+    //     kakao.maps.event.addListener(kakaoMap, "click", function () {
+    //       infoWindow.close();
+    //     });
+    //   }
+    //   return marker;
   };
 
   // 현위치
@@ -291,22 +291,26 @@ const MapService = () => {
   return (
     <div>
       <div>
-        <input
-          type="text"
-          maxLength="30"
-          value={searchText}
-          placeholder="장소를 입력하세요!"
-          onChange={onChangeSearchText}
-        />
-        <button onClick={onClickSearchButton} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-          검색</button>
-        <br />
+        {/* 주변 위치 활성화시 위치에 대한 검색 가능 */}
+        {activateNear &&
+          <div>
+            <input
+              type="text"
+              maxLength="30"
+              value={searchText}
+              placeholder="장소를 입력하세요!"
+              onChange={onChangeSearchText}
+            />
+            <button onClick={onClickSearchButton} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+              검색</button>
+          </div>
+        }
         <button onClick={onFocusCenter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
           현위치</button>
         <br />
-        {activateNear === false ? <>
+        {!activateNear ? <>
           <button onClick={searchNear} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-            주변 스터디 탐색하기
+            스터디 찾기
           </button>
           <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </>
           : ''}

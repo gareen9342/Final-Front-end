@@ -234,7 +234,6 @@ const MapService = () => {
               const { data } = await StudyService.searchStudy(lat, lng, rangeOption);
               let marker = null;
               if (!!data && data.length) {
-                setStudyResult([]);
                 console.log(data);
                 setStudyResult(data);
                 let tmpMarker = [];

@@ -2,11 +2,24 @@ import React, {useState, useEffect} from 'react';
 import groupStudyService from '../../services/groupStudyService';
 
 
+
+const people = [
+    {
+      name: 'Jane Cooper',
+      title: 'Regional Paradigm Technician',
+      department: 'Optimization',
+      role: 'Admin',
+      email: 'jane.cooper@example.com',
+      image:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+  ]
+
 const MemberList = ({studyId}) => {
 
 
     const [follow, setFollow] = useState("");
-
+    const [people, setPeople] = useState(["null","null"]);
 
     const toggleFollow = (isFollow) => {
         return isFollow ? false : true
@@ -16,6 +29,8 @@ const MemberList = ({studyId}) => {
         (async () => {
             const res = await groupStudyService.getStudyMemberList(studyId);
             console.log("리스트작동",res);
+            setPeople(res.data);
+ 
         })();
       }, []);
 
@@ -58,23 +73,20 @@ const MemberList = ({studyId}) => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {/* {people.map((person) => (
-                                    <tr key={email}>
+                                    {people.map((person,keys) => (
+                                    <tr key={keys}>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="flex items-center">
-                                            <div className="flex-shrink-0 h-10 w-10">
-                                            <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
-                                            </div>
+                                        <div className="flex items-center">                                        
                                             <div className="ml-4">
-                                            <div className="text-sm font-medium text-gray-900">{person.name}</div>
+                                            <div className="text-sm font-medium text-gray-900">{person?.member_nickname}</div>
                                             </div>
                                         </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">{person.title}</div>
+                                        <div className="text-sm text-gray-900">{person?.member_loc}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-900">{person.title}</div>
+                                        <div className="text-sm text-gray-900">{person?.member_phonenumber}</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -83,7 +95,7 @@ const MemberList = ({studyId}) => {
                                         </button>
                                         </td>
                                     </tr>
-                                    ))} */}
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

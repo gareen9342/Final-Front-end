@@ -11,7 +11,7 @@ import useInput from "../../hooks/useInput";
 import MapSearchForm from "./MapSearchForm";
 import SelectBox from "./SelectBox";
 import { Container, Form, Row, Box } from "./UI";
-import Editor from "./TextEditor";
+import Editor from "../../components/TextEditor";
 import { useHistory } from "react-router";
 const StudyForm = () => {
   const [studyName, setStudyName] = useState("");
@@ -206,7 +206,11 @@ const StudyForm = () => {
         )}
         <Row>
           <Box label={"스터디 설명"}>
-            <Editor setText={setDescription} />
+            <Editor
+              setText={setDescription}
+              text={description}
+              placeholder="스터디에 대한 내용을 간략히 작성해주세요 '-'"
+            />
             <div className="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
               <button className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                 Cancel
@@ -218,6 +222,7 @@ const StudyForm = () => {
                 Save
               </button>
             </div>
+            {console.log(area)}
           </Box>
         </Row>
       </Form>

@@ -274,52 +274,55 @@ const MapService = () => {
 
   // -------------------------------forTest--------------------------------
 
-  const checker = () => {
-    console.log("----------------------");
-    console.log(markersPosition);
-    console.log("----------------------");
-  };
+  // const checker = () => {
+  //   console.log("----------------------");
+  //   console.log(markersPosition);
+  //   console.log("----------------------");
+  // };
 
-  const deleter = () => {
-    markersPosition.forEach((study) => { study.setMap(null) });
-    setMarkersPosition([]);
-  };
+  // const deleter = () => {
+  //   markersPosition.forEach((study) => { study.setMap(null) });
+  //   setMarkersPosition([]);
+  // };
 
   // ----------------------------------------------------------------------
 
   const leftWidth = 300;
   return (
     <div>
-      <div>
+      <div className="flex flex-row justify-center">
         {/* 주변 위치 활성화시 위치에 대한 검색 가능 */}
         {activateNear &&
-          <div>
+          <div className="flex flex-row justify-center">
             <input
               type="text"
               maxLength="30"
               value={searchText}
               placeholder="장소를 입력하세요!"
               onChange={onChangeSearchText}
+              className="appearance-none block w-80 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
             />
             <button onClick={onClickSearchButton} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
               검색</button>
+            <button onClick={onFocusCenter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+              현위치</button>
           </div>
         }
-        <button onClick={onFocusCenter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-          현위치</button>
         <br />
         {!activateNear ? <>
+          <div className="w-64">
+            <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} />
+          </div>
           <button onClick={searchNear} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-            스터디 찾기
-          </button>
-          <SelectBox options={rangeOptions} onChange={onChangeRangeOption} value={rangeOption} /> </>
+            찾기
+          </button> </>
           : ''}
 
         <br />
-        <button onClick={checker} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+        {/* <button onClick={checker} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
           체크</button>
         <button onClick={deleter} className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-          del</button>
+          del</button> */}
       </div>
       {/* nav */}
       <div

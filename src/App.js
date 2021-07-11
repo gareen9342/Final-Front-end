@@ -18,6 +18,7 @@ import MyStudy from "./pages/MyStudy";
 import GroupStudy from "./pages/GroupStudy/GroupStudy";
 
 import { signIn, premium } from "./pages/login/Auth";
+import MyProfile from "./pages/MyProfile/MyProfile";
 // import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
@@ -86,6 +87,7 @@ export default function App() {
 
               <Route path="/payment" component={Payment} />
               <Route path="/GroupStudy" component={GroupStudy} />
+              <Route path="/MyProfile" component={MyProfile} />
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>

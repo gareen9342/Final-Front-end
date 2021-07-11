@@ -16,4 +16,8 @@ userService.premiumCheck = (data) => {
     return ApiService.post("/payment/premiumCheck.do?email="+data.email);
 }
 
+userService.memberUpdate = (data) => {
+    return ApiService.post("MyProfile.do", data);
+}
+
 export default userService;

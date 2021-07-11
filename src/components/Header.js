@@ -73,7 +73,7 @@ const Header = ({ logout }) => {
             to="/myprofile"
             className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
           >
-            myprofile
+            update profile
           </Link>
           <Link
             to="/"

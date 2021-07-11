@@ -17,7 +17,7 @@ TodoService.updateMyTodo = (data, email) => {
   return ApiService.putWithHeader("/mytodo.do", data, email);
 };
 
-TodoService.toggleTodo = (todoid) => {
-  return ApiService.patch(`/mytodo.do?id=${todoid}`);
+TodoService.toggleTodo = (data) => {
+  return ApiService.patch(`/mytodo.do`,data);
 };
 export default TodoService;

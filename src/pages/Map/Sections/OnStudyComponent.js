@@ -57,35 +57,33 @@ const OnStudyComponent = () => {
       </div>)
   });
 
-  // const renderCards = 'happy hackkk';
-
-
   return (
     <>
+      <div className="flex justify-center">
+        <input
+          type="text"
+          maxLength="30"
+          value={searchText}
+          placeholder="검색어를 입력하세요"
+          required="required"
+          type="text"
+          className="appearance-none block w-80 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+          onChange={onChangeSearchText}
+        />
+        <button
+          onClick={() => onClickSearchButton(searchText)}
+          className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+          검색</button>
 
-      <input
-        type="text"
-        maxLength="30"
-        value={searchText}
-        placeholder="검색어를 입력하세요"
-        required="required"
-        type="text"
-        className="appearance-none block w-80 bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-        onChange={onChangeSearchText}
-      />
-      <button
-        onClick={() => onClickSearchButton(searchText)}
-        className="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-        검색</button>
+      </div>
+
 
       <React.Fragment>
         <div style={{ marginTop: '2rem' }}>
           {renderCards}
         </div>
       </React.Fragment>
-
     </>
-
   )
 }
 

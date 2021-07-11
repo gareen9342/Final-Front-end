@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
-import { backUrl } from "../../config/config";
+import { backUrl } from "../config/config";
 
-const TextEditor = ({ setText }) => {
+const TextEditor = ({ setText, text, placeholder = "내용을 입력해주세요" }) => {
   const editorRef = useRef();
-  
+
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.getInstance().removeHook("addImageBlobHook");
@@ -39,7 +39,8 @@ const TextEditor = ({ setText }) => {
     <div>
       <Editor
         usageStatistics={false}
-        initialValue="스터디에 대한 정보를 간략히 작성해주세요 '-'"
+        initialValue={text}
+        placeholder={placeholder}
         previewStyle="tab"
         height="600px"
         initialEditType="wysiwyg"

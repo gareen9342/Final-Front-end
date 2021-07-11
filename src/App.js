@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.css";
 
 import Header from "./components/Header";
@@ -19,19 +19,22 @@ import GroupStudy from "./pages/GroupStudy/GroupStudy";
 
 import { signIn, premium } from "./pages/login/Auth";
 import MyProfile from "./pages/MyProfile/MyProfile";
+import GroupStudyEdit from "./pages/GroupStudyEdit";
 // import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
-
   // 유저의 이메일 정보
-  const [userEmail, setUserEmail] = useState(window.localStorage.getItem("email"));
+  const [userEmail, setUserEmail] = useState(
+    window.localStorage.getItem("email")
+  );
 
   // 회원가입 유저의 확인
-  const [yesUser, setYesUser] = useState(window.localStorage.getItem("yesUser"));
+  const [yesUser, setYesUser] = useState(
+    window.localStorage.getItem("yesUser")
+  );
 
   // SNS로그인 유저의 확인
   const authenticated = userEmail != null;
-
 
   // user 이메일 정보 삭제할 때
   const logout = () => {
@@ -39,9 +42,7 @@ export default function App() {
     setYesUser(null);
     window.localStorage.removeItem("email");
     window.localStorage.removeItem("yesUser");
-  }
-
-
+  };
 
   //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
   const signUserIn = async (email) => {
@@ -55,18 +56,16 @@ export default function App() {
     } else {
       setUserEmail(email);
       setYesUser(true);
-      window.localStorage.setItem("email",email);
-      window.localStorage.setItem("yesUser",email);
+      window.localStorage.setItem("email", email);
+      window.localStorage.setItem("yesUser", email);
       const premiumCheck = await premium(email);
-      window.localStorage.setItem("premium",premiumCheck); // True False
+      window.localStorage.setItem("premium", premiumCheck); // True False
       console.log("premium : ", premiumCheck);
 
       console.log("storage value : ", window.localStorage.getItem("email"));
       console.log("로그인한 회원임");
     }
-    
-    
-  }
+  };
 
   return (
     <Router>
@@ -83,11 +82,17 @@ export default function App() {
               <Route path="/search" component={SearchMain} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />
-              <Route path="/calendar" render={() => <Calendar userEmail={window.localStorage.getItem("email")} />} />
+              <Route
+                path="/calendar"
+                render={() => (
+                  <Calendar userEmail={window.localStorage.getItem("email")} />
+                )}
+              />
 
               <Route path="/payment" component={Payment} />
               <Route path="/GroupStudy" component={GroupStudy} />
               <Route path="/MyProfile" component={MyProfile} />
+              <Route path="/groupstudyedit/:id" component={GroupStudyEdit} />
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
           </>
@@ -96,7 +101,10 @@ export default function App() {
         {/* 회원가입 페이지로 이동*/}
         {authenticated && !yesUser && (
           <>
-            <Route path="/" render={() => <Register email={userEmail} logout={logout} />} />
+            <Route
+              path="/"
+              render={() => <Register email={userEmail} logout={logout} />}
+            />
           </>
         )}
 

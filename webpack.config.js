@@ -73,6 +73,13 @@ module.exports = (env, options) => {
 
     //================== end dev mode ================== //
   } else {
+    config.devServer = {
+      host: "0.0.0.0", // url
+      port: port,
+      open: false,
+      historyApiFallback: true,
+      disableHostCheck: true,
+    };
     config.plugins = [...config.plugins, new CleanWebpackPlugin()];
   }
   return config;

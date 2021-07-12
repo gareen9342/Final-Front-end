@@ -70,6 +70,12 @@ const Header = ({ logout }) => {
             mystudy
           </Link>
           <Link
+            to="/myprofile"
+            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+          >
+            update profile
+          </Link>
+          <Link
             to="/"
             className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
           >

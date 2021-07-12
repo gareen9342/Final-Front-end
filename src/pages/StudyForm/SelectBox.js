@@ -3,7 +3,7 @@ import React from "react";
 const SelectBox = ({ options, value, onChange, isRequired = true }) => {
   return (
     <select
-      className="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full "
+      className="block bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full "
       required={isRequired}
       value={value}
       onChange={onChange}

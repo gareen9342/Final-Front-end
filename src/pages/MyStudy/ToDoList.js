@@ -48,15 +48,14 @@ const ToDos = () => {
     }
   };
 
-  const toggleTodo = async (todoid) => {
+  const toggleTodo = async (tododata) => {
     if (!cbLoading) {
       try {
         setCbLoading(true);
-        const { data } = await TodoService.toggleTodo(todoid);
+        const { data } = await TodoService.toggleTodo(tododata);
         if (data.success === "true") {
-          todoid = +todoid;
           const tempArr = todos.map((x) => {
-            if (x.todomyid === todoid) {
+            if (x.todomyid === tododata.todomyid) {
               const temp = x;
               temp.isdone = x.isdone === 0 ? 1 : 0;
               return temp;
@@ -139,7 +138,6 @@ const ToDos = () => {
   );
 
   const onDeleteTodo = async (id) => {
-    console.log(id);
     const okay = confirm("정말로 삭제하시겠습니까?");
 
     if (!cbLoading && okay) {
@@ -147,7 +145,7 @@ const ToDos = () => {
         setCbLoading(true);
         const { data } = await TodoService.deleteMyTodo(id);
         if (data.success === "true") {
-          setTodos(todos.filter((x) => x.todomyid === id));
+          setTodos(todos.filter((x) => x.todomyid !== id));
         } else {
           alert("삭제 실패");
         }
@@ -162,6 +160,7 @@ const ToDos = () => {
     <ToDoList>
       {loading && "loading..."}
       {!loading && !todos.length && "할일이 아직 없습니다."}
+      {console.log(todos)}
       {todos.map((item, idx) => (
         <ToDoListItem
           key={item.todomyid}
@@ -169,8 +168,8 @@ const ToDos = () => {
           checked={item.isdone === 1}
           index={idx}
           taskName={item.title}
-          toggleTodo={toggleTodo}
-          onDeleteTodo={() => onDeleteTodo(item.todomyid)}
+          toggleTodo={() => toggleTodo(item)}
+          onDeleteTodo={onDeleteTodo}
           onClickUpdateButton={() =>
             onClickUpdateButton(item.todomyid, item.title, item.content)
           }

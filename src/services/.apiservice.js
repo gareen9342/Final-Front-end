@@ -1,7 +1,7 @@
 import axios from "axios";
 import { backUrl } from "../config/config";
 
-const ApiService = () => { };
+const ApiService = () => {};
 
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
@@ -17,7 +17,7 @@ ApiService.get = async (uri) => {
   try {
     data = await axios.get(`${uri}`, config);
   } catch (error) {
-    console.error(error);
+    //console.error(error);
   }
   return data;
 };
@@ -43,8 +43,6 @@ ApiService.getWithHeader = async (uri, email) => {
 
 ApiService.post = async (uri, body) => {
   let resData = {};
-  console.log("APIservice : ", body);
-
 
   const config = { "Content-Type": "application/json" };
 
@@ -87,6 +85,19 @@ ApiService.delete = async (uri, data) => {
   return resData;
 };
 
+ApiService.put = async (uri, data) => {
+  let res = {};
+  const config = {
+    headers: { "Content-Type": "application/json" },
+  };
+
+  try {
+    res = await axios.put(uri, data, config);
+  } catch (err) {
+    console.error(err);
+  }
+  return res;
+};
 ApiService.putWithHeader = async (uri, data, email) => {
   let res = {};
   const config = {

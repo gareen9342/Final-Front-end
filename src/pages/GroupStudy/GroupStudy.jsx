@@ -1,4 +1,5 @@
 import React , {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import groupStudyService from "../../services/groupStudyService";
 import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
 import CalendarGroup from "../Calendar/CalendarGroup";
@@ -45,11 +46,12 @@ const GroupStudy = (props) => {
             관리자 여부 : {props.location.state.isAdmin&&<>관리자입니다.</>}<br/>
 
             {/* 관리하기 버튼 */}
-            {role==="admin" ? <button
+            {role==="admin" ? <Link
+            to={`/groupstudyedit/${studyId}`}
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
           >
             관리하기
-          </button>: ""}
+          </Link>: ""}
 
 
             {/* 가입신청하기 버튼 */}

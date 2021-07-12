@@ -2,10 +2,8 @@ import React, {useState, useEffect} from 'react';
 import groupStudyService from '../../services/groupStudyService';
 
 
-
-
-const MemberList = ({studyId}) => {
-
+const MemberListWaiting = ({studyId}) => {
+    
 
     const [follow, setFollow] = useState("");
     const [people, setPeople] = useState(["null","null"]);
@@ -95,4 +93,4 @@ const MemberList = ({studyId}) => {
     );
 }
 
-export default MemberList;
+export default MemberListWaiting;

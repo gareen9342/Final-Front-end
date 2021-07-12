@@ -8,6 +8,7 @@ const StudyIntroduce = ({studyId}) => {
     const [studyIsOnline, setStudyIsOnline] = useState(null);
     const [studyLocation, setStudyLocation] = useState(null);
     const [studyCount, setStudyCount] = useState(null);
+    const [studyWaitingCount, setStudyWaitingCount] = useState(null);
     const [studyIntro, setStudyIntro] = useState(null)
     const [groupStudyList, setGroupStudyList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,6 +25,7 @@ const StudyIntroduce = ({studyId}) => {
             setStudyLocation(res.data[0]?.studygroupaddr);
             setStudyIntro(res.data[0]?.studygroupdesc);
             setStudyCount(res.data[0]?.study_member_count);
+            setStudyWaitingCount(res.data[0]?.study_waiting_count);
             setLoading(false);
 
             if(res.data[0]?.studygroupoffline == "N"){
@@ -75,7 +77,7 @@ const StudyIntroduce = ({studyId}) => {
                                             <span className="text-2xl">스터디 인원</span>
                                         </div>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl">{studyCount}명</span>
+                                            <span className="text-2xl">{studyCount}명(가입신청{studyWaitingCount}명)</span>
                                         </div>
                                     </div>
                                     <div

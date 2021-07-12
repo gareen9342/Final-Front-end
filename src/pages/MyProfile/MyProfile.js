@@ -12,14 +12,6 @@ const MyProfile = () => {
     const [location, setLocation] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const data = {
-        email,
-        nickName,
-        phoneNumber,
-        location,
-        intro,
-    }
-
     useEffect(() => {
         if (loading) {
            (async () => {

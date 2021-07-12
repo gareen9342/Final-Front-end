@@ -4,6 +4,7 @@ import TextEditor from "../../components/TextEditor";
 import useInput from "../../hooks/useInput";
 import StudyService from "../../services/studyService";
 import { Container, Input, Button } from "./UI";
+import MemberListWaiting from "../../components/MemberList/MemberListWaiting";
 const GroupStudyEdit = ({ match }) => {
   const { id } = match.params;
   const [loading, setLoading] = useState(false);
@@ -56,6 +57,7 @@ const GroupStudyEdit = ({ match }) => {
     }
   };
   return (
+    <>
     <Container>
       {loading && "loading...."}
       <h1>스터디 정보 수정하기 </h1>
@@ -68,6 +70,8 @@ const GroupStudyEdit = ({ match }) => {
       )}
       <Button onClick={onClickEditButton} text="수정완료" />
     </Container>
+    <MemberListWaiting studyId={id} />
+    </>
   );
 };
 

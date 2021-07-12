@@ -21,6 +21,7 @@ const OffStudyComponent = ({ studies }) => {
     // "studygroupadmin": "gareen9342@gmail.com",
     // "studygrouppw": null,
     // "studyusercnt": 0
+    const openOrNot = item.studygrouppw === null ? '공개' : '비공개';
 
     return (
       <div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
@@ -41,7 +42,7 @@ const OffStudyComponent = ({ studies }) => {
                     search: `?${item.studygroupid}`,
                   }
                 }>{item.studygroupname}</Link></div>
-              <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</a>
+              <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{`공개 여부: ${openOrNot}`}</a>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>
           </div>

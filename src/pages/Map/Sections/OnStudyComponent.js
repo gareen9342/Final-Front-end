@@ -39,8 +39,10 @@ const OnStudyComponent = () => {
     })();
   }
 
+
   const renderCards = studies.map(item => {
 
+    const openOrNot = item.studygrouppw === null ? '공개' : '비공개';
     return (
       <div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
         <div className="max-w-md mx-auto bg-pink-200 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
@@ -61,7 +63,7 @@ const OnStudyComponent = () => {
               >
                 <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
               </Link>
-              <p className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</p>
+              <p className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{`공개 여부: ${openOrNot}`}</p>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>
           </div>

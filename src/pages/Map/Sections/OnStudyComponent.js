@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useInput from "../../../hooks/useInput";
 import StudyService from "../../../services/studyService";
 
@@ -48,8 +49,19 @@ const OnStudyComponent = () => {
               <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>
             </div>
             <div className="p-6">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
-              <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</a>
+              <Link
+                to={{
+                  pathname: "/GroupStudy",
+                  state: {
+                    studyId: item.studygroupid,
+                    studyname: item.studygroupname,
+                  },
+                  search: `?${item.studygroupid}`,
+                }}
+              >
+                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
+              </Link>
+              <p className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</p>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>
           </div>

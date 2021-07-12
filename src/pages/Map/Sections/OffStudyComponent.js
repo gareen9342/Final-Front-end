@@ -37,8 +37,8 @@ const OffStudyComponent = ({ studies }) => {
                     state: {
                       studyId: item.studygroupid,
                       studyname: item.studygroupname,
-                      isAdmin: true,
-                    }
+                    },
+                    search: `?${item.studygroupid}`,
                   }
                 }>{item.studygroupname}</Link></div>
               <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">공부해^^</a>

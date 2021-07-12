@@ -23,8 +23,8 @@ export const Profile = ({ studyId, studyname, isAdmin, isOffline }) => (
             state: {
               studyId: studyId,
               studyname: studyname,
-              isAdmin: isAdmin,
             },
+            search: `?${studyId}`,
           }}
         >
           <div className="flex flex-col">

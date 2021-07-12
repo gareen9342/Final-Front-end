@@ -4,24 +4,30 @@ import groupStudyService from "../../services/groupStudyService";
 import StudyIntroduce from "../../components/StudyIntroduce/StudyIntroduce";
 import CalendarGroup from "../Calendar/CalendarGroup";
 import MemberList from "../../components/MemberList/MemberList";
+import qs from 'qs';
 
 const GroupStudy = (props) => {
     
     // 1. 이 페이지를 볼때 현재 유저가 그룹에 속해있는지 확인해야됨
     // 2. db에서 조회해서 데이터를 띄어줘야됨
 
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState("");
     const email = window.localStorage.getItem("email");
-    const studyId = props.location.state.studyId;
+    const studyId = props.location.search.slice(1)
 
+    const StudySignIn = () => {
+      groupStudyService.postStudySignIn(email,studyId);
+    }
     
+    const StudySignOut = () => {
+      groupStudyService.postStudySignOut(email,studyId);
+    }
 
     useEffect(() => {
         (async () => {
             const res = await groupStudyService.getRole(email,studyId);
-            console.log("작동",res.data);
             setRole(res.data);
-        })();
+        })()
       }, []);
     
     
@@ -38,15 +44,8 @@ const GroupStudy = (props) => {
 
     return(
         <>
-            {/* 스터디이름 */}
-            스터디 이름 : {props.location.state.studyname}<br/>
-            {/* 스터디 아이디 */}
-            스터디 ID : {props.location.state.studyId}<br/>
-            {/* 관리자여부 확인 true false 값으로 전달됨*/}
-            관리자 여부 : {props.location.state.isAdmin&&<>관리자입니다.</>}<br/>
-
-            {/* 관리하기 버튼 */}
-            {role==="admin" ? <Link
+          {/* 관리하기 버튼 */}
+          {role==="admin" ? <Link
             to={`/groupstudyedit/${studyId}`}
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
           >
@@ -55,25 +54,26 @@ const GroupStudy = (props) => {
 
 
             {/* 가입신청하기 버튼 */}
-            {role==="" ? <button
+           {role==="" ? <button
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
-            // onClick={groupStudyService.postStudySignIn()}
+            onClick={StudySignIn}
           >
             가입신청하기
           </button>: ""}
           
             {/* 가입신청 취소하기 버튼 */}
-            {role && <button
+          {role ==="waiting" ? <button
             className="inline-block px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-blue-700 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none"
-            // onClick={groupStudyService.postStudySignOut()}
+            onClick={StudySignOut}
           >
             가입신청취소하기
-          </button>}
+          </button> : ""}
 
 
 
             {/* 회원일 경우 어서오세요 나오게하기 */}
             {role==="user" ? <h1>어서오세요</h1> : ""}
+
             <StudyIntroduce studyId={studyId} />
             <MemberList studyId={studyId}/>
             <CalendarGroup 

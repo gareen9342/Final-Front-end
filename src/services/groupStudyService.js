@@ -29,15 +29,22 @@ groupStudyService.getStudyMemberList = (studyId) => {
 }
 
 // 가입신청
-groupStudyService.postStudySignIn = () => {
-
-    return  ApiService.post("/groupstudy/groupStudySignIn.do",studyId);;
+groupStudyService.postStudySignIn = (email,studyId) => {
+    const data = {
+        email,
+        studyId
+    }
+    console.log("서비스작동",data);
+    return  ApiService.post("/groupstudy/groupStudySignIn.do",data);
 }
 
 // 가입취소
-groupStudyService.postStudySignOut = () => {
-
-    return  ApiService.post("/groupstudy/groupStudySignOut.do",studyId);;
+groupStudyService.postStudySignOut = (email,studyId) => {
+    const data = {
+        email,
+        studyId
+    }
+    return  ApiService.post("/groupstudy/groupStudySignOut.do",data);;
 }
 
 export default groupStudyService;

@@ -4,7 +4,8 @@
   "description": "통장잔고 2조의 프론트-엔드 🤾‍♀️",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-cli serve --mode development"
+    "dev": "webpack-cli serve --mode development",
+    "build": "webpack-cli serve --mode production"
   },
   "repository": {
     "type": "git",

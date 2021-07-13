@@ -16,22 +16,22 @@ const GroupStudy = (props) => {
     const studyId = props.location.search.slice(1)
 
     const StudySignIn = async () => {
-      console.log("가입");
+      // console.log("가입");
       await groupStudyService.postStudySignIn(email,studyId);
       await groupStudyService.getRole(email,studyId).then(
         (res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setRole(res.data)
         }
       );
     }
     
     const StudySignOut = async () => {
-      console.log("탈퇴");
+      // console.log("탈퇴");
       await groupStudyService.postStudySignOut(email,studyId);
       await groupStudyService.getRole(email,studyId).then(
         (res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setRole(res.data)
         }
       );

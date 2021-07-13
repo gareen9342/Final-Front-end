@@ -34,7 +34,7 @@ const callback = async (response) => {
 
   if (success) {
     const res = await PaymentService.insert(paymentInfo);
-    // window.localStorage.setItem("premium",true);
+    window.localStorage.setItem("premium","true");
     alert("결제 성공");
     closeModal();
     setPremium("true");

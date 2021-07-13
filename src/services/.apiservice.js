@@ -17,7 +17,7 @@ ApiService.get = async (uri) => {
   try {
     data = await axios.get(`${uri}`, config);
   } catch (error) {
-    //console.error(error);
+    console.error(error);
   }
   return data;
 };
@@ -98,6 +98,7 @@ ApiService.put = async (uri, data) => {
   }
   return res;
 };
+
 ApiService.putWithHeader = async (uri, data, email) => {
   let res = {};
   const config = {

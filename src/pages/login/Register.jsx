@@ -12,22 +12,22 @@ import { useHistory } from 'react-router';
 
     const onChangeNickName = (e) => {
         setNickName(e.target.value);
-        console.log(nickName);
+        //console.log(nickName);
     }
 
     const onChangePhoneNumber = (e) => {
         setPhoneNumber(e.target.value);
-        console.log(phoneNumber);
+        //console.log(phoneNumber);
     }
 
     const onChangeIntro = (e) => {
         setIntro(e.target.value);
-        console.log(nickName);
+        //console.log(nickName);
     }
 
     const onChangeLocation = (e) => {
         setLocation(e.target.value);
-        console.log(location);
+        //console.log(location);
     }
 
     const Regist = async () => {
@@ -38,7 +38,7 @@ import { useHistory } from 'react-router';
         }
         
         if(phoneCheck(phoneNumber)){
-            console.log(nickName, phoneNumber,intro, location,email);
+            //console.log(nickName, phoneNumber,intro, location,email);
             const data = {
                 email,
                 nickName,
@@ -48,7 +48,7 @@ import { useHistory } from 'react-router';
             }
         
             const res = await userService.memberInsert(data);
-            console.log(res);
+            //console.log(res);
             logout();
             history.push("/");
         }else{

@@ -48,26 +48,27 @@ const Header = ({ logout }) => {
         </div>
         <div className="flex flex-col md:flex-row hidden md:block -mx-2">
           <NavLink
+            exact
             to="/"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             Feed
           </NavLink>
           <NavLink
-            to="/search"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            to="/search/offline"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             search
           </NavLink>
           <NavLink
             to="/mystudy"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             mystudy
           </NavLink>
           <NavLink
             to="/myprofile"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             update profile
           </NavLink>

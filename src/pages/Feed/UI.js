@@ -34,7 +34,9 @@ export const Bar = ({ username }) => (
 
       <ul className="flex items-center">
         <li>
-          <h1 className="pl-8 lg:pl-0 text-gray-700">{username}</h1>
+          <h1 className="pl-8 lg:pl-0 text-gray-700">
+            {username}의 피드 입니다.{" "}
+          </h1>
         </li>
       </ul>
       <ul className="flex items-center">

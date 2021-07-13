@@ -18,7 +18,7 @@ const Kakao =  ({signUserIn}) => {
                     window.Kakao.API.request({
                         url : "/v2/user/me",
                         success : (res) => {
-                            console.log("kakao사용자 정보",res);
+                            //console.log("kakao사용자 정보",res);
                             signUserIn(res.kakao_account.email);
                         },
                         fail : (err) =>{

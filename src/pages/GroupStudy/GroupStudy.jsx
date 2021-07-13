@@ -16,22 +16,22 @@ const GroupStudy = (props) => {
     const studyId = props.location.search.slice(1)
 
     const StudySignIn = async () => {
-      console.log("가입");
+      // console.log("가입");
       await groupStudyService.postStudySignIn(email,studyId);
       await groupStudyService.getRole(email,studyId).then(
         (res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setRole(res.data)
         }
       );
     }
     
     const StudySignOut = async () => {
-      console.log("탈퇴");
+      // console.log("탈퇴");
       await groupStudyService.postStudySignOut(email,studyId);
       await groupStudyService.getRole(email,studyId).then(
         (res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setRole(res.data)
         }
       );
@@ -57,7 +57,8 @@ const GroupStudy = (props) => {
 
 
     return(
-        <>
+      <div className=" bg-blue-200">
+        <div className="container mx-auto flex flex-col items-center w-full">
           {/* 관리하기 버튼 */}
           {role==="admin" ? <Link
             to={`/groupstudyedit/${studyId}`}
@@ -87,14 +88,16 @@ const GroupStudy = (props) => {
 
             {/* 회원일 경우 어서오세요 나오게하기 */}
             {role==="user" ? <h1>어서오세요</h1> : ""}
-
-            <StudyIntroduce studyId={studyId} />
-            <MemberList studyId={studyId}/>
-            <CalendarGroup 
-                studyGroupId={studyId}
-                userEmail={window.localStorage.getItem("email")}
-            />
-        </>
+          <div className="shadow-lg w-9/12 p-4 flex flex-col bg-white rounded-lg">
+              <StudyIntroduce studyId={studyId} />
+              <MemberList studyId={studyId}/>
+              <CalendarGroup 
+                  studyGroupId={studyId}
+                  userEmail={window.localStorage.getItem("email")}
+              />
+          </div>
+        </div>
+      </div>
     );
 }
 

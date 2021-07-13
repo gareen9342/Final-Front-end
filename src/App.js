@@ -21,14 +21,8 @@ import MyProfile from "./pages/MyProfile/MyProfile";
 import GroupStudyEdit from "./pages/GroupStudyEdit";
 // import { useLocalStorage } from "./services/useLocalStorage";
 
-<<<<<<< HEAD
 const App = () => {
   const history = useHistory();
-=======
-export default function App() {
->>>>>>> main
-
-const history = useHistory();
   // 유저의 이메일 정보
   const [userEmail, setUserEmail] = useState(
     window.localStorage.getItem("email")
@@ -122,3 +116,5 @@ const history = useHistory();
     </div>
   );
 };
+
+export default App;

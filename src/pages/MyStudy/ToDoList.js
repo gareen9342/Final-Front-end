@@ -52,6 +52,7 @@ const ToDos = () => {
     if (!cbLoading) {
       try {
         setCbLoading(true);
+
         const { data } = await TodoService.toggleTodo(tododata);
         if (data.success === "true") {
           const tempArr = todos.map((x) => {
@@ -84,6 +85,7 @@ const ToDos = () => {
   const onInsertTodo = useCallback(
     async (todoData) => {
       try {
+        console;
         const { data } = await TodoService.insertMyTodo(
           todoData,
           localStorage.getItem("email")

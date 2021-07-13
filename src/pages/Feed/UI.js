@@ -1,5 +1,4 @@
 import React from "react";
-import { FavoriteIcon, FavoriteBorder } from "@material-ui/icons";
 
 export const Container = ({ children }) => (
   <main className="bg-gray-100 dark:bg-gray-800 relative h-screen overflow-hidden relative">

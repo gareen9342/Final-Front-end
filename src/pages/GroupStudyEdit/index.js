@@ -58,19 +58,17 @@ const GroupStudyEdit = ({ match }) => {
   };
   return (
     <>
-    <Container>
-      {loading && "loading...."}
-      <h1>스터디 정보 수정하기 </h1>
-      <label>스터디 이름 : </label>
-      <Input value={name} onChange={onChangeName} />
-      <br />
-      <label>스터디 정보</label>
-      {!loading && description.length && (
-        <TextEditor setText={setDescription} text={description} />
-      )}
-      <Button onClick={onClickEditButton} text="수정완료" />
-    </Container>
-    <MemberListWaiting studyId={id} />
+      <Container>
+        {loading && "loading...."}
+        <h1>스터디 정보 수정하기 </h1>
+        <label>스터디 이름 : </label>
+        <Input value={name} onChange={onChangeName} />
+        <br />
+        <label>스터디 정보</label>
+        {!loading && <TextEditor setText={setDescription} text={description} />}
+        <Button onClick={onClickEditButton} text="수정완료" />
+      </Container>
+      <MemberListWaiting studyId={id} />
     </>
   );
 };

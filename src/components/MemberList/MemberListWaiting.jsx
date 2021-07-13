@@ -5,21 +5,25 @@ import groupStudyService from '../../services/groupStudyService';
 const MemberListWaiting = ({studyId}) => {
     
 
-    const [follow, setFollow] = useState("");
     const [people, setPeople] = useState(["null","null"]);
-
-    const toggleFollow = (isFollow) => {
-        return isFollow ? false : true
-    }
 
     useEffect(() => {
         (async () => {
-            const res = await groupStudyService.getStudyMemberList(studyId);
-            console.log("리스트작동",res);
+            const res = await groupStudyService.getStudyWaitingMemberList(studyId);
+            console.log("리스트작동",res.data);
             setPeople(res.data);
  
         })();
       }, []);
+
+    const joinButton = async (e,sID) => {
+        const res = await groupStudyService.groupStudyJoin(e,sID);
+        console.log("수정완료",res);
+        const res2 = await groupStudyService.getStudyWaitingMemberList(studyId);
+        console.log("리스트작동",res2.data);
+        setPeople(res2.data);
+ 
+    }
 
     return (
         <>
@@ -77,8 +81,10 @@ const MemberListWaiting = ({studyId}) => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{person.role}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button className="text-indigo-600 hover:text-indigo-900" onClick={() => setFollow(toggleFollow(follow))}>
-                                            {follow ? 'UnFollow' : 'Follow'}
+                                        <button className="text-indigo-600 hover:text-indigo-900" onClick={() => 
+                                                joinButton(person.email,studyId)}
+                                            >
+                                            가입승인
                                         </button>
                                         </td>
                                     </tr>

@@ -17,7 +17,7 @@ const MemberList = ({studyId}) => {
     useEffect(() => {
         (async () => {
             const res = await groupStudyService.getStudyMemberList(studyId);
-            console.log("리스트작동",res);
+            //console.log("리스트작동",res);
             setPeople(res.data);
  
         })();

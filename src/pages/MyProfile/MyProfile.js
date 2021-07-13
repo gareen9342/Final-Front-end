@@ -36,22 +36,22 @@ const MyProfile = () => {
 
     const onChangeNickName = (e) => {
         setNickName(e.target.value);
-        console.log(nickName);
+        //console.log(nickName);
     }
 
     const onChangePhoneNumber = (e) => {
         setPhoneNumber(e.target.value);
-        console.log(phoneNumber);
+        //console.log(phoneNumber);
     }
 
     const onChangeIntro = (e) => {
         setIntro(e.target.value);
-        console.log(nickName);
+        //console.log(nickName);
     }
 
     const onChangeLocation = (e) => {
         setLocation(e.target.value);
-        console.log(location);
+        //console.log(location);
     }
 
     const Regist = async () => {
@@ -62,7 +62,7 @@ const MyProfile = () => {
         }
 
         if (phoneCheck(phoneNumber)) {
-            console.log(nickName, phoneNumber, intro, location, email);
+            //console.log(nickName, phoneNumber, intro, location, email);
             const data = {
                 email,
                 nickName,
@@ -72,9 +72,9 @@ const MyProfile = () => {
             }
 
             const res = await userService.profileUpdate(data);
-            console.log("data",res.data);
-            console.log(typeof (res.data));
-            console.log(res);
+            // console.log("data",res.data);
+            // console.log(typeof (res.data));
+            // console.log(res);
             if (res.data) {
                 alert("수정이 완료되었습니다.")
                 history.push("/");
@@ -86,6 +86,15 @@ const MyProfile = () => {
         } else {
             setPhoneNumber("");
             setErrorPhoneNumber(true);
+        }
+    }
+
+    const Checkout = () => {
+        if(confirm('정말로 탈퇴하시겠습니까? ㅜㅜ')){
+            alert("탈퇴되었습니다.")
+            history.push("../")
+        } else {
+
         }
     }
 
@@ -111,6 +120,9 @@ const MyProfile = () => {
 
                         <button type="submit" className="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none" onClick={Regist}>
                             수정하기
+                        </button>
+                        <button type="submit" className="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-red-600 shadow-lg focus:outline-none hover:bg-red-600 hover:shadow-none" onClick={Checkout}>
+                            SWith 탈퇴하기
                         </button>
 
                     </div>

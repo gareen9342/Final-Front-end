@@ -52,6 +52,7 @@ const ToDos = () => {
     if (!cbLoading) {
       try {
         setCbLoading(true);
+        console.log("tododata = ", tododata);
         const { data } = await TodoService.toggleTodo(tododata);
         if (data.success === "true") {
           const tempArr = todos.map((x) => {

@@ -7,32 +7,17 @@ export const Container = ({ children }) => (
   </main>
 );
 
-export const Card = ({
-  avatarUrl = "https://swith-bucket.s3.ap-northeast-2.amazonaws.com//usericon.png",
-  content,
-  username,
-}) => (
-  <article className="sm:grid grid-cols-5 bg-white shadow-sm p-7 relative lg:max-w-2xl sm:p-4 rounded-lg lg:col-span-2 lg:ml-20">
-    <img
-      src={avatarUrl}
-      alt="user avatar image"
-      className="w-full rounded-lg"
-    />
-    <div className="pt-5 self-center sm:pt-0 sm:pl-10 col-span-3">
-      <h2 className="text-gray-800 capitalize text-xl font-bold">{content}</h2>
-      by&nbsp;
-      <a href="#" className="capitalize underline inline-block pt-2">
+export const Card = ({ title, content, username }) => (
+  <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+    <div class="flex-1 flex justify-between items-center">
+      <div class="w-48 p-0.5 pl-1 bg-gray-300 rounded">
+        <p className="text-sm font-light text-gray-500">{content}</p>
+      </div>
+      <div class="w-24 h-6 p-0.5 font-light text-gray-500 rounded-lg bg-purple-300 text-sm">
         {username}
-      </a>
+      </div>
     </div>
-    <div className="justify-self-end">
-      {
-        <button>
-          <FavoriteBorder />
-        </button>
-      }
-    </div>
-  </article>
+  </div>
 );
 export const Bar = ({ username }) => (
   <div className="flex-1 flex flex-col">
@@ -49,7 +34,9 @@ export const Bar = ({ username }) => (
 
       <ul className="flex items-center">
         <li>
-          <h1 className="pl-8 lg:pl-0 text-gray-700">{username}</h1>
+          <h1 className="pl-8 lg:pl-0 text-gray-700">
+            {username}의 피드 입니다.{" "}
+          </h1>
         </li>
       </ul>
       <ul className="flex items-center">

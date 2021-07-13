@@ -61,7 +61,6 @@ module.exports = (env, options) => {
     ],
   };
   //================= end config
-
   if (options.mode === "development") {
     config.devServer = {
       host: "localhost", // 개발 서버의 url

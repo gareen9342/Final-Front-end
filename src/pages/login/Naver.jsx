@@ -13,7 +13,7 @@ const Naver = ({signUserIn}) => {
         naverScript.onload = () => {
             const naverLogin = new window.naver.LoginWithNaverId({
                 clientId : "uBhSLeIhOd_5giBX121t", // 내 네이버 아이디 쓸것
-                callbackUrl : "http://localhost:3000", // 로그인 성공 이후 URL
+                callbackUrl : "http://qclass.iptime.org:3000", // 로그인 성공 이후 URL
                 callbackHandle : true,
                 isPopup : false , // 팝업 여부
                 loginButton : {color : "green", type : 3, height : 60 },

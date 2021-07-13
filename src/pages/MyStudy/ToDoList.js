@@ -161,7 +161,7 @@ const ToDos = () => {
     <ToDoList>
       {loading && "loading..."}
       {!loading && !todos.length && "할일이 아직 없습니다."}
-      {console.log(todos)}
+      {/* {console.log(todos)} */}
       {todos.map((item, idx) => (
         <ToDoListItem
           key={item.todomyid}

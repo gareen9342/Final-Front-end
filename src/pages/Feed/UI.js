@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Container = ({ children }) => (
-  <main className="bg-gray-100 dark:bg-gray-800 relative h-screen overflow-hidden relative">
+  <main className="bg-blue-200 dark:bg-blue-200 relative min-h-screen overflow-hidden relative">
     <div className="container mx-auto max-w-screen-lg my-8">{children}</div>
   </main>
 );
@@ -9,7 +9,7 @@ export const Container = ({ children }) => (
 export const Card = ({ content }) => (
   <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
     <div class="flex-1 flex justify-between items-center">
-      <div class="w-full p-0.5 pl-1 mr-2 bg-gray-300 rounded">
+      <div class="w-full p-0.5 pl-1 mr-2 rounded">
         <p className="text-sm font-light text-gray-500">{content}</p>
       </div>
     </div>

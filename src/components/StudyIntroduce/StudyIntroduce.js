@@ -1,6 +1,7 @@
 import { data } from "autoprefixer";
 import React, {useState, useEffect} from "react";
 import groupStudyService from "../../services/groupStudyService";
+import ReactMarkdown from "react-markdown";
 
 const StudyIntroduce = ({studyId}) => {
 
@@ -86,9 +87,9 @@ const StudyIntroduce = ({studyId}) => {
 
 
                             <br />
-                            <p>
+                            <ReactMarkdown>
                                 {studyIntro}
-                            </p>
+                            </ReactMarkdown>
                         </div>
                     </div>
 

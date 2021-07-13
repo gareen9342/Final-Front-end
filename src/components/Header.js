@@ -1,25 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const Header = ({ logout }) => {
   return (
     // <div>
     //   <ul className="flex items-stretch container rounded-full mx-auto bg-black text-yellow-600">
     //     <li className="active:bg-green-700">
-    //       <Link to="/">Home</Link>
+    //       <NavLink to="/">Home</NavLink>
     //     </li>
     //     <li className="px-12">
-    //       <Link to="/feed">feed</Link>
+    //       <NavLink to="/feed">feed</NavLink>
     //     </li>
     //     <li className="px-8 text-blue-400">
-    //       <Link to="/search">search</Link>
+    //       <NavLink to="/search">search</NavLink>
     //     </li>
     //     <li className="px-8">
-    //       <Link to="/mystudy">my study</Link>
+    //       <NavLink to="/mystudy">my study</NavLink>
     //     </li>
     //     <li className="px-12">
-    //       <Link to="/">
+    //       <NavLink to="/">
     //         <button onClick={logout}>Logout</button>
-    //       </Link>
+    //       </NavLink>
     //     </li>
     //   </ul>
     // </div>
@@ -47,36 +47,32 @@ const Header = ({ logout }) => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row hidden md:block -mx-2">
-          <Link
+          <NavLink
+            exact
             to="/"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             Feed
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/search/offline"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             search
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/mystudy"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             mystudy
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/myprofile"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+            className="text-gray-800 rounded hover:bg-gray-100 hover:text-gray-300 hover:font-medium py-2 px-2 md:mx-2"
           >
             update profile
-          </Link>
-          <Link
-            to="/"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
-          >
-            <button onClick={logout}>Logout</button>
-          </Link>
+          </NavLink>
+          <button onClick={logout}>Logout</button>
         </div>
       </div>
     </nav>

@@ -21,9 +21,7 @@ const Login = ({signUserIn}) => {
                     <Naver signUserIn={signUserIn}/>
                     <br/>
                     <Google signUserIn={signUserIn}/>
-                    <br/>
-                    <hr />
-                    <button onClick={() => signUserIn("pass")} className="w-full bg-green-400 mt-8 mb-4 text-white p-3 rounded-lg font-semibold text-lg">다음으로 가려면 <br/> 여기 눌러주세용</button>
+                    {/* <button onClick={() => signUserIn("pass")} className="w-full bg-green-400 mt-8 mb-4 text-white p-3 rounded-lg font-semibold text-lg">다음으로 가려면 <br/> 여기 눌러주세용</button> */}
                 </form>
             </div>
         </div>

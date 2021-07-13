@@ -24,30 +24,31 @@ const OffStudyComponent = ({ studies }) => {
     const openOrNot = item.studygrouppw === null ? '공개' : '비공개';
 
     return (
-      <div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
-        <div className="max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0 float-left">
-              <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>
-            </div>
-            <div className="p-6">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-                <Link to={
-                  {
-                    pathname: '/GroupStudy',
-                    state: {
-                      studyId: item.studygroupid,
-                      studyname: item.studygroupname,
-                    },
-                    search: `?${item.studygroupid}`,
-                  }
-                }>{item.studygroupname}</Link></div>
-              <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{`공개 여부: ${openOrNot}`}</a>
-              <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
+      <Link to={
+        {
+          pathname: '/GroupStudy',
+          state: {
+            studyId: item.studygroupid,
+            studyname: item.studygroupname,
+          },
+          search: `?${item.studygroupid}`,
+        }
+      }><div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
+          <div className="max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            <div className="md:flex">
+              <div className="md:flex-shrink-0 float-left">
+                <div className="bg-blue">{`${item.studygrouparea}`}</div>
+              </div>
+              <div className="p-6">
+                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+                  {`${openOrNot} 스터디`}</div>
+                <a href="#" className="block mt-1 text-lg leading-tight font-medium text-black">{item.studygroupname}</a>
+                <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>)
+      </Link>)
   });
 
   return (

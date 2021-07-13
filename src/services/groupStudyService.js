@@ -47,4 +47,22 @@ groupStudyService.postStudySignOut = (email,studyId) => {
     return  ApiService.post("/groupstudy/groupStudySignOut.do",data);;
 }
 
+// waiting list 출력
+groupStudyService.getStudyWaitingMemberList = (studyId) => {
+    const data = {
+        studyId
+    }
+
+    return ApiService.post("/groupstudy/groupStudyWaitingList.do",data);
+}
+
+// 가입승인
+groupStudyService.groupStudyJoin = (email,studyId) => {
+    const data = {
+        email,
+        studyId
+    }
+    return  ApiService.post("/groupstudy/groupStudyJoin.do",data);;
+}
+
 export default groupStudyService;

@@ -73,11 +73,11 @@ export const Profile = ({ studyId, studyname, isAdmin, isOffline }) => (
         </span>
       )}
       {isOffline == "N" ? (
-        <span className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-green-500 bg-green-50">
+        <span className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-blue-500 bg-blue-200">
           ONLINE
         </span>
       ) : (
-        <span className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-green-500 bg-green-50">
+        <span className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-blue-500 bg-blue-200">
           OFFLINE
         </span>
       )}
@@ -165,7 +165,7 @@ export const SearchBar = () => (
 // ============== todolist ============== //
 export const AddButton = ({ onClickButton }) => (
   <button
-    className="p-0 w-10 h-10 bg-green-500 rounded-full hover:bg-green-500 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
+    className="p-0 w-10 h-10 bg-blue-200 rounded-full hover:bg-blue-200 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none"
     onClick={onClickButton}
   >
     <svg
@@ -204,7 +204,7 @@ export const ToDoListItem = ({
             <Edit />
           </button>
           <button onClick={toggleTodo}>
-            <CheckCircle className="text-green-500" />
+            <CheckCircle className="text-blue-200" />
           </button>
           <button onClick={() => onDeleteTodo(todoid)}>
             <DeleteOutline />

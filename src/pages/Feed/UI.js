@@ -1,38 +1,31 @@
 import React from "react";
-import { FavoriteIcon, FavoriteBorder } from "@material-ui/icons";
 
 export const Container = ({ children }) => (
-  <main className="bg-gray-100 dark:bg-gray-800 relative h-screen overflow-hidden relative">
+  <main className="bg-blue-200 dark:bg-blue-200 relative min-h-screen overflow-hidden relative">
     <div className="container mx-auto max-w-screen-lg my-8">{children}</div>
   </main>
 );
 
-export const Card = ({ title, content, username }) => (
-  <div className="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-    <h4 className="mb-4 text-sm font-normal text-gray-600 dark:text-gray-300">
-      {title}
-      <span className="font-thin">{username}</span>
-    </h4>
-    <p className="text-gray-600 text-xs dark:text-gray-400">{content}</p>
+export const Card = ({ content }) => (
+  <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+    <div class="flex-1 flex justify-between items-center">
+      <div class="w-full p-0.5 pl-1 mr-2 rounded">
+        <p className="text-sm font-light text-gray-500">{content}</p>
+      </div>
+    </div>
   </div>
 );
 export const Bar = ({ username }) => (
   <div className="flex-1 flex flex-col">
     <nav className="px-4 flex justify-between bg-white h-16 border-b-2">
       <ul className="flex items-center">
-        <li className="h-6 w-6">
-          <img
-            className="h-full w-full mx-auto"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Svelte_Logo.svg/512px-Svelte_Logo.svg.png"
-            alt="svelte logo"
-          />
-        </li>
+        <li className="h-6 w-6"></li>
       </ul>
 
       <ul className="flex items-center">
         <li>
           <h1 className="pl-8 lg:pl-0 text-gray-700">
-            {username}&nbsp;님의 피드
+            {username}의 피드 입니다.{" "}
           </h1>
         </li>
       </ul>

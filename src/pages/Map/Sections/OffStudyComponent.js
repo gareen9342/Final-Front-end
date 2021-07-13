@@ -33,7 +33,7 @@ const OffStudyComponent = ({ studies }) => {
           },
           search: `?${item.studygroupid}`,
         }
-      }><div key={item.studygroupid} style={{ marginTop: '3rem' }}>{console.log(item)}
+      }><div key={item.studygroupid} className="hover:bg-red-700 my-3">{console.log(item)}
           <div className="max-w-md mx-auto bg-gray-100 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
             <div className="md:flex">
               <div className="md:flex-shrink-0 float-left">

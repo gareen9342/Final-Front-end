@@ -2,5 +2,5 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 .active {
-  color: rgba(124, 58, 237, 1);
+  color: rgba(59, 130, 246, 1);
 }

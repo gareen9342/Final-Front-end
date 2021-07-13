@@ -36,7 +36,7 @@ const TodoInput = ({
           <br />
           <button
             onClick={() => onClickAction({ title, content })}
-            className="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
+            className="py-3 my-8 text-lg bg-gradient-to-r from-blue-500 to-blue-200 rounded-xl text-white"
           >
             {inputButtonText}
           </button>

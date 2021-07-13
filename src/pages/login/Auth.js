@@ -18,12 +18,8 @@ export async function signIn(email){
 }
 
 export async function premium(email) {
-    
-    if(email == "pass") {
-        return true;
-    }
 
     const premiumCheck = await userService.premiumCheck({email});
-    
+    console.log("premiumCheck", premiumCheck.data);
     return premiumCheck.data;
 }

@@ -6,8 +6,8 @@ export const PaymentButton = ({ name, info, pg, pay_method = "card", closeModal,
   
 const today = new Date();
 const year = today.getFullYear();
-const month = ((today.getMonth()+1).length === 2) ? today.getMonth()+1 : "0"+(today.getMonth()+1);
-const date = (today.getDate().length === 2) ? today.getDate() : "0"+today.getDate();
+const month = (today.getMonth()+1 > 10) ? today.getMonth()+1 : "0"+(today.getMonth()+1);
+const date = (today.getDate() > 10) ? today.getDate() : "0"+today.getDate();
 
 const callback = async (response) => {
   const {
@@ -30,6 +30,7 @@ const callback = async (response) => {
     paymentcontent: name,
     paymentkinds: `${pg_provider}-${pay_method}`,
   };
+  console.log(paymentInfo.paymentdate)
 
   if (success) {
     const res = await PaymentService.insert(paymentInfo);

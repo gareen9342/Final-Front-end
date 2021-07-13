@@ -23,6 +23,7 @@ import GroupStudyEdit from "./pages/GroupStudyEdit";
 // import { useLocalStorage } from "./services/useLocalStorage";
 
 export default function App() {
+
   // 유저의 이메일 정보
   const [userEmail, setUserEmail] = useState(
     window.localStorage.getItem("email")
@@ -42,11 +43,13 @@ export default function App() {
     setYesUser(null);
     window.localStorage.removeItem("email");
     window.localStorage.removeItem("yesUser");
+    window.localStorage.removeItem("premium");
   };
 
   //로그인한 유저정보를 가지고 온다. mail로 가지고 오게 된다.
   const signUserIn = async (email) => {
     const Member = await signIn(email);
+    const premiumCheck = await premium(email);
     console.log("Member의 값" + Member);
     if (Member == "NotUser") {
       setUserEmail(email);
@@ -58,7 +61,6 @@ export default function App() {
       setYesUser(true);
       window.localStorage.setItem("email", email);
       window.localStorage.setItem("yesUser", email);
-      const premiumCheck = await premium(email);
       window.localStorage.setItem("premium", premiumCheck); // True False
       console.log("premium : ", premiumCheck);
 

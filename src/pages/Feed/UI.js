@@ -7,32 +7,14 @@ export const Container = ({ children }) => (
   </main>
 );
 
-export const Card = ({
-  avatarUrl = "https://swith-bucket.s3.ap-northeast-2.amazonaws.com//usericon.png",
-  content,
-  username,
-}) => (
-  <article className="sm:grid grid-cols-5 bg-white shadow-sm p-7 relative lg:max-w-2xl sm:p-4 rounded-lg lg:col-span-2 lg:ml-20">
-    <img
-      src={avatarUrl}
-      alt="user avatar image"
-      className="w-full rounded-lg"
-    />
-    <div className="pt-5 self-center sm:pt-0 sm:pl-10 col-span-3">
-      <h2 className="text-gray-800 capitalize text-xl font-bold">{content}</h2>
-      by&nbsp;
-      <a href="#" className="capitalize underline inline-block pt-2">
-        {username}
-      </a>
-    </div>
-    <div className="justify-self-end">
-      {
-        <button>
-          <FavoriteBorder />
-        </button>
-      }
-    </div>
-  </article>
+export const Card = ({ title, content, username }) => (
+  <div className="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+    <h4 className="mb-4 text-sm font-normal text-gray-600 dark:text-gray-300">
+      {title}
+      <span className="font-thin">{username}</span>
+    </h4>
+    <p className="text-gray-600 text-xs dark:text-gray-400">{content}</p>
+  </div>
 );
 export const Bar = ({ username }) => (
   <div className="flex-1 flex flex-col">
@@ -49,7 +31,9 @@ export const Bar = ({ username }) => (
 
       <ul className="flex items-center">
         <li>
-          <h1 className="pl-8 lg:pl-0 text-gray-700">{username}</h1>
+          <h1 className="pl-8 lg:pl-0 text-gray-700">
+            {username}&nbsp;님의 피드
+          </h1>
         </li>
       </ul>
       <ul className="flex items-center">

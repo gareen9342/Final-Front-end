@@ -27,7 +27,9 @@ const Header = ({ logout }) => {
       <div className="md:flex items-center justify-between py-2 px-8 md:px-12">
         <div className="flex justify-between items-center">
           <div className="text-2xl font-bold text-gray-800 md:text-3xl">
-            <a href="#"><img src="./../src/img/logo.png" width="150px" /></a>
+            <a href="#">
+              <img src="./../src/img/logo.png" width="150px" />
+            </a>
           </div>
           <div className="md:hidden">
             <button
@@ -49,16 +51,10 @@ const Header = ({ logout }) => {
             to="/"
             className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
           >
-            Home
-          </Link>
-          <Link
-            to="/feed"
-            className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
-          >
             Feed
           </Link>
           <Link
-            to="/search"
+            to="/search/offline"
             className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
           >
             search

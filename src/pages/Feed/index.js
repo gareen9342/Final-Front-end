@@ -27,12 +27,17 @@ export default () => {
       setLoading(false);
     };
   }, []);
+
   return (
     <>
-      <Bar username="username" />
+      <Bar
+        username={
+          localStorage.getItem("email") && localStorage.getItem("email")
+        }
+      />
       <Container>
         {console.log("feeds", feeds)}
-        <Card content={"피드 내용"} username={"가린"} />
+        <Card title={"임시 타이틀 "} content={"피드 내용"} username={"가린"} />
       </Container>
     </>
   );

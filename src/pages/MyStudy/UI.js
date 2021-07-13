@@ -206,6 +206,9 @@ export const ToDoListItem = ({
           <button onClick={toggleTodo}>
             <CheckCircle className="text-green-500" />
           </button>
+          <button onClick={() => onDeleteTodo(todoid)}>
+            <DeleteOutline />
+          </button>
         </div>
       </>
     ) : (

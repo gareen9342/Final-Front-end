@@ -77,8 +77,7 @@ export default function App() {
         {authenticated && yesUser && (
           <>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/feed" component={Feed} />
+              <Route exact path="/" component={Feed} />
               <Route path="/search" component={SearchMain} />
               <Route path="/mystudy" component={MyStudy} />
               <Route path="/study/generate" component={StudyForm} />

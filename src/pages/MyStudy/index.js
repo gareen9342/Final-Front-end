@@ -52,7 +52,7 @@ const MyStudy = () => {
             <div className="flex flex-col flex-wrap sm:flex-row">
               <div className="w-full sm:w-1/2 xl:w-1/3">
                 <Box>
-                  {console.log(myStudies)}
+                  {/* {console.log(myStudies)} */}
                   {myStudies &&
                     myStudies.length > 0 &&
                     myStudies.map((x) => (

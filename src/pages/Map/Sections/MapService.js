@@ -46,8 +46,6 @@ const MapService = () => {
     setKakaoMap(map);
     const ps = new kakao.maps.services.Places();
     setKakaoPs(ps);
-    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    setInfoWindow(infowindow);
   }, [mapContainer]);
 
 
@@ -238,16 +236,35 @@ const MapService = () => {
                 setStudyResult(data);
                 let tmpMarker = [];
                 for (const d of data) {
+                  const position = new kakao.maps.LatLng(d.studygrouplat, d.studygrouplng)
                   marker = new kakao.maps.Marker({
                     map: kakaoMap,
-                    position: new kakao.maps.LatLng(d.studygrouplat, d.studygrouplng),
+                    position: position
                   });
                   tmpMarker.push(marker);
-                  // marker.setMap(kakaoMap);
+                  let content = '<div style="padding:5px;font-size:12px;cursor:pointer;" >' +
+                    d.studygroupname +
+                    "</div>";
+
+                  let infowindow = new kakao.maps.InfoWindow({
+                    zIndex: 1,
+                    position: position
+                  });
+                  // kakao.maps.event.addListener(marker, 'mouseover', () => {
+                  //   infowindow.setContent(content);
+                  //   infowindow.open(kakaoMap, marker);
+                  // });
+                  // kakao.maps.event.addListener(infowindow, 'click', () => {
+                  //   infowindow.close();
+                  // });
+                  marker.setMap(kakaoMap);
+                  infowindow.setContent(content);
+                  infowindow.open(kakaoMap, marker);
                 }
+
                 setMarkersPosition(tmpMarker);
                 console.log(markersPosition);
-                markersPosition.forEach((study) => { study.setMap(kakaoMap) });
+                // markersPosition.forEach((study) => { study.setMap(kakaoMap) });
               }
             } catch (err) {
               console.error(err);

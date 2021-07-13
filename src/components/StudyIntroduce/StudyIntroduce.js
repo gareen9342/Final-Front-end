@@ -51,9 +51,9 @@ const StudyIntroduce = ({studyId}) => {
             <header className="bg-white dark:bg-gray-800 items-center justify-center">
                 <div className="container flex flex-col px-6 py-4 mx-auto  md:h-128 md:py-16 md:flex-row md:items-center md:space-x-6">
                     {/* <div className="flex flex-col items-center w-full md:flex-row md:w-1/2"> */}
-                    <div className="flex-auto items-center justify-center w-full md:w-1/2">
+                    <div className="container mx-auto flex flex-col items-center w-full md:w-1/2">
                                 
-                        <div className="md:mx-12 md:order-2 items-center justify-center">
+                        <div className="max-w-lg md:mx-12 md:order-2 container mx-auto flex flex-col items-center">
                             <h1 className="text-3xl font-medium tracking-wide text-gray-800 dark:text-white md:text-4xl">{studyName}</h1>
                             <br />
 

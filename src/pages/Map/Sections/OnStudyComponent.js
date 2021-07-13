@@ -48,7 +48,7 @@ const OnStudyComponent = () => {
         <div className="max-w-md mx-auto bg-pink-200 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0 float-left">
-              <div className="bg-blue">{`현재 인원 : ${item.studyusercnt}`}</div>
+              <div className="bg-blue">{item.studygrouparea}</div>
             </div>
             <div className="p-6">
               <Link
@@ -61,9 +61,9 @@ const OnStudyComponent = () => {
                   search: `?${item.studygroupid}`,
                 }}
               >
-                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{item.studygroupname}</div>
+                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{`${openOrNot} 스터디`}</div>
               </Link>
-              <p className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{`공개 여부: ${openOrNot}`}</p>
+              <p className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{item.studygroupname}</p>
               <p className="mt-2 text-gray-500">{item.studygroupdesc}</p>
             </div>
           </div>

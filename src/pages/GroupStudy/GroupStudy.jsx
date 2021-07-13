@@ -57,7 +57,8 @@ const GroupStudy = (props) => {
 
 
     return(
-        <>
+      <div className=" bg-blue-200">
+        <div className="container mx-auto flex flex-col items-center w-full">
           {/* 관리하기 버튼 */}
           {role==="admin" ? <Link
             to={`/groupstudyedit/${studyId}`}
@@ -87,14 +88,16 @@ const GroupStudy = (props) => {
 
             {/* 회원일 경우 어서오세요 나오게하기 */}
             {role==="user" ? <h1>어서오세요</h1> : ""}
-
-            <StudyIntroduce studyId={studyId} />
-            <MemberList studyId={studyId}/>
-            <CalendarGroup 
-                studyGroupId={studyId}
-                userEmail={window.localStorage.getItem("email")}
-            />
-        </>
+          <div className="shadow-lg w-9/12 p-4 flex flex-col bg-white rounded-lg">
+              <StudyIntroduce studyId={studyId} />
+              <MemberList studyId={studyId}/>
+              <CalendarGroup 
+                  studyGroupId={studyId}
+                  userEmail={window.localStorage.getItem("email")}
+              />
+          </div>
+        </div>
+      </div>
     );
 }
 

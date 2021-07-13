@@ -62,15 +62,15 @@ const StudyIntroduce = ({studyId}) => {
 
                                     <div className="flex justify-between px-4 text-gray-100 z-30 mb-10 mt-10">
                                         <div className="flex flex-col items-start">
-                                            <span className="font-thin">스터디 방식</span>
-                                            <span className="font-thin">스터디 지역</span>
+                                            <span className="font-thin text-black">스터디 방식</span>
+                                            <span className="font-thin text-black">스터디 지역</span>
                                         </div>
                                         <div className="flex flex-col items-end">
-                                            <span className="tracking-widest text-xl">{studyIsOnline}</span>
-                                            <span className="tracking-widest text-xl">{studyLocation}</span>
+                                            <span className="tracking-widest text-xl text-black">{studyIsOnline}</span>
+                                            <span className="tracking-widest text-xl text-black">{studyLocation}</span>
                                         </div>
                                     </div>
-                                    <div className="flex items-center justify-between px-4 h-16 z-30 text-white bg-indigo-900">
+                                    <div className="flex items-center justify-between px-4 h-16 z-30 text-white bg-blue-600">
                                         <div className="flex flex-col items-start">
                                             <span className="text-2xl">스터디 인원</span>
                                         </div>
@@ -79,7 +79,7 @@ const StudyIntroduce = ({studyId}) => {
                                         </div>
                                     </div>
                                     <div
-                                        className="absolute opacity-90 top-0 left-0 h-full blur w-full bg-gradient-to-t from-blue-700 to-indigo-400 rounded-2xl">
+                                        className="absolute opacity-90 top-0 left-0 h-full blur w-full bg-blue-200 rounded-2xl">
                                     </div>
                                 </div>
                             </div>

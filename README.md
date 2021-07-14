@@ -1,6 +1,51 @@
 # Final-Front-end
 
-통장잔고 2조의 프론트-엔드 🤾‍♀️
+통장잔고 2조의 프론트-엔드 with React! 🤾‍♀️    
+
+> _함께 공부하고 싶을 땐 Swith! 함께 공부할 수 있는 사람들을 찾고자 할 때 사용할 수 있는 플랫폼_  
+
+백엔드 서버 (Spring): [백엔드주소 링크](https://github.com/l4279625/Final-Back-end)
+
+## 이 프로젝트를 보시기 위해선...
+
+1. git clone https://github.com/gareen9342/Final-Front-end.git    
+2. cd Final-Front-end 루트에서 npm i   
+3. npm run dev (개발모드)    
+
+## 사용된 기술   
+
+### Frontend
+
+- Node.js    
+- React.js    
+- React-Router-Dom
+- Webpack    
+- Babel    
+- Tailwind    
+- Full Calendar    
+- Toast Editor   
+- Material UI    
+- Axios    
+- Styled Components   
+
+### Backend   
+
+- Spring    
+- Oracle   
+- My Batis    
+- AWS S3 Bucket    
+
+## 기능   
+
+- [x] 로그인 Google, Naver, Kakao Login    
+- [x] 온라인 / 오프라인, 비공개 스터디 등 종류를 분리해서 관리되도록 함    
+- [x] 지도의 범위와 위치를 설정하여 지역별 검색, 온라인 스터디    
+- [x] 캘린더에 일정 추가, 수정, 삭제 등 관리, 관리시 드래그 앤 드롭 가능    
+- [x] 프리미엄 기능 이용할 시 결제 기능      
+- [x] 멤버들 끼리 서로 팔로우, 팔로잉     
+- [x] 투두리스트 사용 시 속해있는 스터디 멤버의 피드에 표시
+- [x] 스터디 생성, 수정 및 가입 대기인원에 한하여 가입승인 후 가입될 수 있도록 함    
+
 
 ## Commit 규칙
 

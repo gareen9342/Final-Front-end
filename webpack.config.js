@@ -10,7 +10,7 @@ module.exports = (env, options) => {
     },
     entry: "./src/index",
     output: {
-      filename: "bundle.[hash].js",
+      filename: "bundle.[fullhash].js",
     },
     module: {
       rules: [

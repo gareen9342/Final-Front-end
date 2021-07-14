@@ -1,9 +1,9 @@
 # Final-Front-end
 
-> _함께 공부하고 싶을 땐 Swith! 함께 공부할 수 있는 사람들을 찾고자 할 때 사용할 수 있는 플랫폼_  
-통장잔고 2조의 프론트-엔드 🤾‍♀️    
+> _함께 공부하고 싶을 땐 Swith! 함께 공부할 수 있는 사람들을 찾고자 할 때 사용할 수 있는 플랫폼_    
 
-_백엔드 서버 (Spring): [백엔드주소 링크](https://github.com/l4279625/Final-Back-end)_
+_백엔드 서버 (Spring): [백엔드주소 링크](https://github.com/l4279625/Final-Back-end)_     
+_접속링크 : [http://qclass.iptime.org:3000](http://qclass.iptime.org:3000/)_    
 
 ## 이 프로젝트를 보시기 위해선...
 

@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const port = process.env.PORT || 3000;
+const TerserPlugin = require("terser-webpack-plugin");
 
+const port = process.env.PORT || 3000;
 module.exports = (env, options) => {
   const config = {
     resolve: {
@@ -10,7 +10,8 @@ module.exports = (env, options) => {
     },
     entry: "./src/index",
     output: {
-      filename: "bundle.[fullhash].js",
+      filename: "bundle.[hash].js",
+      clean: true,
     },
     module: {
       rules: [
@@ -51,16 +52,36 @@ module.exports = (env, options) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "public/index.html",
-        templateParameters: {
-          env: "asdf",
-        },
-      }),
-      new MiniCssExtractPlugin({
-        filename: "style.css",
+        minify:
+          options.mode === "production"
+            ? {
+                collapseWhitespace: true,
+                removeComments: true,
+              }
+            : false,
       }),
     ],
+    optimization: {
+      usedExports: true,
+      minimizer:
+        options.mode === "production"
+          ? [
+              new TerserPlugin({
+                terserOptions: {
+                  compress: {
+                    drop_console: true, // 콘솔로그 제거
+                  },
+                },
+              }),
+            ]
+          : [],
+    },
+    // externals: {
+    //   axios: "axios",
+    // },
   };
   //================= end config
+
   if (options.mode === "development") {
     config.devServer = {
       host: "localhost", // 개발 서버의 url
@@ -79,7 +100,10 @@ module.exports = (env, options) => {
       historyApiFallback: true,
       disableHostCheck: true,
     };
-    config.plugins = [...config.plugins, new CleanWebpackPlugin()];
+    config.plugins = [
+      ...config.plugins,
+      new MiniCssExtractPlugin({ filename: "[name].css" }),
+    ];
   }
   return config;
 };
